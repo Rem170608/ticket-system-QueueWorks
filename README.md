@@ -13,10 +13,10 @@ An in-depth paragraph about your project and overview of use.
   - [ ] Live Tickets  
   - [ ] Admin Panel / Login  
 - [ ] Basic Features
-    - [ ] Ticket Kategory
+    - [ ] Database
+    - [ ] Ticket Category
     - [ ] Ticket Message
     - [ ] Lehrjahr Filter
-    - [ ] Kategorie
 - [ ] Advanced Features  
   - [ ] Mass delete
   - [ ] Ticket IP
