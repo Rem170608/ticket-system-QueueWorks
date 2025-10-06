@@ -4,7 +4,7 @@ let con = mysql.createConnection({
   host: "localhost",
   user: "noserq_user",
   password: "password123456",
-  database: "ticket-queueworks"
+  database: "ticket_queueworks"
 });
 
 con.connect(function(err) {
