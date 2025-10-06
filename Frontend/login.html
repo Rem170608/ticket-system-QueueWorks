@@ -29,19 +29,5 @@
     <footer>
         <p>&copy; 2025 QueueWorks</p>
     </footer>
-    <script>
-        // Simple client-side login handler (demo only)
-        // Redirects to admin.html when both fields are non-empty.
-        document.getElementById('loginBtn').addEventListener('click', function() {
-            const user = document.getElementById('nameInput').value.trim();
-            const pass = document.getElementById('passwordInput').value.trim();
-            if (!user || !pass) {
-                alert('Please enter username and password');
-                return;
-            }
-            // In a real app, validate on the server. Here we just redirect for demo purposes.
-            window.location.href = 'admin.html';
-        });
-    </script>
 </body>
 </html>
