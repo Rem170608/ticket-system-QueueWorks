@@ -27,12 +27,11 @@ An in-depth paragraph about your project and overview of use.
 
 ## Getting Started
 
-
-
 ### Dependencies
 
 * Describe any prerequisites, libraries, OS version, etc., needed before installing program.
-* ex. Windows 10
+
+- ex. Windows 10
 
 ### Installing
 
@@ -43,6 +42,7 @@ An in-depth paragraph about your project and overview of use.
 
 * How to run the program
 * Step-by-step bullets
+
 ```
 code blocks for commands
 ```
@@ -50,7 +50,8 @@ code blocks for commands
 ## Help
 
 Easy setup with this MySql query
-```
+
+```MySql
 -- Create the database
 CREATE DATABASE IF NOT EXISTS `ticket-queueworks`;
 USE `ticket-queueworks`;
@@ -73,7 +74,8 @@ FLUSH PRIVILEGES;
 ```
 
 ## Test Data
-```
+
+```MySql
 INSERT INTO `ticket` (`id`, `name`, `cat`, `LJ`, `msg`, `time`) VALUES (NULL, 'John Doh', 'Q', 'Praxis', 'Help me with Git pls', current_timestamp());
 INSERT INTO `ticket` (`id`, `name`, `cat`, `LJ`, `msg`, `time`) VALUES (NULL, 'Max Musster', 'I', 'Praxis', 'yeah this is fine', current_timestamp());
 INSERT INTO `ticket` (`id`, `name`, `cat`, `LJ`, `msg`, `time`) VALUES (NULL, 'Jason Derulo', 'C', 'Basis', 'Help', current_timestamp());
@@ -81,11 +83,9 @@ INSERT INTO `ticket` (`id`, `name`, `cat`, `LJ`, `msg`, `time`) VALUES (NULL, 'J
 INSERT INTO `ticket` (`id`, `name`, `cat`, `LJ`, `msg`, `time`) VALUES (NULL, 'John david', 'Q', 'Praxis', 'Test data is Goofy', current_timestamp());
 ```
 
-
 ## Authors
 
 Contributors names and contact info
- 
 [Leon](https://github.com/lelelon225) \
 [rem](https://github.com/Rem170608)
 
