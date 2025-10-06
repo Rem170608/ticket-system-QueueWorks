@@ -13,9 +13,9 @@ An in-depth paragraph about your project and overview of use.
   - [ ] Live Tickets  
   - [ ] Admin Panel / Login  
 - [ ] Basic Features
-    - [ ] Database
-    - [ ] Ticket Category
-    - [ ] Ticket Message
+    - [X] Database
+    - [X] Ticket Category
+    - [X] Ticket Message
     - [ ] Lehrjahr Filter
 - [ ] Advanced Features  
   - [ ] Mass delete
