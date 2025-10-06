@@ -1,3 +1,2 @@
-# ticket-system-QueueWorks
-
-# fjgdafpghdfglöäkghl
+# ticket-system
+# By QueueWorks
