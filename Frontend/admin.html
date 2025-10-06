@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ticket System - QueueWorks</title>
+    <link rel="icon" type="image/x-icon" href="/Media/head.svg">
+    <link rel="stylesheet" href="style.css">
+    <link rel="javascript" href="/Backend/main.js">
+</head>
+    <main>
+        <div class="container">
+            <div class="card">
+                <div class="navbar">
+                    <div class="navbar-buttons">
+                        <a href="index.html" class="nav-link">Home</a>
+                        <a href="live.html" class="nav-link">Live</a>
+                        <a href="login.html" class="nav-link">Login</a>
+                    </div>
+                </div>
+            <img src="/Media/logo.svg" alt="logo" class="logo">
+            <h1>Admin Dashboard</h1>
+            <select name="lehrjahr" id="lehrjahr" class="input-field">
+                <option value="" disabled selected>Lehrjahr</option>
+                <option value="Basis">Basis</option>
+                <option value="Praxis">Praxis</option>
+
+            </select>
+            <div id="tickets-container" class="tickets-container">
+                <!-- Tickets will be dynamically inserted here -->
+            </div>
+        </div>
+    </main>
+    <footer>
+        <p>&copy; 2025 QueueWorks</p>
+    </footer>
+</body>
+</html>
