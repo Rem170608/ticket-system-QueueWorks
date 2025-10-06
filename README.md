@@ -17,8 +17,9 @@ An in-depth paragraph about your project and overview of use.
     - [X] Ticket Category
     - [X] Ticket Message
     - [ ] Lehrjahr Filter
+    - [ ] Delete Ticket
 - [ ] Advanced Features  
-  - [ ] Mass delete
+  - [X] Mass delete
   - [ ] Ticket IP
   - [ ] Autodelete at 00:00 CEST (UTC+2)
   - [ ] Login Cookie
