@@ -12,7 +12,7 @@ An in-depth paragraph about your project and overview of use.
   - [ ] Landing page  
   - [ ] Live Tickets  
   - [ ] Admin Panel / Login  
--[ ] Basic Features
+- [ ] Basic Features
     - [ ] Ticket Kategory
     - [ ] Ticket Message
     - [ ] Lehrjahr Filter
