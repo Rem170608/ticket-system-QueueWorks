@@ -9,7 +9,7 @@ An in-depth paragraph about your project and overview of use.
 ## Roadmap 
 
 - [ ] Simple GUI  
-  - [ X ] Landing page  
+  - [X] Landing page  
   - [ ] Live Tickets  
   - [ ] Admin Panel / Login  
 - [ ] Basic Features
