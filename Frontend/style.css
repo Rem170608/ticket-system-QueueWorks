@@ -35,7 +35,7 @@ h3 {
     margin-bottom: 8px;
 }
 a {
-    background-color: #0b5ed7;
+    background-color: #4a90e2;
     color: white;
     text-align: center;
     display:  inline-block;
@@ -46,7 +46,7 @@ a {
     padding: 12px 12px;
 }
 a:hover {
-    background-color: #004bb5;
+    background-color: #357abd;
     scale: 1.05;
     transition: all 0.02s ease;
 }
@@ -96,4 +96,23 @@ a:hover {
     border-radius: 15px;
     box-sizing: border-box;
     font-size: 16px;
+}
+.input-field:focus {
+    border-color: #4a90e2;
+    outline: none;
+}
+.submit-button {
+    background-color: #4a90e2;
+    color: white;
+    border: none;
+    border-radius: 15px;
+    padding: 12px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    width: 100%;
+}
+.submit-button:hover {
+    background-color: #357abd;
+    scale: 1.01;
+    transition: all 0.02s ease;
 }
