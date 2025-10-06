@@ -12,8 +12,17 @@ An in-depth paragraph about your project and overview of use.
   - [ ] Landing page  
   - [ ] Live Tickets  
   - [ ] Admin Panel / Login  
+-[ ] Basic Features
+    - [ ] Ticket Kategory
+    - [ ] Ticket Message
+    - [ ] Lehrjahr Filter
+    - [ ] Kategorie
 - [ ] Advanced Features  
-  - [ ] Mass delete  
+  - [ ] Mass delete
+  - [ ] Ticket IP
+  - [ ] Autodelete at 00:00 CEST (UTC+2)
+  - [ ] Login Cookie
+  - [ ] Dark Mode
 
 ## Getting Started
 
