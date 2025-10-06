@@ -6,8 +6,9 @@
     <title>Ticket System - QueueWorks</title>
     <link rel="icon" type="image/x-icon" href="/Media/head.svg">
     <link rel="stylesheet" href="style.css">
-    <link rel="javascript" href="/Backend/main.js">
-    <link rel="javascript" href="/Backend/submit.js">
+    <!-- Backend scripts are not loaded directly in the browser. The server (Backend/main.js)
+         will run on Node and expose an HTTP endpoint for submissions. Client-side logic
+         below sends a POST to that endpoint. -->
 </head>
     <main>
         <div class="container">
@@ -35,7 +36,7 @@
 
             </select>
             <input type="text" placeholder="Beschreibung (Bsp. 'Problem mit Github')" id="descriptionInput" class="input-field">
-            <button id="submitBtn" class="submit-button">Ticket erstellen</button>
+            <button id="submitBtn" class="submit-button">Ticket Ziehen</button>
         </div>
         </div>
     </main>

@@ -25,14 +25,17 @@ footer
 h1 {
     margin: 0;
     font-size: 28px;
+    font-weight: bold;
 }
 h2 {
     font-size: 24px;
     margin-bottom: 10px;
+    font-weight: bold;
 }
 h3 {
     font-size: 22px;
     margin-bottom: 8px;
+    font-weight: bold;
 }
 a {
     background-color: #4a90e2;
@@ -44,6 +47,7 @@ a {
     margin: 5px 10px;
     min-width: 80px;
     padding: 12px 12px;
+    font-weight: bold;
 }
 a:hover {
     background-color: #357abd;
@@ -92,10 +96,12 @@ a:hover {
     width: 100%;
     padding: 10px;
     margin: 10px 0;
-    border: 2px solid #ccc;
+    border: 2.25px solid #ccc;
     border-radius: 15px;
     box-sizing: border-box;
     font-size: 16px;
+    transition: border-color 0.3s;
+    font-weight: bold;
 }
 .input-field:focus {
     border-color: #4a90e2;
@@ -110,6 +116,7 @@ a:hover {
     font-size: 16px;
     cursor: pointer;
     width: 100%;
+    font-weight: bold;
 }
 .submit-button:hover {
     background-color: #357abd;
