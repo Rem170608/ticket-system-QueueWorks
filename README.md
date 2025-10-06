@@ -48,9 +48,27 @@ code blocks for commands
 
 ## Help
 
-Any advise for common problems or issues.
+Easy setup with this MySql query
 ```
-command to run if program contains helper info
+-- Create the database
+CREATE DATABASE IF NOT EXISTS `ticket-queueworks`;
+USE `ticket-queueworks`;
+
+-- Create the table
+CREATE TABLE IF NOT EXISTS `ticket` (
+    `id` INT PRIMARY KEY AUTO_INCREMENT,
+    `cat` VARCHAR(255) NULL,
+    `LJ` VARCHAR(255) NULL,
+    `msg` VARCHAR(255) NULL,
+    `name` VARCHAR(255) NULL,
+    `time` TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- Create one user with full access
+CREATE USER IF NOT EXISTS 'noserq_user'@'%' IDENTIFIED BY 'secure_password_here';
+GRANT ALL PRIVILEGES ON `ticket-queueworks`.* TO 'noserq_user'@'%';
+FLUSH PRIVILEGES;
+
 ```
 
 ## Authors
