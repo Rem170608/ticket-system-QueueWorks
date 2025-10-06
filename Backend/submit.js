@@ -17,15 +17,51 @@ document.addEventListener("DOMContentLoaded", () => {
         body: JSON.stringify({ name, category, lehrjahr, description })
       });
 
-      const data = await res.json();
-      if (data.success) {
+      // try to parse JSON if possible
+      let data = null;
+      try { data = await res.json(); } catch(e) { data = null; }
+
+      if (res.ok && data && data.success) {
+        // append server-returned ticket to localStorage so live views update
+        try {
+          const storageKey = 'queueworks_tickets';
+          const ticket = data.ticket || { id: Date.now(), name, category, lehrjahr, desc: description, created: new Date().toISOString() };
+          const existing = JSON.parse(localStorage.getItem(storageKey) || '[]');
+          existing.push(ticket);
+          localStorage.setItem(storageKey, JSON.stringify(existing));
+        } catch (e) {
+          console.warn('Failed to write ticket to localStorage', e);
+        }
         alert("✅ Ticket erfolgreich erstellt!");
       } else {
-        alert("❌ Fehler beim Erstellen des Tickets.");
+        // server responded but indicated failure
+        // fallback to local save so the ticket isn't lost
+        try {
+          const storageKey = 'queueworks_tickets';
+          const ticket = { id: Date.now(), name, category, lehrjahr, desc: description, created: new Date().toISOString() };
+          const existing = JSON.parse(localStorage.getItem(storageKey) || '[]');
+          existing.push(ticket);
+          localStorage.setItem(storageKey, JSON.stringify(existing));
+          alert('Ticket saved locally (server reported an error).');
+        } catch (e) {
+          console.error('Failed to save ticket locally after server error', e);
+          alert('❌ Fehler beim Erstellen des Tickets.');
+        }
       }
     } catch (err) {
       console.error(err);
-      alert("Serverfehler!");
+      // network/server failed — save locally so the ticket isn't lost
+      try {
+        const storageKey = 'queueworks_tickets';
+        const ticket = { id: Date.now(), name, category, lehrjahr, desc: description, created: new Date().toISOString() };
+        const existing = JSON.parse(localStorage.getItem(storageKey) || '[]');
+        existing.push(ticket);
+        localStorage.setItem(storageKey, JSON.stringify(existing));
+        alert('Ticket submitted locally (offline mode).');
+      } catch (e) {
+        console.error('Failed to save ticket locally', e);
+        alert('Serverfehler!');
+      }
     }
   });
 });

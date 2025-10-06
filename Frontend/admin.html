@@ -26,6 +26,7 @@
                 <option value="Praxis">Praxis</option>
 
             </select>
+            <button id="delete-all" class="input-field" style="background:#c00;color:#fff;">Delete all tickets</button>
             <div id="tickets-container" class="tickets-container">
                 <!-- Tickets will be dynamically inserted here -->
             </div>
@@ -34,5 +35,37 @@
     <footer>
         <p>&copy; 2025 QueueWorks</p>
     </footer>
+    <script>
+        const storageKey = 'queueworks_tickets';
+        const ticketsContainer = document.getElementById('tickets-container');
+
+        function loadTickets() {
+            try { return JSON.parse(localStorage.getItem(storageKey) || '[]'); }
+            catch (e) { return []; }
+        }
+
+        function renderTickets() {
+            const tickets = loadTickets();
+            ticketsContainer.innerHTML = '';
+            if (tickets.length === 0) { ticketsContainer.innerHTML = '<p>No tickets.</p>'; return; }
+            for (const t of tickets) {
+                const el = document.createElement('div');
+                el.className = 'ticket';
+                el.innerHTML = `<h3>${t.category} - ${t.name}</h3><p>${t.desc}</p><p><small>Lehrjahr: ${t.lehrjahr}</small></p>`;
+                ticketsContainer.appendChild(el);
+            }
+        }
+
+        document.getElementById('delete-all').addEventListener('click', () => {
+            if (!confirm('Delete ALL tickets? This cannot be undone.')) return;
+            localStorage.removeItem(storageKey);
+            // trigger storage event for other tabs by writing then removing a sentinel
+            try { localStorage.setItem('queueworks_tickets_cleared_at', Date.now().toString()); localStorage.removeItem('queueworks_tickets_cleared_at'); } catch(e){}
+            renderTickets();
+            alert('All tickets deleted');
+        });
+
+        document.addEventListener('DOMContentLoaded', renderTickets);
+    </script>
 </body>
 </html>
