@@ -9,16 +9,25 @@
     <link rel="javascript" href="/Backend/main.js">
 </head>
     <main>
-        <div class="navbar">
-            <div class="navbar-buttons">
-                <a href="index.html" class="nav-link">Home</a>
-                <a href="live.html" class="nav-link">Live</a>
-                <a href="login.html" class="nav-link">Login</a>
-            </div>
-        </div>
         <div class="container">
             <div class="card">
-                <img src="/Media/logo.svg" alt="logo" class="logo">
+                <div class="navbar">
+                    <div class="navbar-buttons">
+                        <a href="index.html" class="nav-link">Home</a>
+                        <a href="live.html" class="nav-link">Live</a>
+                        <a href="login.html" class="nav-link">Login</a>
+                    </div>
+                </div>
+            <img src="/Media/logo.svg" alt="logo" class="logo">
+            <div class="spacer"></div>
+            <input type="text" placeholder="Vorname Name" id="nameInput" class="input-field">
+            <select id="category" class="input-field">
+                <option value="" disabled selected>Select a service</option>
+                <option value="Q">Frage</option>
+                <option value="A">Antwort</option>
+                <option value="I">Problem</option>
+            </select>
+            <input type="text" placeholder="Beschreibung (Bsp. 'Problem mit Github')" id="descriptionInput" class="input-field">
             </div>
         </div>
     </main>

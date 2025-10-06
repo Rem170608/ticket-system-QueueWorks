@@ -24,14 +24,14 @@ footer
 }
 h1 {
     margin: 0;
-    font-size: 24px;
+    font-size: 28px;
 }
 h2 {
-    font-size: 20px;
+    font-size: 24px;
     margin-bottom: 10px;
 }
 h3 {
-    font-size: 18px;
+    font-size: 22px;
     margin-bottom: 8px;
 }
 a {
@@ -51,6 +51,10 @@ a:hover {
     transition: all 0.02s ease;
 }
 
+.logo {
+    max-width: 300px;
+    height: auto;
+}
 .navbar {
     padding: 10px 10px;
     display: flex;
@@ -69,7 +73,7 @@ a:hover {
     justify-content: center;
     align-items: center;
     padding: 20px;
-    max-width: 100%;
+    max-width: 250%;
 }
 .card {
     background-color: #fff;
@@ -78,12 +82,18 @@ a:hover {
     padding: 20px;
     margin: 10px;
     flex: 1;
-    max-width: 400px;
+    max-width: 500px;
     text-align: center;
 }
-.logo {
-    max-width: 200px;
-    height: auto;
+.spacer {
+    height: 20px;
 }
-
-
+.input-field {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 2px solid #ccc;
+    border-radius: 15px;
+    box-sizing: border-box;
+    font-size: 16px;
+}
