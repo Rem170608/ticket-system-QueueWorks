@@ -7,6 +7,7 @@
     <link rel="icon" type="image/x-icon" href="/Media/head.svg">
     <link rel="stylesheet" href="style.css">
     <link rel="javascript" href="/Backend/main.js">
+    <link rel="javascript" href="/Backend/submit.js">
 </head>
     <main>
         <div class="container">
@@ -27,8 +28,15 @@
                 <option value="C">Korrektur</option>
                 <option value="I">Problem</option>
             </select>
+            <select name="lehrjahr" id="lehrjahr" class="input-field">
+                <option value="" disabled selected>Lehrjahr</option>
+                <option value="Basis">Basis</option>
+                <option value="Praxis">Praxis</option>
+
+            </select>
             <input type="text" placeholder="Beschreibung (Bsp. 'Problem mit Github')" id="descriptionInput" class="input-field">
-            </div>
+        
+        </div>
         </div>
     </main>
     <footer>
