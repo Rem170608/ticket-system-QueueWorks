@@ -72,6 +72,16 @@ FLUSH PRIVILEGES;
 
 ```
 
+## Test Data
+```
+INSERT INTO `ticket` (`id`, `name`, `cat`, `LJ`, `msg`, `time`) VALUES (NULL, 'John Doh', 'Q', 'Praxis', 'Help me with Git pls', current_timestamp());
+INSERT INTO `ticket` (`id`, `name`, `cat`, `LJ`, `msg`, `time`) VALUES (NULL, 'Max Musster', 'I', 'Praxis', 'yeah this is fine', current_timestamp());
+INSERT INTO `ticket` (`id`, `name`, `cat`, `LJ`, `msg`, `time`) VALUES (NULL, 'Jason Derulo', 'C', 'Basis', 'Help', current_timestamp());
+INSERT INTO `ticket` (`id`, `name`, `cat`, `LJ`, `msg`, `time`) VALUES (NULL, 'Jana Doh', 'C', 'Praxis', 'Who is this', current_timestamp());
+INSERT INTO `ticket` (`id`, `name`, `cat`, `LJ`, `msg`, `time`) VALUES (NULL, 'John david', 'Q', 'Praxis', 'Test data is Goofy', current_timestamp());
+```
+
+
 ## Authors
 
 Contributors names and contact info

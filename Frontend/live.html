@@ -35,52 +35,5 @@
     <footer>
         <p>&copy; 2025 QueueWorks</p>
     </footer>
-    <script>
-        const storageKey = 'queueworks_tickets';
-        const ticketsContainer = document.getElementById('tickets-container');
-        const notifyEl = document.getElementById('notify');
-
-        function loadTickets() {
-            try { return JSON.parse(localStorage.getItem(storageKey) || '[]'); }
-            catch (e) { return []; }
-        }
-
-        function renderTickets(tickets) {
-            ticketsContainer.innerHTML = '';
-            if (!tickets || tickets.length === 0) {
-                ticketsContainer.innerHTML = '<p>No tickets yet.</p>';
-                return;
-            }
-            for (const t of tickets) {
-                const el = document.createElement('div');
-                el.className = 'ticket';
-                el.dataset.lehrjahr = t.lehrjahr;
-                el.innerHTML = `<h3>${t.category} - ${t.name}</h3><p>${t.desc || t.description}</p><p><small>Lehrjahr: ${t.lehrjahr}</small></p>`;
-                ticketsContainer.appendChild(el);
-            }
-        }
-
-        function applyFilter() {
-            const select = document.getElementById('lehrjahr');
-            const value = select.value;
-            const tickets = ticketsContainer.querySelectorAll('.ticket');
-            tickets.forEach(t => {
-                if (!value) { t.style.display = ''; return; }
-                t.style.display = (t.dataset.lehrjahr === value) ? '' : 'none';
-            });
-        }
-
-        document.getElementById('apply-filter').addEventListener('click', applyFilter);
-
-        document.addEventListener('DOMContentLoaded', () => renderTickets(loadTickets()));
-
-        window.addEventListener('storage', (e) => {
-            if (e.key === storageKey) {
-                renderTickets(loadTickets());
-                notifyEl.textContent = 'New ticket submitted';
-                setTimeout(() => { notifyEl.textContent = ''; }, 3000);
-            }
-        });
-    </script>
 </body>
 </html>
