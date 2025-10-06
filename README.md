@@ -8,6 +8,13 @@ An in-depth paragraph about your project and overview of use.
 
 ## Roadmap 
 
+[] Simple GUI
+    [] Landing page
+    [] Live Tickets
+    [] Admin Panel / Login
+[] Advanced Features
+    [] Mass delete
+
 ## Getting Started
 
 
