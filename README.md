@@ -41,7 +41,7 @@ command to run if program contains helper info
 
 Contributors names and contact info
  
-[Leon](https://github.com/lelelon225)
+[Leon](https://github.com/lelelon225) \
 [rem](https://github.com/Rem170608)
 
 ## Version History
