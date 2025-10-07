@@ -45,8 +45,6 @@ Make sure you have:
 
 - [A configured database (see Installing Sql DB)](#mysql-db)
 
-
-
 ### Installing
 
 #### Node.js
