@@ -39,7 +39,7 @@
         <p>&copy; 2025 QueueWorks</p>
     </footer>
     <script>
-        const storageKey = 'queueworks_tickets';
+      /*  const storageKey = 'queueworks_tickets';
         const ticketsContainer = document.getElementById('tickets-container');
 
         function loadTickets() {
@@ -59,7 +59,61 @@
             }
         }
 
-        document.getElementById('delete-all').addEventListener('click', () => {
+        
+        document.addEventListener('DOMContentLoaded', renderTickets);
+    </script>
+
+    <script type="module">
+    // Fetch tickets from the backend API and render them
+    async function loadTickets(filterLJ) {
+      const url = new URL('http://localhost:3000/tickets');
+      if (filterLJ) url.searchParams.set('LJ', filterLJ);
+      try {
+        const resp = await fetch(url.href);
+        if (!resp.ok) throw new Error(`Server ${resp.status}`);
+        const tickets = await resp.json();
+        renderTickets(tickets);
+      } catch (err) {
+        console.error('Failed to load tickets', err);
+        document.getElementById('notify').textContent = 'Fehler beim Laden der Tickets.';
+      }
+    }
+
+    function renderTickets(tickets) {
+      const container = document.getElementById('tickets-container');
+      container.innerHTML = '';
+      if (!tickets || tickets.length === 0) {
+        container.textContent = 'No tickets found.';
+        return;
+      }
+      tickets.forEach(t => {
+        const el = document.createElement('div');
+        el.className = 'ticket';
+        el.innerHTML = `
+          <strong>#${t.id}</strong> 
+          <em>${t.cat}</em> 
+          <span>${t.name}</span> 
+          <small>${t.LJ || ''}</small>
+          <p>${escapeHtml(t.msg)}</p>
+        `;
+        container.appendChild(el);
+      });
+    }
+
+    function escapeHtml(s) {
+      return String(s)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#39;');
+    }
+
+    document.getElementById('tickets-container').addEventListener('click', () => {
+      const lj = document.getElementById('lehrjahr').value;
+      loadTickets(lj);
+    });
+    document.getElementById('delete-all').addEventListener('click', () => {
             if (!confirm('Delete ALL tickets? This cannot be undone.')) return;
             localStorage.removeItem(storageKey);
             // trigger storage event for other tabs by writing then removing a sentinel
@@ -82,7 +136,8 @@
         });
             alert('All tickets deleted');
 
-        document.addEventListener('DOMContentLoaded', renderTickets);
-    </script>
+    // Load all tickets on page load
+    loadTickets();
+  </script>
 </body>
 </html>

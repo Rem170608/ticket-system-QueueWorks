@@ -211,3 +211,74 @@ a:hover {
     scale: 1.05;
     transition: all 0.02s ease;
 }
+/* --- Live Page Additions (3x3 Ticket Grid Display) --- */
+
+.notify {
+    text-align: center;
+    color: red;
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+
+/* Grid container for 3x3 ticket layout */
+.tickets-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    background-color: #ffffff;
+    border: 3px solid #4a90e2; /* QueueWorks blue border */
+    border-radius: 15px;
+    padding: 20px;
+    width: 100%;
+    height: 70vh;
+    box-sizing: border-box;
+    overflow: hidden; /* removes scrollbars */
+}
+
+/* Individual ticket boxes inside grid */
+.ticket-box {
+    background-color: #d5e1ee; /* Light blue tone matching background */
+    border: 2px solid #4a90e2; /* Blue border for consistency */
+    border-radius: 15px;
+    padding: 16px;
+    text-align: center;
+    font-size: 0.95rem;
+    font-weight: 500;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.ticket-box:hover {
+    transform: scale(1.03);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+}
+
+/* Text inside each ticket box */
+.ticket-box small {
+    display: block;
+    color: #333;
+    font-weight: bold;
+    margin-bottom: 8px;
+}
+
+.ticket-box p {
+    margin: 0;
+    color: #222;
+    line-height: 1.3;
+    word-break: break-word;
+}
+
+/* Optional responsive behavior for smaller screens */
+@media (max-width: 900px) {
+    .tickets-grid {
+        grid-template-columns: repeat(2, 1fr);
+        height: auto;
+    }
+}
+
+@media (max-width: 600px) {
+    .tickets-grid {
+        grid-template-columns: 1fr;
+        height: auto;
+    }
+}

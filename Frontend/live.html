@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Ticket System - QueueWorks</title>
+  <title>QueueWorks – Live Tickets</title>
   <link rel="icon" type="image/x-icon" href="/Media/head.svg" />
   <link rel="stylesheet" href="style.css" />
 </head>
@@ -12,7 +12,7 @@
   <main>
     <div class="container-live">
       <div class="card-live">
-        <div class="navbar-buttons-live">
+        <div class="navbar-live">
           <div class="navbar-buttons-live">
             <a href="index.html" class="nav-link-live">Home</a>
             <a href="live.html" class="nav-link-live">Live</a>
@@ -20,13 +20,13 @@
           </div>
         </div>
 
-        <img src="/Media/logo.svg" alt="logo" class="logo-live" />
+        <img src="/Media/logo.svg" alt="QueueWorks Logo" class="logo-live" />
 
-        
+        <div id="notify" class="notify"></div>
 
-        <div id="notify" style="margin-top:8px;color:red"></div>
-        <div class="container-ticket-container-live"></div>
-          <div id="tickets-container" class="tickets-container-live"></div>
+        <!-- ✅ Ticket grid (3×3 layout) -->
+        <div id="tickets-container" class="tickets-grid">
+          <p>Loading tickets...</p>
         </div>
       </div>
     </div>
@@ -36,39 +36,41 @@
     <p>&copy; 2025 QueueWorks</p>
   </footer>
 
-  <!-- ✅ Use a single clean module script -->
   <script type="module">
-    // Fetch tickets from the backend API and render them
-    async function loadTickets(filterLJ) {
-      const url = new URL('http://localhost:3000/tickets');
-      if (filterLJ) url.searchParams.set('LJ', filterLJ);
+    const API_URL = 'http://localhost:3000/tickets';
+
+    async function loadTickets() {
+      const notify = document.getElementById('notify');
+      const container = document.getElementById('tickets-container');
+      notify.textContent = '';
+
       try {
-        const resp = await fetch(url.href);
+        const resp = await fetch(API_URL);
         if (!resp.ok) throw new Error(`Server ${resp.status}`);
         const tickets = await resp.json();
         renderTickets(tickets);
       } catch (err) {
-        console.error('Failed to load tickets', err);
-        document.getElementById('notify').textContent = 'Fehler beim Laden der Tickets.';
+        console.error('Failed to load tickets:', err);
+        notify.textContent = 'Fehler beim Laden der Tickets.';
+        container.innerHTML = '';
       }
     }
 
     function renderTickets(tickets) {
       const container = document.getElementById('tickets-container');
       container.innerHTML = '';
+
       if (!tickets || tickets.length === 0) {
         container.textContent = 'No tickets found.';
         return;
       }
-      tickets.forEach(t => {
+
+      tickets.slice(0, 9).forEach(t => {
         const el = document.createElement('div');
-        el.className = 'ticket';
+        el.className = 'ticket-box';
         el.innerHTML = `
-          <strong>#${t.id}</strong> 
-          <em>${t.cat}</em> 
-          <span>${t.name}</span> 
           <small>${t.LJ || ''}</small>
-          <p>${escapeHtml(t.msg)}</p>
+          <p><strong>${escapeHtml(t.name)}</strong><br>${escapeHtml(t.msg)}</p>
         `;
         container.appendChild(el);
       });
@@ -83,13 +85,9 @@
         .replace(/'/g, '&#39;');
     }
 
-    document.getElementById('tickets-container').addEventListener('click', () => {
-      const lj = document.getElementById('lehrjahr').value;
-      loadTickets(lj);
-    });
-
-    // Load all tickets on page load
+    // Auto-refresh every 10 seconds
     loadTickets();
+    setInterval(loadTickets, 10000);
   </script>
 </body>
 </html>
