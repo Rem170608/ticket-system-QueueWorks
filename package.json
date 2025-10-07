@@ -2,9 +2,9 @@
   "name": "ticket-system-queueworks",
   "version": "1.0.0",
   "description": "",
-  "main": "main.js",
+  "main": "Backend/main.js",
   "scripts": {
-    "start": "node main.js"
+    "start": "node Backend/main.js"
   },
   "type": "module",
   "dependencies": {
