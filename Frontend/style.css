@@ -48,6 +48,7 @@ a {
     cursor: pointer;
     transition: all 0.02s ease;
 }
+
 a:hover {
     background-color: #357abd;
     scale: 1.05;
@@ -169,4 +170,16 @@ a:hover {
 
 .input-with-icon .show-password:focus {
     outline: 2px solid rgba(74,144,226,0.25);
+}
+
+.deletebuttons {
+    background-color:red;
+    color: white;
+    border: none;
+    border-radius: 15px;
+    padding: 12px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    width: 100%;           
+    margin: 10px 0px;
 }

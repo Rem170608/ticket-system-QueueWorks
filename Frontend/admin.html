@@ -26,8 +26,11 @@
                 <option value="Praxis">Praxis</option>
 
             </select>
-            <button id="delete-all" class="input-field" style="background:#c00;color:#fff;">Delete all tickets</button>
+            <button id="delete-all" class="deletebuttons">Delete all tickets</button>
+            <button id="delete-one" class="deletebuttons">Delete selected ticket</button>
+
             <div id="tickets-container" class="tickets-container">
+                <button id="tickets-container" class="ticketsstyle"></button>
                 <!-- Tickets will be dynamically inserted here -->
             </div>
         </div>
@@ -64,6 +67,20 @@
             renderTickets();
             alert('All tickets deleted');
         });
+        document.getElementById('delete-one').addEventListener('click', () => {
+            if (!confirm('Delete selected ticket? This cannot be undone.')) return;
+            const tickets = loadTickets();
+            const selectedTicket = tickets.find(t => t.selected);
+            if (selectedTicket) {
+                const updatedTickets = tickets.filter(t => t !== selectedTicket);
+                localStorage.setItem(storageKey, JSON.stringify(updatedTickets));
+                renderTickets();
+                alert('Selected ticket deleted');
+            } else {
+                alert('No ticket selected');
+            }
+        });
+            alert('All tickets deleted');
 
         document.addEventListener('DOMContentLoaded', renderTickets);
     </script>

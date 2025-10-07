@@ -6,7 +6,7 @@
     <title>Ticket System - QueueWorks</title>
     <link rel="icon" type="image/x-icon" href="/Media/head.svg">
     <link rel="stylesheet" href="style.css">
-    <link rel="javascript" href="/Backend/main.js">
+</head>
 </head>
     <main>
         <div class="container">
@@ -28,14 +28,58 @@
             <button id="apply-filter" class="button">Apply filter</button>
                 <div id="notify" style="margin-top:8px;color:green"></div>
                 <div id="tickets-container" class="tickets-container">
-             <script>
-                id="tickets-container"
-                con.query('SELECT * FROM ticket', function (err, results, fields) {
-                         if (err) throw err;
-                             console.log(results);
-                         const container = document.getElementById('tickets-container');
-                        });
-             </script>
+            </div>
+
+            <script src="backend/main.js" type="module">
+                import con from 'backend/main.js';
+                // Fetch tickets from the backend API and render them
+                async function loadTickets(filterLJ) {
+                    const url = new URL('/api/tickets', window.location.origin);
+                    if (filterLJ) url.searchParams.set('LJ', filterLJ);
+
+                    try {
+                        const resp = await fetch(url.href);
+                        if (!resp.ok) throw new Error(`Server ${resp.status}`);
+                        const tickets = await resp.json();
+                        renderTickets(tickets);
+                    } catch (err) {
+                        console.error('Failed to load tickets', err);
+                        document.getElementById('notify').textContent = 'Fehler beim Laden der Tickets.';
+                    }
+                }
+
+                function renderTickets(tickets) {
+                    const container = document.getElementById('tickets-container');
+                    container.innerHTML = '';
+                    if (!tickets || tickets.length === 0) {
+                        container.textContent = 'No tickets found.';
+                        return;
+                    }
+                    tickets.forEach(t => {
+                        const el = document.createElement('div');
+                        el.className = 'ticket';
+                        el.innerHTML = `<strong>#${t.id}</strong> <em>${t.cat}</em> <span>${t.name}</span> <small>${t.LJ || ''}</small><p>${escapeHtml(t.msg)}</p>`;
+                        container.appendChild(el);
+                    });
+                }
+
+                function escapeHtml(s) {
+                    return String(s)
+                        .replace(/&/g, '&amp;')
+                        .replace(/</g, '&lt;')
+                        .replace(/>/g, '&gt;')
+                        .replace(/"/g, '&quot;')
+                        .replace(/'/g, '&#39;');
+                }
+
+                document.getElementById('apply-filter').addEventListener('click', () => {
+                    const lj = document.getElementById('lehrjahr').value;
+                    loadTickets(lj);
+                });
+
+                // Load all tickets on page load
+                loadTickets();
+            </script>
             </div>
         </div>
     </main>
