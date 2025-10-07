@@ -6,6 +6,76 @@
     <title>Admin Dashboard - QueueWorks</title>
     <link rel="icon" type="image/x-icon" href="/Media/head.svg">
     <link rel="stylesheet" href="style.css">
+    <style>
+        .ticket-box {
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .ticket-box:hover {
+            transform: scale(1.02);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+        
+        .ticket-box.selected {
+            border: 3px solid #ff0000;
+            box-shadow: 0 0 15px rgba(255, 0, 0, 0.5);
+        }
+        
+        .admin-controls {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin: 20px 0;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .action-button {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+        }
+        
+        .action-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
+        }
+        
+        .action-button:active {
+            transform: translateY(0);
+        }
+        
+        .ticket-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+            flex-wrap: wrap;
+            gap: 5px;
+        }
+        
+        .access-denied {
+            text-align: center;
+            padding: 50px;
+            color: #ff0000;
+        }
+        
+        .loading-screen {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 50vh;
+            font-size: 18px;
+        }
+    </style>
 </head>
 <body>
     <main>
@@ -19,23 +89,30 @@
                     </div>
                 </div>
                 <img src="/Media/logo.svg" alt="QueueWorks Logo" class="logo-live">
-                <h1>Admin Dashboard</h1>
                 
-                <div id="notify" class="notify"></div>
-                
-                <div class="admin-controls">
-                    <select name="lehrjahr" id="lehrjahr" class="input-field">
-                        <option value="">All Tickets</option>
-                        <option value="Basis">Basis</option>
-                        <option value="Praxis">Praxis</option>
-                    </select>
-                    <button id="refresh-tickets" class="action-button">Refresh</button>
-                    <button id="delete-selected" class="deletebuttons">Delete Selected</button>
-                    <button id="delete-all" class="deletebuttons">Delete All Tickets</button>
+                <div id="auth-check" class="loading-screen">
+                    <p>Checking authentication...</p>
                 </div>
+                
+                <div id="admin-content" style="display: none;">
+                    <h1>Admin Dashboard</h1>
+                    
+                    <div id="notify" class="notify"></div>
+                    
+                    <div class="admin-controls">
+                        <select name="lehrjahr" id="lehrjahr" class="input-field">
+                            <option value="">All Tickets</option>
+                            <option value="Basis">Basis</option>
+                            <option value="Praxis">Praxis</option>
+                        </select>
+                        <button id="refresh-tickets" class="action-button">🔄 Refresh</button>
+                        <button id="delete-selected" class="deletebuttons">Delete Selected</button>
+                        <button id="delete-all" class="deletebuttons">Delete All Tickets</button>
+                    </div>
 
-                <div id="tickets-container" class="tickets-grid">
-                    <p>Loading tickets...</p>
+                    <div id="tickets-container" class="tickets-grid">
+                        <p>Loading tickets...</p>
+                    </div>
                 </div>
             </div>
         </div>
@@ -46,7 +123,58 @@
 
     <script type="module">
         const API_URL = 'http://localhost:3000/tickets';
+        const AUTH_KEY = 'queueworks_admin_session';
         let selectedTicketId = null;
+        let allTickets = [];
+
+        // Check authentication on page load
+        async function checkAuth() {
+            const authCheck = document.getElementById('auth-check');
+            const adminContent = document.getElementById('admin-content');
+            
+            // Check if user has valid session
+            const sessionToken = sessionStorage.getItem(AUTH_KEY);
+            
+            if (!sessionToken) {
+                authCheck.innerHTML = `
+                    <div class="access-denied">
+                        <h2>Access Denied</h2>
+                        <p>You must log in to access the admin dashboard.</p>
+                        <p><a href="login.html">Go to Login</a></p>
+                    </div>
+                `;
+                return false;
+            }
+            
+            // Verify session with backend (you'll need to implement this endpoint)
+            try {
+                const resp = await fetch('http://localhost:3000/auth/verify', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${sessionToken}`
+                    }
+                });
+                
+                if (!resp.ok) throw new Error('Invalid session');
+                
+                // Authentication successful
+                authCheck.style.display = 'none';
+                adminContent.style.display = 'block';
+                return true;
+            } catch (err) {
+                console.error('Auth verification failed:', err);
+                sessionStorage.removeItem(AUTH_KEY);
+                authCheck.innerHTML = `
+                    <div class="access-denied">
+                        <h2>Session Expired</h2>
+                        <p>Your session has expired. Please log in again.</p>
+                        <p><a href="login.html">Go to Login</a></p>
+                    </div>
+                `;
+                return false;
+            }
+        }
 
         async function loadTickets(filterLJ = '') {
             const notify = document.getElementById('notify');
@@ -54,13 +182,23 @@
             notify.textContent = '';
             
             try {
-                const url = new URL(API_URL);
-                if (filterLJ) url.searchParams.set('LJ', filterLJ);
+                const sessionToken = sessionStorage.getItem(AUTH_KEY);
+                const resp = await fetch(API_URL, {
+                    headers: {
+                        'Authorization': `Bearer ${sessionToken}`
+                    }
+                });
                 
-                const resp = await fetch(url.href);
                 if (!resp.ok) throw new Error(`Server ${resp.status}`);
                 const tickets = await resp.json();
-                renderTickets(tickets);
+                allTickets = tickets;
+                
+                // Apply filter if specified
+                const filteredTickets = filterLJ 
+                    ? tickets.filter(t => t.LJ === filterLJ)
+                    : tickets;
+                
+                renderTickets(filteredTickets);
             } catch (err) {
                 console.error('Failed to load tickets:', err);
                 notify.textContent = 'Fehler beim Laden der Tickets.';
@@ -117,12 +255,17 @@
 
         // Event listeners
         document.getElementById('lehrjahr').addEventListener('change', (e) => {
-            loadTickets(e.target.value);
+            const filterValue = e.target.value;
+            loadTickets(filterValue);
         });
 
         document.getElementById('refresh-tickets').addEventListener('click', () => {
             const lj = document.getElementById('lehrjahr').value;
             loadTickets(lj);
+            document.getElementById('notify').textContent = 'Tickets refreshed!';
+            setTimeout(() => {
+                document.getElementById('notify').textContent = '';
+            }, 2000);
         });
 
         document.getElementById('delete-selected').addEventListener('click', async () => {
@@ -134,7 +277,13 @@
             if (!confirm(`Delete ticket #${selectedTicketId}? This cannot be undone.`)) return;
             
             try {
-                const resp = await fetch(`${API_URL}/${selectedTicketId}`, { method: 'DELETE' });
+                const sessionToken = sessionStorage.getItem(AUTH_KEY);
+                const resp = await fetch(`${API_URL}/${selectedTicketId}`, { 
+                    method: 'DELETE',
+                    headers: {
+                        'Authorization': `Bearer ${sessionToken}`
+                    }
+                });
                 if (!resp.ok) throw new Error(`Server ${resp.status}`);
                 
                 document.getElementById('notify').textContent = 'Ticket deleted successfully.';
@@ -151,7 +300,13 @@
             if (!confirm('Delete ALL tickets? This cannot be undone.')) return;
             
             try {
-                const resp = await fetch(API_URL, { method: 'DELETE' });
+                const sessionToken = sessionStorage.getItem(AUTH_KEY);
+                const resp = await fetch(API_URL, { 
+                    method: 'DELETE',
+                    headers: {
+                        'Authorization': `Bearer ${sessionToken}`
+                    }
+                });
                 if (!resp.ok) throw new Error(`Server ${resp.status}`);
                 
                 document.getElementById('notify').textContent = 'All tickets deleted.';
@@ -163,8 +318,13 @@
             }
         });
 
-        // Initial load
-        loadTickets();
+        // Initialize
+        (async () => {
+            const isAuthenticated = await checkAuth();
+            if (isAuthenticated) {
+                loadTickets();
+            }
+        })();
     </script>
 </body>
 </html>
