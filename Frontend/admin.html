@@ -3,141 +3,168 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ticket System - QueueWorks</title>
+    <title>Admin Dashboard - QueueWorks</title>
     <link rel="icon" type="image/x-icon" href="/Media/head.svg">
     <link rel="stylesheet" href="style.css">
-    <link rel="javascript" href="/Backend/main.js">
 </head>
+<body>
     <main>
-        <div class="container">
-            <div class="card">
-                <div class="navbar">
-                    <div class="navbar-buttons">
-                        <a href="index.html" class="nav-link">Home</a>
-                        <a href="live.html" class="nav-link">Live</a>
-                        <a href="login.html" class="nav-link">Login</a>
+        <div class="container-live">
+            <div class="card-live">
+                <div class="navbar-live">
+                    <div class="navbar-buttons-live">
+                        <a href="index.html" class="nav-link-live">Home</a>
+                        <a href="live.html" class="nav-link-live">Live</a>
+                        <a href="login.html" class="nav-link-live">Login</a>
                     </div>
                 </div>
-            <img src="/Media/logo.svg" alt="logo" class="logo">
-            <h1>Admin Dashboard</h1>
-            <select name="lehrjahr" id="lehrjahr" class="input-field">
-                <option value="" disabled selected>Lehrjahr</option>
-                <option value="Basis">Basis</option>
-                <option value="Praxis">Praxis</option>
+                <img src="/Media/logo.svg" alt="QueueWorks Logo" class="logo-live">
+                <h1>Admin Dashboard</h1>
+                
+                <div id="notify" class="notify"></div>
+                
+                <div class="admin-controls">
+                    <select name="lehrjahr" id="lehrjahr" class="input-field">
+                        <option value="">All Tickets</option>
+                        <option value="Basis">Basis</option>
+                        <option value="Praxis">Praxis</option>
+                    </select>
+                    <button id="refresh-tickets" class="action-button">Refresh</button>
+                    <button id="delete-selected" class="deletebuttons">Delete Selected</button>
+                    <button id="delete-all" class="deletebuttons">Delete All Tickets</button>
+                </div>
 
-            </select>
-            <button id="delete-all" class="deletebuttons">Delete all tickets</button>
-            <button id="delete-one" class="deletebuttons">Delete selected ticket</button>
-
-            <div id="tickets-container" class="tickets-container">
-                <button id="tickets-container" class="ticketsstyle"></button>
-                <!-- Tickets will be dynamically inserted here -->
+                <div id="tickets-container" class="tickets-grid">
+                    <p>Loading tickets...</p>
+                </div>
             </div>
         </div>
     </main>
     <footer>
         <p>&copy; 2025 QueueWorks</p>
     </footer>
-    <script>
-      /*  const storageKey = 'queueworks_tickets';
-        const ticketsContainer = document.getElementById('tickets-container');
-
-        function loadTickets() {
-            try { return JSON.parse(localStorage.getItem(storageKey) || '[]'); }
-            catch (e) { return []; }
-        }
-
-        function renderTickets() {
-            const tickets = loadTickets();
-            ticketsContainer.innerHTML = '';
-            if (tickets.length === 0) { ticketsContainer.innerHTML = '<p>No tickets.</p>'; return; }
-            for (const t of tickets) {
-                const el = document.createElement('div');
-                el.className = 'ticket';
-                el.innerHTML = `<h3>${t.category} - ${t.name}</h3><p>${t.desc}</p><p><small>Lehrjahr: ${t.lehrjahr}</small></p>`;
-                ticketsContainer.appendChild(el);
-            }
-        }
-
-        
-        document.addEventListener('DOMContentLoaded', renderTickets);
-    </script>
 
     <script type="module">
-    // Fetch tickets from the backend API and render them
-    async function loadTickets(filterLJ) {
-      const url = new URL('http://localhost:3000/tickets');
-      if (filterLJ) url.searchParams.set('LJ', filterLJ);
-      try {
-        const resp = await fetch(url.href);
-        if (!resp.ok) throw new Error(`Server ${resp.status}`);
-        const tickets = await resp.json();
-        renderTickets(tickets);
-      } catch (err) {
-        console.error('Failed to load tickets', err);
-        document.getElementById('notify').textContent = 'Fehler beim Laden der Tickets.';
-      }
-    }
+        const API_URL = 'http://localhost:3000/tickets';
+        let selectedTicketId = null;
 
-    function renderTickets(tickets) {
-      const container = document.getElementById('tickets-container');
-      container.innerHTML = '';
-      if (!tickets || tickets.length === 0) {
-        container.textContent = 'No tickets found.';
-        return;
-      }
-      tickets.forEach(t => {
-        const el = document.createElement('div');
-        el.className = 'ticket';
-        el.innerHTML = `
-          <strong>#${t.id}</strong> 
-          <em>${t.cat}</em> 
-          <span>${t.name}</span> 
-          <small>${t.LJ || ''}</small>
-          <p>${escapeHtml(t.msg)}</p>
-        `;
-        container.appendChild(el);
-      });
-    }
+        async function loadTickets(filterLJ = '') {
+            const notify = document.getElementById('notify');
+            const container = document.getElementById('tickets-container');
+            notify.textContent = '';
+            
+            try {
+                const url = new URL(API_URL);
+                if (filterLJ) url.searchParams.set('LJ', filterLJ);
+                
+                const resp = await fetch(url.href);
+                if (!resp.ok) throw new Error(`Server ${resp.status}`);
+                const tickets = await resp.json();
+                renderTickets(tickets);
+            } catch (err) {
+                console.error('Failed to load tickets:', err);
+                notify.textContent = 'Fehler beim Laden der Tickets.';
+                container.innerHTML = '';
+            }
+        }
 
-    function escapeHtml(s) {
-      return String(s)
-        .replace(/&/g, '&amp;')
-        .replace(/</g, '&lt;')
-        .replace(/>/g, '&gt;')
-        .replace(/"/g, '&quot;')
-        .replace(/'/g, '&#39;');
-    }
+        function renderTickets(tickets) {
+            const container = document.getElementById('tickets-container');
+            container.innerHTML = '';
+            
+            if (!tickets || tickets.length === 0) {
+                container.textContent = 'No tickets found.';
+                return;
+            }
+            
+            tickets.forEach(t => {
+                const el = document.createElement('div');
+                el.className = 'ticket-box';
+                el.dataset.id = t.id;
+                
+                if (selectedTicketId === t.id) {
+                    el.classList.add('selected');
+                }
+                
+                el.innerHTML = `
+                    <div class="ticket-header">
+                        <strong>#${t.id}</strong>
+                        <em>${escapeHtml(t.cat || '')}</em>
+                        <small>${t.LJ || ''}</small>
+                    </div>
+                    <p><strong>${escapeHtml(t.name)}</strong></p>
+                    <p>${escapeHtml(t.msg)}</p>
+                `;
+                
+                el.addEventListener('click', () => {
+                    document.querySelectorAll('.ticket-box').forEach(box => box.classList.remove('selected'));
+                    el.classList.add('selected');
+                    selectedTicketId = t.id;
+                });
+                
+                container.appendChild(el);
+            });
+        }
 
-    document.getElementById('tickets-container').addEventListener('click', () => {
-      const lj = document.getElementById('lehrjahr').value;
-      loadTickets(lj);
-    });
-    document.getElementById('delete-all').addEventListener('click', () => {
-            if (!confirm('Delete ALL tickets? This cannot be undone.')) return;
-          
-            // trigger storage event for other tabs by writing then removing a sentinel
-            try { localStorage.setItem('queueworks_tickets_cleared_at', Date.now().toString()); localStorage.removeItem('queueworks_tickets_cleared_at'); } catch(e){}
-            renderTickets();
-            alert('All tickets deleted');
+        function escapeHtml(s) {
+            return String(s)
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;')
+                .replace(/"/g, '&quot;')
+                .replace(/'/g, '&#39;');
+        }
+
+        // Event listeners
+        document.getElementById('lehrjahr').addEventListener('change', (e) => {
+            loadTickets(e.target.value);
         });
-        document.getElementById('delete-one').addEventListener('click', () => {
-            if (!confirm('Delete selected ticket? This cannot be undone.')) return;
-            const tickets = loadTickets();
-            const selectedTicket = tickets.find(t => t.selected);
-            if (selectedTicket) {
-                const updatedTickets = tickets.filter(t => t !== selectedTicket);
-                localStorage.setItem(storageKey, JSON.stringify(updatedTickets));
-                renderTickets();
-                alert('Selected ticket deleted');
-            } else {
-                alert('No ticket selected');
+
+        document.getElementById('refresh-tickets').addEventListener('click', () => {
+            const lj = document.getElementById('lehrjahr').value;
+            loadTickets(lj);
+        });
+
+        document.getElementById('delete-selected').addEventListener('click', async () => {
+            if (!selectedTicketId) {
+                alert('Please select a ticket first.');
+                return;
+            }
+            
+            if (!confirm(`Delete ticket #${selectedTicketId}? This cannot be undone.`)) return;
+            
+            try {
+                const resp = await fetch(`${API_URL}/${selectedTicketId}`, { method: 'DELETE' });
+                if (!resp.ok) throw new Error(`Server ${resp.status}`);
+                
+                document.getElementById('notify').textContent = 'Ticket deleted successfully.';
+                selectedTicketId = null;
+                const lj = document.getElementById('lehrjahr').value;
+                loadTickets(lj);
+            } catch (err) {
+                console.error('Failed to delete ticket:', err);
+                alert('Error deleting ticket.');
             }
         });
-            alert('All tickets deleted');
 
-    // Load all tickets on page load
-    loadTickets();
-  </script>
+        document.getElementById('delete-all').addEventListener('click', async () => {
+            if (!confirm('Delete ALL tickets? This cannot be undone.')) return;
+            
+            try {
+                const resp = await fetch(API_URL, { method: 'DELETE' });
+                if (!resp.ok) throw new Error(`Server ${resp.status}`);
+                
+                document.getElementById('notify').textContent = 'All tickets deleted.';
+                selectedTicketId = null;
+                loadTickets();
+            } catch (err) {
+                console.error('Failed to delete all tickets:', err);
+                alert('Error deleting tickets.');
+            }
+        });
+
+        // Initial load
+        loadTickets();
+    </script>
 </body>
 </html>
