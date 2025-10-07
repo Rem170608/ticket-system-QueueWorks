@@ -29,27 +29,28 @@ An in-depth paragraph about your project and overview of use.
 
 ### Dependencies
 
-- Describe any prerequisites, libraries, OS version, etc., needed before installing program.
+This project runs on Node.js and uses the following main libraries:
 
-- ex. Windows 10
+- express – web server framework to handle routes and API endpoints
+
+- mysql – used for MySQL database connection and queries
+
+- mysql2 – improved MySQL client with Promise support
+
+Make sure you have:
+
+- Node.js (v18 or later recommended)
+
+- MySQL Server installed and running
+
+- A configured database (see [Installing Sql DB](README.md:53:1))
+
+- [Node.js](https://nodejs.org/en)
+
 
 ### Installing
 
-- How/where to download your program
-- Any modifications needed to be made to files/folders
-
-### Executing program
-
-- How to run the program
-- Step-by-step bullets
-
-```JS
-code blocks for commands
-```
-
-## Help
-
-Easy setup with this MySql query
+MySql DB
 
 **Important**: Replace the password with your own, secure password. Note that the password is again used in the main.js file where you also need to replace it.
 
@@ -74,6 +75,19 @@ GRANT ALL PRIVILEGES ON `ticket-queueworks`.* TO 'noserq_user'@'%';
 FLUSH PRIVILEGES;
 
 ```
+
+### Executing program
+
+- How to run the program
+- Step-by-step bullets
+
+```JS
+code blocks for commands
+```
+
+## Help
+
+
 
 ## Test Data
 
