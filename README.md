@@ -51,6 +51,8 @@ code blocks for commands
 
 Easy setup with this MySql query
 
+**Important**: Replace the password with your own, secure password. Note that the password is again used in the main.js file where you need to also replace it
+
 ```MySql
 -- Create the database
 CREATE DATABASE IF NOT EXISTS `ticket-queueworks`;
