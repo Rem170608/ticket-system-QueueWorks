@@ -115,7 +115,7 @@
     });
     document.getElementById('delete-all').addEventListener('click', () => {
             if (!confirm('Delete ALL tickets? This cannot be undone.')) return;
-            localStorage.removeItem(storageKey);
+          
             // trigger storage event for other tabs by writing then removing a sentinel
             try { localStorage.setItem('queueworks_tickets_cleared_at', Date.now().toString()); localStorage.removeItem('queueworks_tickets_cleared_at'); } catch(e){}
             renderTickets();
