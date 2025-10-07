@@ -43,14 +43,15 @@ Make sure you have:
 
 - MySQL Server installed and running
 
-- A configured database (see [Installing Sql DB](README.md:53:1))
+- A configured database (see [Installing Sql DB](#mysql-db)
 
-- [Node.js](https://nodejs.org/en)
 
 
 ### Installing
 
-MySql DB
+## Node.js
+
+## MySql DB
 
 **Important**: Replace the password with your own, secure password. Note that the password is again used in the main.js file where you also need to replace it.
 
