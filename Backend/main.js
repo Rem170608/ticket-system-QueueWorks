@@ -2,7 +2,7 @@ let mysql = require('mysql');
 
 let con = mysql.createConnection({
   host: "localhost",
-  user: "noserq_user-",
+  user: "noserq_user",
   password: "password123456",
   database: "ticket-queueworks"
 });
