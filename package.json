@@ -1,5 +1,17 @@
 {
+  "name": "ticket-system-queueworks",
+  "version": "1.0.0",
+  "description": "",
+  "main": "main.js",
+  "scripts": {
+    "start": "node main.js"
+  },
+  "type": "module",
   "dependencies": {
-    "mysql": "^2.18.1"
-  }
+    "express": "^4.21.2",
+    "mysql": "^2.18.1",
+    "mysql2": "^3.15.1"
+  },
+  "author": "",
+  "license": "ISC"
 }
