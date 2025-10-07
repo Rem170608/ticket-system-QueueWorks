@@ -100,10 +100,6 @@ INSERT INTO `ticket` (`id`, `name`, `cat`, `LJ`, `msg`, `time`) VALUES (NULL, 'M
 INSERT INTO `ticket` (`id`, `name`, `cat`, `LJ`, `msg`, `time`) VALUES (NULL, 'Franz Herrman', 'Q', 'Praxis', 'Test12 Test 23', current_timestamp());
 INSERT INTO `ticket` (`id`, `name`, `cat`, `LJ`, `msg`, `time`) VALUES (NULL, 'Mike david', 'Q', 'Praxis', 'Main Coon cat', current_timestamp());
 INSERT INTO `ticket` (`id`, `name`, `cat`, `LJ`, `msg`, `time`) VALUES (NULL, 'Raffael Maier', 'Q', 'Praxis', 'you', current_timestamp());
-INSERT INTO `ticket` (`id`, `name`, `cat`, `LJ`, `msg`, `time`) VALUES (NULL, 'Enzo Ferrari', 'Q', 'Praxis', 'French bulldog', current_timestamp());
-INSERT INTO `ticket` (`id`, `name`, `cat`, `LJ`, `msg`, `time`) VALUES (NULL, 'jon guz', 'Q', 'Praxis', 'Tree', current_timestamp());
-INSERT INTO `ticket` (`id`, `name`, `cat`, `LJ`, `msg`, `time`) VALUES (NULL, 'TOM', 'Q', 'Praxis', 'Frenchbuldog', current_timestamp());
-
 ```
 
 ## Authors
