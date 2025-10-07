@@ -43,7 +43,7 @@ Make sure you have:
 
 - MySQL Server installed and running
 
-- A configured database (see [Installing Sql DB](#mysql-db)
+- A configured database (see [Installing Sql DB](#mysql-db))
 
 
 
