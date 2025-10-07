@@ -305,3 +305,61 @@ a:hover {
             margin: 20px 0;
             justify-content: center;
         }
+        .input-with-icon {
+            position: relative;
+            width: 100%;
+        }
+        
+        .show-password {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .show-password img {
+            width: 24px;
+            height: 24px;
+            opacity: 0.6;
+            transition: opacity 0.3s;
+        }
+        
+        .show-password:hover img {
+            opacity: 1;
+        }
+        
+        #errorMessage {
+            color: #ff0000;
+            background: rgba(255, 0, 0, 0.1);
+            padding: 10px;
+            border-radius: 5px;
+            margin: 10px 0;
+            display: none;
+            text-align: center;
+        }
+        
+        #successMessage {
+            color: #00ff00;
+            background: rgba(0, 255, 0, 0.1);
+            padding: 10px;
+            border-radius: 5px;
+            margin: 10px 0;
+            display: none;
+            text-align: center;
+        }
+        
+        .button {
+            transition: all 0.3s ease;
+        }
+        
+        .button:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
