@@ -208,7 +208,7 @@ a:hover {
 }
 .deletebuttons:hover {
     background-color: darkred;
-    scale: 1.05;
+    scale: 1.02;
     transition: all 0.02s ease;
 }
 .notify {
@@ -271,25 +271,25 @@ a:hover {
         height: auto;
     }
 }
-    .ticket-box {
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-        
-        .ticket-box:hover {
-            transform: scale(1.02);
-            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-        }
-        
-        .ticket-box.selected {
-            border: 3px solid #ff0000;
-            box-shadow: 0 0 15px rgba(255, 0, 0, 0.5);
-        }
-        
-        .admin-controls {
-            display: flex;
-            gap: 10px;
-            flex-wrap: wrap;
-            margin: 20px 0;
-            justify-content: center;
-        }
+.ticket-box {
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.ticket-box:hover {
+    transform: scale(1.02);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+.ticket-box.selected {
+    border: 3px solid #ff0000;
+    box-shadow: 0 0 15px rgba(255, 0, 0, 0.5);
+}
+
+.admin-controls {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin: 20px 0;
+    justify-content: center;
+}

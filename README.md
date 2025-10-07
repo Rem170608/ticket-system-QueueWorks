@@ -97,7 +97,7 @@ INSERT INTO `ticket` (`id`, `name`, `cat`, `LJ`, `msg`, `time`) VALUES (NULL, 'J
 INSERT INTO `ticket` (`id`, `name`, `cat`, `LJ`, `msg`, `time`) VALUES (NULL, 'Jana Doh', 'C', 'Praxis', 'Who is this', current_timestamp());
 INSERT INTO `ticket` (`id`, `name`, `cat`, `LJ`, `msg`, `time`) VALUES (NULL, 'John david', 'Q', 'Praxis', 'Test', current_timestamp());
 INSERT INTO `ticket` (`id`, `name`, `cat`, `LJ`, `msg`, `time`) VALUES (NULL, 'Marcel david', 'Q', 'Praxis', 'Dr.House', current_timestamp());
-INSERT INTO `ticket` (`id`, `name`, `cat`, `LJ`, `msg`, `time`) VALUES (NULL, 'Franz Herrman', 'Q', 'Praxis', 'Test12 Test 23', current_timestamp());
+INSERT INTO `ticket` (`id`, `name`, `cat`, `LJ`, `msg`, `time`) VALUES (NULL, 'Franz Herrmann', 'Q', 'Praxis', 'Test12 Test 23', current_timestamp());
 INSERT INTO `ticket` (`id`, `name`, `cat`, `LJ`, `msg`, `time`) VALUES (NULL, 'Mike david', 'Q', 'Praxis', 'Main Coon cat', current_timestamp());
 INSERT INTO `ticket` (`id`, `name`, `cat`, `LJ`, `msg`, `time`) VALUES (NULL, 'Raffael Maier', 'Q', 'Praxis', 'you', current_timestamp());
 ```
