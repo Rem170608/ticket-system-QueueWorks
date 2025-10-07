@@ -22,7 +22,8 @@
 
         <img src="/Media/logo.svg" alt="logo" class="logo" />
 
-        <button id="apply-filter" class="button">Apply filter</button>
+        
+
         <div id="notify" style="margin-top:8px;color:red"></div>
 
         <div id="tickets-container" class="tickets-container"></div>
@@ -81,7 +82,7 @@
         .replace(/'/g, '&#39;');
     }
 
-    document.getElementById('apply-filter').addEventListener('click', () => {
+    document.getElementById('tickets-container').addEventListener('click', () => {
       const lj = document.getElementById('lehrjahr').value;
       loadTickets(lj);
     });
