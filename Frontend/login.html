@@ -6,8 +6,8 @@
     <title>Ticket System - QueueWorks</title>
     <link rel="icon" type="image/x-icon" href="/Media/head.svg">
     <link rel="stylesheet" href="style.css">
-    <link rel="javascript" href="/Backend/main.js">
 </head>
+<body>
     <main>
         <div class="container">
             <div class="card">
@@ -20,10 +20,64 @@
                 </div>
             <img src="/Media/logo.svg" alt="logo" class="logo">
             <input type="text" placeholder="Username" id="nameInput" class="input-field">
-            <input type="password" placeholder="Passwort" id="passwordInput" class="input-field">
-            <button id="showPasswordBtn" type="button" class="show-password"></button>
-            <img src="/Media/icons8-eye.gif" alt="eye" class="show-password">
-            <changeinput id="passwordInput" type="text"></changeinput>
+            <div class="input-with-icon">
+                <input type="password" placeholder="Passwort" id="passwordInput" class="input-field">
+                <!-- Button sits inside the input on the right -->
+                <button id="showPasswordBtn" type="button" class="show-password" aria-label="Toggle password visibility" title="Toggle password visibility">
+                    <img id="eyeIcon" src="/Media/icons8-closed-eye-50.png" alt="Show password" />
+                </button>
+            </div>
+            <script>
+                // Attach handler after elements exist
+                const passwordInput = document.getElementById('passwordInput');
+                const showPasswordBtn = document.getElementById('showPasswordBtn');
+                const eyeIcon = document.getElementById('eyeIcon');
+
+                // Show password while the user is pressing the button (mouse, touch, or keyboard)
+                function showPassword() {
+                    passwordInput.type = 'text';
+                    eyeIcon.src = '/Media/icons8-eye-50.png';
+                    showPasswordBtn.setAttribute('aria-pressed', 'true');
+                }
+
+                function hidePassword() {
+                    passwordInput.type = 'password';
+                    eyeIcon.src = '/Media/icons8-closed-eye-50.png';
+                    showPasswordBtn.setAttribute('aria-pressed', 'false');
+                }
+
+                // Pointer events (mouse / touch / stylus)
+                showPasswordBtn.addEventListener('pointerdown', (e) => {
+                    // Only respond to primary button
+                    if (e.isPrimary) {
+                        showPassword();
+                    }
+                });
+                // End showing on pointerup, pointercancel, or pointerleave
+                ['pointerup', 'pointercancel', 'pointerleave'].forEach(evt => {
+                    showPasswordBtn.addEventListener(evt, hidePassword);
+                });
+
+                // Also ensure we hide when the pointer leaves the button (for mouse)
+                showPasswordBtn.addEventListener('mouseleave', hidePassword);
+
+                // Keyboard: show while space or enter is held
+                showPasswordBtn.addEventListener('keydown', (e) => {
+                    if (e.code === 'Space' || e.code === 'Enter') {
+                        // Prevent scrolling on Space
+                        e.preventDefault();
+                        showPassword();
+                    }
+                });
+                showPasswordBtn.addEventListener('keyup', (e) => {
+                    if (e.code === 'Space' || e.code === 'Enter') {
+                        hidePassword();
+                    }
+                });
+
+                // Safety: if focus leaves the button, hide password
+                showPasswordBtn.addEventListener('blur', hidePassword);
+            </script>
             <button id="loginBtn" type="button" class="button">Login</button>
         </div>
     </div>

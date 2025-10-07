@@ -29,3 +29,7 @@ con.query('SELECT * FROM ticket', function (err, results, fields) {
   if (err) throw err;
   console.log(results);
 });
+
+document.getElementById("passwordInput").type = "text";
+
+// Express server setup
