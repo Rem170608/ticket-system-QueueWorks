@@ -48,11 +48,6 @@ app.get('/tickets', (req, res) => {
     });
 });
 
-app.get('/api/tickets', async (req, res) => {
-    const {LJ} = req.query;
-    const tickets = await db.getTickets(LJ);
-    res.json(tickets);
-});
 
 const PORT = 3000;
 app.listen(PORT, () => {
