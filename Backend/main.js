@@ -1,42 +1,23 @@
-import express from 'express'; // Import Express
-import mysql from 'mysql2';     // Use mysql2 for ES modules
+// MySQL database connection details
 
-const app = express();
-const PORT = process.env.PORT || 3000;
-
-// MySQL configuration details
 const password = "password123456";
 const host = "localhost";
 const user = "noserq_user";
 const database = "ticket-queueworks";
 
-const con = mysql.createConnection({
-  host,
-  user,
-  password,
-  database
+let mysql = require('mysql');
+
+let con = mysql.createConnection({
+  host: host,
+  user: user,
+  password: password,
+  database: database
 });
 
-con.connect((err) => {
+con.connect(function(err) {
   if (err) throw err;
-  console.log("Connected!");
+  console.log("Connected!"); 
 });
 
-// Example route
-app.get('/', (req, res) => {
-  res.send('Hello World!');
-});
-
-app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
-});
-
-con.end();
-}();
-
-
-
-
-
-// Export connection if needed
+// Export the connection
 export default con;
