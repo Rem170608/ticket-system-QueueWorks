@@ -6,7 +6,7 @@
     <title>Ticket System - QueueWorks</title>
     <link rel="icon" type="image/x-icon" href="/Media/head.svg">
     <link rel="stylesheet" href="style.css">
-    <link rel="javascript" href="/Backend/main.js">
+    <script src="/Backend/main.js"></script>
 </head>
     <main>
         <div class="container">
@@ -20,9 +20,8 @@
                 </div>
             <img src="/Media/logo.svg" alt="logo" class="logo">
             <input type="text" placeholder="Username" id="nameInput" class="input-field">
-            <input type="password" placeholder="Passwort" id="passwordInput" class="input-field">
-            <button id="showPasswordBtn" type="button" class="show-password"></button>
-            <img src="/Media/icons8-eye.gif" alt="eye" class="show-password">
+            <input type="password" placeholder="Passwort" id="passwordInput" class="input-field-password">
+            <button id="showPasswordBtn" type="button" class="show-password"><img src="/Media/icons8-eye.gif" alt="eye" class="show-password"></button>
             <changeinput id="passwordInput" type="text"></changeinput>
             <button id="loginBtn" type="button" class="button">Login</button>
         </div>
