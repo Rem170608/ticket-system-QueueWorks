@@ -31,5 +31,12 @@ app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
 
+con.end();
+}();
+
+
+
+
+
 // Export connection if needed
 export default con;
