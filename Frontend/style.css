@@ -67,6 +67,7 @@ a:hover {
     padding: 10px 15px;
     background-color: white;
     border-radius: 15px;
+    position: fixed;
 }
 .container {
     flex: 1;
@@ -116,6 +117,6 @@ a:hover {
 }
 .button:hover {
     background-color: #357abd;
-    scale: 1.01;
+    scale: 1.05;
     transition: all 0.02s ease;
 }

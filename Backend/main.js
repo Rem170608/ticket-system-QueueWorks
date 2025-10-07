@@ -11,7 +11,8 @@ const database = "ticket-queueworks";
 
 // MySQL connection test
 
-let mysql = require('mysql');
+var connect = function() {
+  let mysql = require('mysql');
 
 let con = mysql.createConnection({
   host: host,
@@ -29,3 +30,8 @@ con.query('SELECT * FROM ticket', function (err, results, fields) {
   if (err) throw err;
   console.log(results);
 });
+
+con.end();
+}();
+
+// Express server setup
