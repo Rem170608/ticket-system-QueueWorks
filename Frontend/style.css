@@ -67,7 +67,6 @@ a:hover {
     padding: 10px 15px;
     background-color: white;
     border-radius: 15px;
-    position: fixed;
 }
 .container {
     flex: 1;
