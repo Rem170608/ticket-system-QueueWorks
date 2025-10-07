@@ -6,18 +6,18 @@ This is a easy to use and User friendly Ticket Syste, for everyone.
 
 An in-depth paragraph about your project and overview of use.
 
-## Roadmap 
+## Roadmap
 
 - [ ] Simple GUI  
   - [X] Landing page  
   - [ ] Live Tickets  
   - [ ] Admin Panel / Login  
 - [ ] Basic Features
-    - [X] Database
-    - [X] Ticket Category
-    - [X] Ticket Message
-    - [ ] Lehrjahr Filter
-    - [ ] Delete Ticket
+  - [X] Database
+  - [X] Ticket Category
+  - [X] Ticket Message
+  - [ ] Lehrjahr Filter
+  - [ ] Delete Ticket
 - [ ] Advanced Features  
   - [X] Mass delete
   - [ ] Ticket IP
@@ -29,21 +29,21 @@ An in-depth paragraph about your project and overview of use.
 
 ### Dependencies
 
-* Describe any prerequisites, libraries, OS version, etc., needed before installing program.
+- Describe any prerequisites, libraries, OS version, etc., needed before installing program.
 
 - ex. Windows 10
 
 ### Installing
 
-* How/where to download your program
-* Any modifications needed to be made to files/folders
+- How/where to download your program
+- Any modifications needed to be made to files/folders
 
 ### Executing program
 
-* How to run the program
-* Step-by-step bullets
+- How to run the program
+- Step-by-step bullets
 
-```
+```JS
 code blocks for commands
 ```
 
