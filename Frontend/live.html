@@ -25,10 +25,17 @@
                 <option value="Praxis">Praxis</option>
 
             </select>
-            <button id="apply-filter" class="input-field">Apply filter <style> background-color: #4CAF50; color: white; </style></button>
+            <button id="apply-filter" class="button">Apply filter</button>
                 <div id="notify" style="margin-top:8px;color:green"></div>
                 <div id="tickets-container" class="tickets-container">
-                <!-- Tickets will be dynamically inserted here -->
+             <script>
+                id="tickets-container"
+                con.query('SELECT * FROM ticket', function (err, results, fields) {
+                         if (err) throw err;
+                             console.log(results);
+                         const container = document.getElementById('tickets-container');
+                        });
+             </script>
             </div>
         </div>
     </main>
