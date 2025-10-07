@@ -55,23 +55,23 @@ a:hover {
     transition: all 0.02s ease;
 }
 
-.logo {
+.logo, .logo-live {
     max-width: 300px;
     height: auto;
 }
-.navbar {
+.navbar, .navbar-live {
     padding: 10px 10px;
     display: flex;
     justify-content: center;
     max-width: 100%;
 }
-.navbar-buttons {
+.navbar-buttons, .navbar-buttons-live {
     margin: 0 5px;
     padding: 10px 15px;
     background-color: white;
     border-radius: 15px;
 }
-.container {
+.container, .container-live {
     flex: 1;
     display: flex;
     justify-content: center;
@@ -79,7 +79,15 @@ a:hover {
     padding: 20px;
     max-width: 250%;
 }
-.card {
+.tickets-container-live {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 100%;
+    max-width: 1200px;
+
+}
+.card, .card-live {
     background-color: #fff;
     border-radius: 15px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -182,4 +190,9 @@ a:hover {
     cursor: pointer;
     width: 100%;           
     margin: 10px 0px;
+}
+.deletebuttons:hover {
+    background-color: darkred;
+    scale: 1.05;
+    transition: all 0.02s ease;
 }
