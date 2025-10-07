@@ -211,33 +211,27 @@ a:hover {
     scale: 1.05;
     transition: all 0.02s ease;
 }
-/* --- Live Page Additions (3x3 Ticket Grid Display) --- */
-
 .notify {
     text-align: center;
-    color: red;
+    color: rgb(255, 0, 0);
     margin-bottom: 10px;
     font-weight: bold;
 }
-
-/* Grid container for 3x3 ticket layout */
 .tickets-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 20px;
-    background-color: #ffffff; /* QueueWorks blue border */
+    background-color: #ffffff;
     border-radius: 15px;
     padding: 20px;
     width: 100%;
     height: 100%;
     box-sizing: border-box;
-    overflow: hidden; /* removes scrollbars */
+    overflow: hidden;
 }
-
-/* Individual ticket boxes inside grid */
 .ticket-box {
-    background-color: #d5e1ee; /* Light blue tone matching background */
-    border: 2px solid #4a90e2; /* Blue border for consistency */
+    background-color: #d5e1ee; 
+    border: 2px solid #4a90e2; 
     border-radius: 15px;
     padding: 16px;
     text-align: center;
@@ -248,13 +242,10 @@ a:hover {
     min-height: 20%;
     max-height: 80%
 }
-
 .ticket-box:hover {
     transform: scale(1.03);
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
 }
-
-/* Text inside each ticket box */
 .ticket-box small {
     display: block;
     color: #333;
@@ -268,40 +259,34 @@ a:hover {
     line-height: 1.3;
     word-break: break-word;
 }
-
-/* Optional responsive behavior for smaller screens */
 @media (max-width: 900px) {
     .tickets-grid {
         grid-template-columns: repeat(2, 1fr);
         height: auto;
     }
 }
-
 @media (max-width: 600px) {
     .tickets-grid {
         grid-template-columns: 1fr;
         height: auto;
     }
 }
-    .ticket-box {
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-        
-        .ticket-box:hover {
-            transform: scale(1.02);
-            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-        }
-        
-        .ticket-box.selected {
-            border: 3px solid #ff0000;
-            box-shadow: 0 0 15px rgba(255, 0, 0, 0.5);
-        }
-        
-        .admin-controls {
-            display: flex;
-            gap: 10px;
-            flex-wrap: wrap;
-            margin: 20px 0;
-            justify-content: center;
-        }
+.ticket-box {
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+.ticket-box:hover {
+    transform: scale(1.02);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+.ticket-box.selected {
+    border: 3px solid #ff0000;
+    box-shadow: 0 0 15px rgba(255, 0, 0, 0.5);
+}
+.admin-controls {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin: 20px 0;
+    justify-content: center;
+}
