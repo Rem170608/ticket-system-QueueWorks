@@ -225,12 +225,11 @@ a:hover {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 20px;
-    background-color: #ffffff;
-    border: 3px solid #4a90e2; /* QueueWorks blue border */
+    background-color: #ffffff; /* QueueWorks blue border */
     border-radius: 15px;
     padding: 20px;
     width: 100%;
-    height: 70vh;
+    height: 100%;
     box-sizing: border-box;
     overflow: hidden; /* removes scrollbars */
 }
@@ -246,6 +245,8 @@ a:hover {
     font-weight: 500;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     transition: transform 0.2s ease, box-shadow 0.2s ease;
+    min-height: 20%;
+    max-height: 80%
 }
 
 .ticket-box:hover {
