@@ -104,7 +104,7 @@ a:hover {
     border-color: #4a90e2;
     outline: none;
 }
-.submit-button {
+.button {
     background-color: #4a90e2;
     color: white;
     border: none;
@@ -114,7 +114,7 @@ a:hover {
     cursor: pointer;
     width: 100%;
 }
-.submit-button:hover {
+.button:hover {
     background-color: #357abd;
     scale: 1.01;
     transition: all 0.02s ease;
