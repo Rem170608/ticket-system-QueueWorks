@@ -92,10 +92,18 @@ Navigate To the Save location of the Programm copy the path to the Backend folde
 
 ```MySql
 INSERT INTO `ticket` (`id`, `name`, `cat`, `LJ`, `msg`, `time`) VALUES (NULL, 'John Doh', 'Q', 'Praxis', 'Help me with Git pls', current_timestamp());
-INSERT INTO `ticket` (`id`, `name`, `cat`, `LJ`, `msg`, `time`) VALUES (NULL, 'Max Musster', 'I', 'Praxis', 'yeah this is fine', current_timestamp());
+INSERT INTO `ticket` (`id`, `name`, `cat`, `LJ`, `msg`, `time`) VALUES (NULL, 'Leon Hebeisen', 'I', 'Praxis', 'yeah this is fine', current_timestamp());
 INSERT INTO `ticket` (`id`, `name`, `cat`, `LJ`, `msg`, `time`) VALUES (NULL, 'Jason Derulo', 'C', 'Basis', 'Help', current_timestamp());
 INSERT INTO `ticket` (`id`, `name`, `cat`, `LJ`, `msg`, `time`) VALUES (NULL, 'Jana Doh', 'C', 'Praxis', 'Who is this', current_timestamp());
-INSERT INTO `ticket` (`id`, `name`, `cat`, `LJ`, `msg`, `time`) VALUES (NULL, 'John david', 'Q', 'Praxis', 'Test data is Goofy', current_timestamp());
+INSERT INTO `ticket` (`id`, `name`, `cat`, `LJ`, `msg`, `time`) VALUES (NULL, 'John david', 'Q', 'Praxis', 'Test', current_timestamp());
+INSERT INTO `ticket` (`id`, `name`, `cat`, `LJ`, `msg`, `time`) VALUES (NULL, 'Marcel david', 'Q', 'Praxis', 'Dr.House', current_timestamp());
+INSERT INTO `ticket` (`id`, `name`, `cat`, `LJ`, `msg`, `time`) VALUES (NULL, 'Franz Herrman', 'Q', 'Praxis', 'Test12 Test 23', current_timestamp());
+INSERT INTO `ticket` (`id`, `name`, `cat`, `LJ`, `msg`, `time`) VALUES (NULL, 'Mike david', 'Q', 'Praxis', 'Main Coon cat', current_timestamp());
+INSERT INTO `ticket` (`id`, `name`, `cat`, `LJ`, `msg`, `time`) VALUES (NULL, 'Raffael Maier', 'Q', 'Praxis', 'you', current_timestamp());
+INSERT INTO `ticket` (`id`, `name`, `cat`, `LJ`, `msg`, `time`) VALUES (NULL, 'Enzo Ferrari', 'Q', 'Praxis', 'French bulldog', current_timestamp());
+INSERT INTO `ticket` (`id`, `name`, `cat`, `LJ`, `msg`, `time`) VALUES (NULL, 'jon guz', 'Q', 'Praxis', 'Tree', current_timestamp());
+INSERT INTO `ticket` (`id`, `name`, `cat`, `LJ`, `msg`, `time`) VALUES (NULL, 'TOM', 'Q', 'Praxis', 'Frenchbuldog', current_timestamp());
+
 ```
 
 ## Authors
