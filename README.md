@@ -29,27 +29,29 @@ An in-depth paragraph about your project and overview of use.
 
 ### Dependencies
 
-- Describe any prerequisites, libraries, OS version, etc., needed before installing program.
+This project runs on Node.js and uses the following main libraries:
 
-- ex. Windows 10
+- express – web server framework to handle routes and API endpoints
+
+- mysql – used for MySQL database connection and queries
+
+- mysql2 – improved MySQL client with Promise support
+
+Make sure you have:
+
+- [Node.js (v18 or later recommended)](#nodejs)
+
+- [MySQL Server installed and running](https://www.apachefriends.org/download.html)
+
+- [A configured database (see Installing Sql DB)](#mysql-db)
+
+
 
 ### Installing
 
-- How/where to download your program
-- Any modifications needed to be made to files/folders
+#### Node.js
 
-### Executing program
-
-- How to run the program
-- Step-by-step bullets
-
-```JS
-code blocks for commands
-```
-
-## Help
-
-Easy setup with this MySql query
+#### MySql DB
 
 **Important**: Replace the password with your own, secure password. Note that the password is again used in the main.js file where you also need to replace it.
 
@@ -75,6 +77,19 @@ FLUSH PRIVILEGES;
 
 ```
 
+### Executing program
+
+Navigate To the Save location of the Programm copy the path to the Backend folder.
+
+**Important** make sure you have all of the aformentioned [Dependencies](#dependencies) installed.
+
+```Bat
+  cd "yourpath\Backend" 
+  node main.js
+```
+
+## Help
+
 ## Test Data
 
 ```MySql
@@ -87,7 +102,7 @@ INSERT INTO `ticket` (`id`, `name`, `cat`, `LJ`, `msg`, `time`) VALUES (NULL, 'J
 
 ## Authors
 
-Contributors names and contact info
+Contributors names and contact info \
 [Leon](https://github.com/lelelon225) \
 [rem](https://github.com/Rem170608)
 
