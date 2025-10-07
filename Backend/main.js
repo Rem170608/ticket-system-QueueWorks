@@ -1,10 +1,23 @@
+
+// MySQL database connection details
+// Make sure to replace these with your actual database credentials.
+
+const password = "password123456";
+const host = "localhost";
+const user = "noserq_user";
+const database = "ticket-queueworks";
+
+
+
+// MySQL connection test
+
 let mysql = require('mysql');
 
 let con = mysql.createConnection({
-  host: "localhost",
-  user: "noserq_user-",
-  password: "password123456",
-  database: "ticket-queueworks"
+  host: host,
+  user: user,
+  password: password,
+  database: database
 });
 
 con.connect(function(err) {
