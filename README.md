@@ -39,11 +39,11 @@ This project runs on Node.js and uses the following main libraries:
 
 Make sure you have:
 
-- Node.js (v18 or later recommended)
+- [Node.js (v18 or later recommended)](#nodejs)
 
-- MySQL Server installed and running
+- [MySQL Server installed and running](https://www.apachefriends.org/download.html)
 
-- A configured database (see [Installing Sql DB](#mysql-db))
+- [A configured database (see Installing Sql DB)](#mysql-db)
 
 
 
@@ -79,16 +79,16 @@ FLUSH PRIVILEGES;
 
 ### Executing program
 
-- How to run the program
-- Step-by-step bullets
+Navigate To the Save location of the Programm copy the path to the Backend folder.
 
-```JS
-code blocks for commands
+**Important** make sure you have all of the aformentioned [Dependencies](#dependencies) installed.
+
+```Bat
+  cd "yourpath\Backend" 
+  node main.js
 ```
 
 ## Help
-
-
 
 ## Test Data
 
@@ -102,7 +102,7 @@ INSERT INTO `ticket` (`id`, `name`, `cat`, `LJ`, `msg`, `time`) VALUES (NULL, 'J
 
 ## Authors
 
-Contributors names and contact info
+Contributors names and contact info \
 [Leon](https://github.com/lelelon225) \
 [rem](https://github.com/Rem170608)
 
