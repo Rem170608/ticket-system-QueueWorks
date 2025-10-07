@@ -1,3 +1,6 @@
+import { alert } from 'node:console';
+
+
 // MySQL database connection details
 
 const password = "password123456";
@@ -5,19 +8,48 @@ const host = "localhost";
 const user = "noserq_user";
 const database = "ticket-queueworks";
 
-let mysql = require('mysql');
 
-let con = mysql.createConnection({
+
+
+
+let {createPool} = require('mysql');
+
+let pool = createPool({
   host: host,
   user: user,
   password: password,
   database: database
 });
 
-con.connect(function(err) {
+pool.query('SELECT * FROM ticket', (err, res) => {
   if (err) throw err;
-  console.log("Connected!"); 
+  return console.log(res);
 });
 
-// Export the connection
-export default con;
+
+
+// Function to submit a ticket
+
+function submitTicket() {
+    alert('Ticket wird eingereicht...');
+    pool.query('SELECT * FROM ticket', (err, res) => {
+    if (err) throw err;
+    return console.log(res);
+    });
+    alert('Datenbankverbindung hergestellt...');
+    const name = document.getElementById('nameInput').value;
+    const cat = document.getElementById('category').value;
+    const LJ = document.getElementById('lehrjahr').value;
+    const msg = document.getElementById('descriptionInput').value;
+    if (!name || !cat || !LJ || !msg) {
+        alert('Bitte alle Felder ausfüllen!');
+        return;
+    } else {
+        const sql = "INSERT INTO ticket (name, cat, LJ, msg) VALUES (name, cat, LJ, msg)";
+        con.query(sql, [name, cat, LJ, msg], (err, result) => {
+            if (err) throw err;
+            alert('Ticket erfolgreich eingereicht!');
+            window.location.href = '/index.html';
+        });
+    }
+};
