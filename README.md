@@ -49,9 +49,9 @@ Make sure you have:
 
 ### Installing
 
-## Node.js
+#### Node.js
 
-## MySql DB
+#### MySql DB
 
 **Important**: Replace the password with your own, secure password. Note that the password is again used in the main.js file where you also need to replace it.
 
