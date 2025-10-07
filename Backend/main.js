@@ -1,55 +1,54 @@
-import { alert } from 'node:console';
+const express = require('express');
+const mysql = require('mysql2');
+const cors = require('cors');
 
+const app = express();
+app.use(cors({
+    origin: ['http://127.0.0.1:5500', 'http://localhost:5500'],
+    methods: ['GET', 'POST'],
+    credentials: true
+}));
+app.use(express.json());
 
-// MySQL database connection details
+console.log('Backend gestartet...');
 
-const password = "password123456";
-const host = "localhost";
-const user = "noserq_user";
-const database = "ticket-queueworks";
-
-
-
-
-
-let {createPool} = require('mysql');
-
-let pool = createPool({
-  host: host,
-  user: user,
-  password: password,
-  database: database
+const pool = mysql.createPool({
+    host: "localhost",
+    user: "noserq_user",
+    password: "password123456",
+    database: "ticket-queueworks"
 });
 
-pool.query('SELECT * FROM ticket', (err, res) => {
-  if (err) throw err;
-  return console.log(res);
-});
-
-
-
-// Function to submit a ticket
-
-function submitTicket() {
-    alert('Ticket wird eingereicht...');
-    pool.query('SELECT * FROM ticket', (err, res) => {
-    if (err) throw err;
-    return console.log(res);
-    });
-    alert('Datenbankverbindung hergestellt...');
-    const name = document.getElementById('nameInput').value;
-    const cat = document.getElementById('category').value;
-    const LJ = document.getElementById('lehrjahr').value;
-    const msg = document.getElementById('descriptionInput').value;
+// Endpoint to submit a ticket
+app.post('/submit-ticket', (req, res) => {
+    const { name, cat, LJ, msg } = req.body;
+    
     if (!name || !cat || !LJ || !msg) {
-        alert('Bitte alle Felder ausfüllen!');
-        return;
-    } else {
-        const sql = "INSERT INTO ticket (name, cat, LJ, msg) VALUES (name, cat, LJ, msg)";
-        con.query(sql, [name, cat, LJ, msg], (err, result) => {
-            if (err) throw err;
-            alert('Ticket erfolgreich eingereicht!');
-            window.location.href = '/index.html';
-        });
+        return res.status(400).json({ error: 'All fields are required' });
     }
-};
+
+    const sql = "INSERT INTO ticket (name, cat, LJ, msg) VALUES (?, ?, ?, ?)";
+    pool.query(sql, [name, cat, LJ, msg], (err, result) => {
+        if (err) {
+            console.error(err);
+            return res.status(500).json({ error: 'Database error' });
+        }
+        res.json({ message: 'Ticket created successfully' });
+    });
+});
+
+// Endpoint to get all tickets
+app.get('/tickets', (req, res) => {
+    pool.query('SELECT * FROM ticket', (err, results) => {
+        if (err) {
+            console.error(err);
+            return res.status(500).json({ error: 'Database error' });
+        }
+        res.json(results);
+    });
+});
+
+const PORT = 3000;
+app.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`);
+});
