@@ -45,6 +45,8 @@ a {
     min-width: 80px;
     padding: 12px 12px;
     font-weight: bold;
+    cursor: pointer;
+    transition: all 0.02s ease;
 }
 a:hover {
     background-color: #357abd;

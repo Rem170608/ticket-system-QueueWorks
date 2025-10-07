@@ -6,8 +6,7 @@
     <title>Ticket System - QueueWorks</title>
     <link rel="icon" type="image/x-icon" href="/Media/head.svg">
     <link rel="stylesheet" href="style.css">
-    
-
+    <script src="/Backend/main.js" defer></script>
 </head>
 <body>
     <main>
@@ -20,29 +19,28 @@
                         <a href="login.html" class="nav-link">Login</a>
                     </div>
                 </div>
-            <img src="/Media/logo.svg" alt="logo" class="logo">
-            <div class="spacer"></div>
-            <input type="text" placeholder="Vorname Name" id="nameInput" class="input-field">
-            <select id="category" class="input-field">
-                <option value="" disabled selected>Kategorie</option>
-                <option value="Q">Frage</option>
-                <option value="C">Korrektur</option>
-                <option value="I">Problem</option>
-            </select>
-            <select name="lehrjahr" id="lehrjahr" class="input-field">
-                <option value="" disabled selected>Lehrjahr</option>
-                <option value="Basis">Basis</option>
-                <option value="Praxis">Praxis</option>
-
-            </select>
-            <input type="text" placeholder="Beschreibung (Bsp. 'Problem mit Github')" id="descriptionInput" class="input-field">
-                        <button id="submitBtn" type="button" class="button" >Ticket ziehen</button>
-                        <script src="/Backend/submit.js" type="module" defer></script>
-        </div>
+                <img src="/Media/logo.svg" alt="logo" class="logo">
+                <div class="spacer"></div>
+                <input type="text" placeholder="Vorname Name" id="nameInput" class="input-field">
+                <select id="category" class="input-field">
+                    <option value="" disabled selected>Kategorie</option>
+                    <option value="Q">Frage</option>
+                    <option value="C">Korrektur</option>
+                    <option value="I">Problem</option>
+                </select>
+                <select name="lehrjahr" id="lehrjahr" class="input-field">
+                    <option value="" disabled selected>Lehrjahr</option>
+                    <option value="Basis">Basis</option>
+                    <option value="Praxis">Praxis</option>
+                </select>
+                <input type="text" placeholder="Beschreibung (Bsp. 'Problem mit Github')" id="descriptionInput" class="input-field">
+                <button id="submitBtn" class="button" onclick="submitTicket()">Ticket ziehen</button>
+            </div>
         </div>
     </main>
     <footer>
         <p>&copy; 2025 QueueWorks</p>
     </footer>
+    
 </body>
 </html>

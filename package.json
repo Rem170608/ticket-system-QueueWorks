@@ -6,7 +6,7 @@
   "scripts": {
     "start": "node Backend/main.js"
   },
-  "type": "module",
+  "type": "commonjs",
   "dependencies": {
     "express": "^4.21.2",
     "mysql": "^2.18.1",
