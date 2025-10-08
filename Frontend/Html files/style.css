@@ -1,23 +1,27 @@
+:root {
+    color-scheme: light dark;
+}
+
 body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #d5e1ee;
-    color: #333;
+    background-color: light-dark;
+    color: light dark()333;
     display: flex;
     flex-direction: column;
     min-height: 100vh;
 }
 header {
-    background-color: #4a90e2;
-    color: white;
+    background-color: light dark();
+    color: light dark();
     padding: 10px 20px;
     text-align: center;
 }
 footer
 {
-    background-color: #d5e1ee;
-    color: #333;
+    background-color: light dark()d5e1ee;
+    color: light dark()333;
     text-align: center;
     padding: 10px 20px;
     margin-top: auto;
@@ -35,8 +39,8 @@ h3 {
     margin-bottom: 8px;
 }
 a {
-    background-color: #4a90e2;
-    color: white;
+    background-color: light dark();
+    color: light dark();
     text-align: center;
     display:  inline-block;
     text-decoration: none;
@@ -50,7 +54,7 @@ a {
 }
 
 a:hover {
-    background-color: #357abd;
+    background-color: light dark()357abd;
     scale: 1.05;
     transition: all 0.02s ease;
 }
@@ -68,12 +72,12 @@ a:hover {
 .navbar-buttons, .navbar-buttons-live {
     margin: 0 5px;
     padding: 10px 15px;
-    background-color: white;
+    background-color: light dark();
     border-radius: 15px;
 }
 .logout-button {
-    background-color: #ff4d4d;
-    color: white;
+    background-color: light dark();
+    color: light dark();
     border: none;
     border-radius: 15px;
     padding: 12px 20px;
@@ -82,7 +86,7 @@ a:hover {
     transition: all 0.02s ease;
 }
 .logout-button:hover {
-    background-color: #cc0000;
+    background-color: light dark();
     scale: 1.05;
     transition: all 0.02s ease;
 }
@@ -99,7 +103,7 @@ a:hover {
 }
 .container-ticket-container-live {
     flex: 1;
-    background-color: #333;
+    background-color: light dark()333;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -111,13 +115,13 @@ a:hover {
     flex-direction: row;
     align-items: center;
     max-width: 100%;
-    background-color: #357abd;
+    background-color: light dark()357abd;
 
 }
 .card-live, .card {
-    background-color: #fff;
+    background-color: light dark()fff;
     border-radius: 15px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 2px 4px light dark()(0, 0, 0, 0.1);
     padding: 20px;
     margin: 10px;
     flex: 1;
@@ -134,7 +138,7 @@ a:hover {
     width: 100%;
     padding: 10px;
     margin: 10px 0;
-    border: 2.25px solid #ccc;
+    border: 2.25px solid light dark();
     border-radius: 15px;
     box-sizing: border-box;
     font-size: 16px;
@@ -142,12 +146,12 @@ a:hover {
     font-weight: bold;
 }
 .input-field:focus {
-    border-color: #4a90e2;
+    border-color: light dark();
     outline: none;
 }
 .button {
-    background-color: #4a90e2;
-    color: white;
+    background-color: light dark();
+    color: light dark();
     border: none;
     border-radius: 15px;
     padding: 12px 20px;
@@ -156,7 +160,7 @@ a:hover {
     width: 100%;
 }
 .button:hover {
-    background-color: #357abd;
+    background-color: light dark()357abd;
     scale: 1.02;
     transition: all 0.02s ease;
 }
@@ -169,7 +173,7 @@ a:hover {
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    color: #666;
+    color: light dark()666;
     transition: transform 0.08s ease, opacity 0.12s ease;
 }
 .input-with-icon {
@@ -195,22 +199,22 @@ a:hover {
     display: block;
 }
 .input-with-icon .show-password:hover {
-    background-color: rgba(74,144,226,0.08);
+    background-color: light dark()(74,144,226,0.08);
     transform: translateY(-50%) scale(1.05);
 }
 .input-with-icon .show-password:focus {
-    outline: 2px solid rgba(74,144,226,0.25);
+    outline: 2px solid light dark()(74,144,226,0.25);
 }
 .bad-actor {
-    color: red;
+    color: light dark();
     font-weight: bold;
     margin-top: 10px;
     padding: 10px;
     border-radius: 15px;
 }
 .deletebuttons {
-    background-color: red;
-    color: white;
+    background-color: light dark();
+    color: light dark();
     border: none;
     border-radius: 15px;
     padding: 12px 20px;
@@ -219,7 +223,7 @@ a:hover {
     width: 100%;
 }
 .deletebuttons:hover {
-    background-color: darkred;
+    background-color: light dark();
     scale: 1.02;
     transition: all 0.02s ease;
 }
@@ -233,7 +237,7 @@ a:hover {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 20px;
-    background-color: #ffffff;
+    background-color: light dark();
     border-radius: 15px;
     padding: 20px;
     width: 100%;
@@ -242,31 +246,31 @@ a:hover {
     overflow: hidden;
 }
 .ticket-box {
-    background-color: #d5e1ee; 
-    border: 2px solid #4a90e2; 
+    background-color: light dark()d5e1ee; 
+    border: 2px solid light dark(); 
     border-radius: 15px;
     padding: 16px;
     text-align: center;
     font-size: 0.95rem;
     font-weight: 500;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 2px 5px light dark()(0, 0, 0, 0.1);
     transition: transform 0.2s ease, box-shadow 0.2s ease;
     min-height: 20%;
     max-height: 80%
 }
 .ticket-box:hover {
     transform: scale(1.03);
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 4px 10px light dark()(0, 0, 0, 0.15);
 }
 .ticket-box small {
     display: block;
-    color: #333;
+    color: light dark()333;
     font-weight: bold;
     margin-bottom: 8px;
 }
 .ticket-box p {
     margin: 0;
-    color: #222;
+    color: light dark()222;
     line-height: 1.3;
     word-break: break-word;
 }
@@ -288,11 +292,11 @@ a:hover {
 }
 .ticket-box:hover {
     transform: scale(1.02);
-    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    box-shadow: 0 4px 8px light dark()(0,0,0,0.2);
 }
 .ticket-box.selected {
-    border: 3px solid #ff0000;
-    box-shadow: 0 0 15px rgba(255, 0, 0, 0.5);
+    border: 3px solid light dark()ff0000;
+    box-shadow: 0 0 15px light dark()(255, 0, 0, 0.5);
 }
 .admin-controls {
     display: flex;
@@ -308,16 +312,16 @@ body {
             padding: 20px;
         }
         .test-box {
-            background: #f0f0f0;
+            background: light dark()f0f0f0;
             padding: 20px;
             margin: 10px 0;
             border-radius: 8px;
         }
-        .success { background: #d4edda; color: #155724; }
-        .error { background: #f8d7da; color: #721c24; }
+        .success { background: light dark(); color: light dark(); }
+        .error { background: light dark(); color: light dark(); }
         button {
-            background: #4a90e2;
-            color: white;
+            background: light dark();
+            color: light dark();
             border: none;
             padding: 10px 20px;
             border-radius: 5px;
@@ -325,23 +329,23 @@ body {
             margin: 5px;
         }
         pre {
-            background: #2d2d2d;
-            color: #f8f8f2;
+            background: light dark()2d2d2d;
+            color: light dark()f8f8f2;
             padding: 15px;
             border-radius: 5px;
             overflow-x: auto;
         }
         .error-message {
-           color: #ff0000; 
-           background: rgba(255, 0, 0, 0.1); 
+           color: light dark()ff0000; 
+           background: light dark()(255, 0, 0, 0.1); 
            padding: 10px; border-radius: 5px; 
            margin: 10px 0; 
            display: none; 
            text-align: center;
         }   
         .success-message {
-           color: #00ff00; 
-           background: rgba(0, 255, 0, 0.1); 
+           color: light dark()00ff00; 
+           background: light dark()(0, 255, 0, 0.1); 
            padding: 10px; border-radius: 5px; 
            margin: 10px 0; 
            display: none; 

@@ -1,59 +1,5 @@
-<<<<<<< HEAD:Frontend/login.html
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login - QueueWorks</title>
-    <link rel="icon" type="image/x-icon" href="/Media/head.svg">
-    <link rel="stylesheet" href="style.css">
-    <script src="tracker.js"></script>
-</head>
-<body>
-    <main>
-        <div class="container">
-            <div class="card">
-                <div class="navbar">
-                    <div class="navbar-buttons">
-                        <a href="index.html" class="nav-link">Home</a>
-                        <a href="live.html" class="nav-link">Live</a>
-                        <a href="admin-setup.html" class="nav-link" id="loginNavLink">Admin Setup</a>
-                    </div>
-                </div>
-                <img src="/Media/logo.svg" alt="logo" class="logo">
-                
-                <h2>Admin Login</h2>
-                
-                <div id="errorMessage" style="color: #ff0000; background: rgba(255, 0, 0, 0.1); padding: 10px; border-radius: 5px; margin: 10px 0; display: none; text-align: center;"></div>
-                <div id="successMessage" style="color: #00ff00; background: rgba(0, 255, 0, 0.1); padding: 10px; border-radius: 5px; margin: 10px 0; display: none; text-align: center;"></div>
-                
-                <div id="loginForm">
-                    <p id="tries"></p>
-                    <div class="input-with-icon">
-                        <input type="text" placeholder="Benutzername" id="usernameInput" class="input-field" value="noserq_user" autocomplete="username" disabled>
-                    </div>
-                    <div class="input-with-icon">
-                        <input type="password" placeholder="Passwort" id="passwordInput" class="input-field" autocomplete="current-password">
-                        <button id="showPasswordBtn" type="button" class="show-password" aria-label="Toggle password visibility" title="Toggle password visibility">
-                            <img id="eyeIcon" src="/Media/icons8-closed-eye-50.png" alt="Show password" />
-                        </button>
-                    </div>
-                    <button id="loginBtn" type="button" class="button" onclick="getIP()">Login</button>
-                </div>
-            </div>
-        </div>
-    </main>
-    <footer>
-        <p>&copy; 2025 QueueWorks</p>
-    </footer>
-
-    <script src="/Backend/login.js"></script>
-    <script>
-        const AUTH_KEY = 'queueworks_admin_session';
-=======
 // login.js
 const AUTH_KEY = 'queueworks_admin_session';
->>>>>>> b85edcae466be727ec6c9297a8fe6f93aa6e5ef9:Frontend/Javasrcipt files/login.js
         const API_URL = 'http://localhost:3000';
 
         // Check if admin exists and redirect to setup if needed
