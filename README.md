@@ -1,13 +1,15 @@
 # Ticket system by QueueWorks
-### Quick Install 
+
+## Quick Install
 
 Choose your operating system:
 
 ---
 
-####  macOS
+### macOS
 
 One-line install using Homebrew:
+
 ```bash
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh) && \
   brew install node mysql && \
@@ -17,9 +19,10 @@ One-line install using Homebrew:
 
 ---
 
-####  Windows
+### Windows
 
 One-line install using Chocolatey:
+
 ```powershell
 Set-ExecutionPolicy Bypass -Scope Process -Force; \
   [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; \
@@ -30,13 +33,15 @@ Set-ExecutionPolicy Bypass -Scope Process -Force; \
 
 ---
 
-### What Gets Installed:
+### What Gets Installed
 
  **Required Software:**
+
 - Node.js - Powers the backend server
 - MySQL - Handles the database
 
  **NPM Packages:**
+
 - node-schedule: Automatic ticket cleanup
 - express: Web server framework
 - mysql2: Database connection
@@ -64,10 +69,8 @@ An in-depth paragraph about your project and overview of use.
   - [X] Bad actor Prevention
   - [x] Autodelete at 00:00 CEST (UTC+2)
   - [X] Login Cookie
-  - [ ] Dark Mode
+  - [X] Dark Mode
   - [ ] Docker
-
-
 
 ### Installing
 
