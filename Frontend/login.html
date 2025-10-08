@@ -28,6 +28,9 @@
                 
                 <div id="loginForm">
                     <div class="input-with-icon">
+                        <input type="text" placeholder="Benutzername" id="usernameInput" class="input-field" value="noserq_user" autocomplete="username" disabled>
+                    </div>
+                    <div class="input-with-icon">
                         <input type="password" placeholder="Passwort" id="passwordInput" class="input-field" autocomplete="current-password">
                         <button id="showPasswordBtn" type="button" class="show-password" aria-label="Toggle password visibility" title="Toggle password visibility">
                             <img id="eyeIcon" src="/Media/icons8-closed-eye-50.png" alt="Show password" />
@@ -86,20 +89,27 @@
             // Check admin setup status
             checkAdminSetup();
 
-            // Setup password toggle
-            if (typeof window.showpasswordbtn === 'function') {
-                try {
-                    showpasswordbtn({
-                        passwordId: 'passwordInput',
-                        buttonId: 'showPasswordBtn',
-                        iconId: 'eyeIcon',
-                        openIcon: '/Media/icons8-eye-50.png',
-                        closedIcon: '/Media/icons8-closed-eye-50.png'
-                    });
-                } catch (err) {
-                    console.info('showpasswordbtn exists but threw:', err);
-                }
-            }
+            // Setup password toggle with mousedown/mouseup
+            const passwordInput = document.getElementById('passwordInput');
+            const showPasswordBtn = document.getElementById('showPasswordBtn');
+            const eyeIcon = document.getElementById('eyeIcon');
+            
+            // Show password on mousedown
+            showPasswordBtn.addEventListener('mousedown', () => {
+                passwordInput.type = 'text';
+                eyeIcon.src = '/Media/icons8-eye-50.png';
+            });
+            
+            // Hide password on mouseup or mouseleave
+            showPasswordBtn.addEventListener('mouseup', () => {
+                passwordInput.type = 'password';
+                eyeIcon.src = '/Media/icons8-closed-eye-50.png';
+            });
+            
+            showPasswordBtn.addEventListener('mouseleave', () => {
+                passwordInput.type = 'password';
+                eyeIcon.src = '/Media/icons8-closed-eye-50.png';
+            });
             
             // Add Enter key handler
             document.getElementById('passwordInput')?.addEventListener('keypress', function(e) {
