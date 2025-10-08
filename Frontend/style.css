@@ -71,6 +71,21 @@ a:hover {
     background-color: white;
     border-radius: 15px;
 }
+.logout-button {
+    background-color: #ff4d4d;
+    color: white;
+    border: none;
+    border-radius: 15px;
+    padding: 12px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: all 0.02s ease;
+}
+.logout-button:hover {
+    background-color: #cc0000;
+    scale: 1.05;
+    transition: all 0.02s ease;
+}
 .container, .container-live {
     flex: 1;
     display: flex;
@@ -285,20 +300,4 @@ a:hover {
     flex-wrap: wrap;
     margin: 20px 0;
     justify-content: center;
-}
-.button-small {
-    background-color: #4a90e2;
-    color: white;
-    border: none;
-    border-radius: 15px;
-    padding: 12px 20px;
-    font-size: 16px;
-    cursor: pointer;
-    width: 10%;           
-    margin: 10px 0px;
-}
-.button-small:hover {
-    background-color: #357abd;
-    scale: 1.02;
-    transition: all 0.02s ease;
 }
