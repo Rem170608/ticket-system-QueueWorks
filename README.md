@@ -24,6 +24,7 @@ An in-depth paragraph about your project and overview of use.
   - [ ] Autodelete at 00:00 CEST (UTC+2)
   - [ ] Login Cookie
   - [ ] Dark Mode
+  - [ ] Docker
 
 ## Getting Started
 
@@ -61,7 +62,7 @@ CREATE DATABASE IF NOT EXISTS `ticket-queueworks`;
 USE `ticket-queueworks`;
 
 -- Create the tables
-CREATE TABLE IF NOT EXISTS admin_users (
+CREATE TABLE IF NOT EXISTS 'admin_users' (
     id INT AUTO_INCREMENT PRIMARY KEY,
     username VARCHAR(50) UNIQUE NOT NULL,
     password VARCHAR(255) NOT NULL,
