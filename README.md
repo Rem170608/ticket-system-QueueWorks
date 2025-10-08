@@ -1,6 +1,47 @@
 # Ticket system by QueueWorks
+### Quick Install 
 
-This is a easy to use and User friendly Ticket Syste, for everyone.
+Choose your operating system:
+
+---
+
+####  macOS
+
+One-line install using Homebrew:
+```bash
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh) && \
+  brew install node mysql && \
+  brew services start mysql && \
+  npm install -g node-schedule express mysql2 cors jsonwebtoken"
+```
+
+---
+
+####  Windows
+
+One-line install using Chocolatey:
+```powershell
+Set-ExecutionPolicy Bypass -Scope Process -Force; \
+  [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; \
+  iex ((New-Object System.Net.WebClient).DownloadString('https://community.chocolatey.org/install.ps1')) && \
+  choco install -y nodejs mysql && \
+  npm install -g node-schedule express mysql2 cors jsonwebtoken
+```
+
+---
+
+### What Gets Installed:
+
+ **Required Software:**
+- Node.js - Powers the backend server
+- MySQL - Handles the database
+
+ **NPM Packages:**
+- node-schedule: Automatic ticket cleanup
+- express: Web server framework
+- mysql2: Database connection
+- cors: Cross-origin requests
+- jsonwebtoken: Authenticationo use and User friendly Ticket Syste, for everyone.
 
 ## Description
 
@@ -21,30 +62,12 @@ An in-depth paragraph about your project and overview of use.
 - [ ] Advanced Features  
   - [X] Mass delete
   - [X] Bad actor Prevention
-  - [ ] Autodelete at 00:00 CEST (UTC+2)
+  - [x] Autodelete at 00:00 CEST (UTC+2)
   - [X] Login Cookie
   - [ ] Dark Mode
   - [ ] Docker
 
-## Getting Started
 
-### Dependencies
-
-This project runs on Node.js and uses the following main libraries:
-
-- express – web server framework to handle routes and API endpoints
-
-- mysql – used for MySQL database connection and queries
-
-- mysql2 – improved MySQL client with Promise support
-
-Make sure you have:
-
-- [Node.js (v18 or later recommended)](#nodejs)
-
-- [MySQL Server installed and running](https://www.apachefriends.org/download.html)
-
-- [A configured database (see Installing Sql DB)](#mysql-tickets)
 
 ### Installing
 

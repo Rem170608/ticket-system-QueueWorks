@@ -4,6 +4,28 @@
         let selectedTicketId = null;
         let allTickets = [];
 
+        // Function to show notification
+        function showNotification(message, isError = false) {
+            const notify = document.getElementById('notify');
+            if (notify) {
+                notify.textContent = message;
+                notify.style.backgroundColor = isError ? 'rgba(255, 0, 0, 0.1)' : 'rgba(0, 255, 0, 0.1)';
+                notify.style.color = isError ? '#ff0000' : '#008000';
+                notify.style.padding = '10px';
+                notify.style.borderRadius = '5px';
+                notify.style.marginTop = '10px';
+                notify.style.marginBottom = '10px';
+                notify.style.display = 'block';
+                
+                // Auto-hide success messages after 3 seconds
+                if (!isError) {
+                    setTimeout(() => {
+                        notify.style.display = 'none';
+                    }, 3000);
+                }
+            }
+        }
+
         // Check authentication on page load
         async function checkAuth() {
             const authCheck = document.getElementById('auth-check');
@@ -149,7 +171,7 @@
                     const ticketsToDelete = allTickets.filter(t => t.LJ === lj);
                     
                     if (ticketsToDelete.length === 0) {
-                        alert('Keine Tickets für dieses Lehrjahr gefunden.');
+                        showNotification('Keine Tickets für dieses Lehrjahr gefunden.', true);
                         return;
                     }
 
@@ -162,7 +184,7 @@
                             }
                         });
                     }
-                    document.getElementById('notify').textContent = `Alle Tickets für Lehrjahr ${lj} gelöscht.`;
+                    showNotification(`Alle Tickets für Lehrjahr ${lj} gelöscht.`);
                 } else {
                     // No filter selected - delete all tickets
                     const resp = await fetch(API_URL, {
@@ -172,14 +194,14 @@
                         }
                     });
                     if (!resp.ok) throw new Error(`Server ${resp.status}`);
-                    document.getElementById('notify').textContent = 'Alle Tickets aus allen Lehrjahren gelöscht.';
+                    showNotification('Alle Tickets aus allen Lehrjahren gelöscht.');
                 }
                 
                 selectedTicketId = null;
                 loadTickets(lj); // Keep the current filter when reloading
             } catch (err) {
                 console.error('Failed to delete tickets:', err);
-                alert('Fehler beim Löschen der Tickets.');
+                showNotification('Fehler beim Löschen der Tickets.', true);
             }
         }
 
@@ -231,7 +253,7 @@
                 if (deleteSelectedBtn) {
                     deleteSelectedBtn.addEventListener('click', async () => {
                         if (!selectedTicketId) {
-                            alert('Bitte wählen Sie zuerst ein Ticket aus.');
+                            showNotification('Bitte wählen Sie zuerst ein Ticket aus.', true);
                             return;
                         }
                         
@@ -247,14 +269,13 @@
                             });
                             if (!resp.ok) throw new Error(`Server ${resp.status}`);
                             
-                            const notify = document.getElementById('notify');
-                            if (notify) notify.textContent = 'Ticket erfolgreich gelöscht.';
+                            showNotification('Ticket erfolgreich gelöscht.');
                             selectedTicketId = null;
                             const lj = document.getElementById('lehrjahr')?.value || '';
                             loadTickets(lj);
                         } catch (err) {
                             console.error('Failed to delete ticket:', err);
-                            alert('Fehler beim Löschen des Tickets.');
+                            showNotification('Fehler beim Löschen des Tickets.', true);
                         }
                     });
                 }

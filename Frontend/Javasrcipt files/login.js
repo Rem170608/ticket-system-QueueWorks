@@ -118,7 +118,7 @@ const AUTH_KEY = 'queueworks_admin_session';
                     successMsg.style.display = 'block';
                     setTimeout(() => {
                         window.location.href = 'admin.html';
-                    }, 1000);
+                    }, 750);
                 } else {
                     // Show error message
                     console.error('Login failed:', response.ok, data, response.status, response.statusText, data.token, data.message, contentType, response, response.headers);
