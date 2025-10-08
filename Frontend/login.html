@@ -6,7 +6,6 @@
     <title>Login - QueueWorks</title>
     <link rel="icon" type="image/x-icon" href="/Media/head.svg">
     <link rel="stylesheet" href="style.css">
-    <script src="login.js"></script>
 </head>
 <body>
     <main>
@@ -23,24 +22,165 @@
                 
                 <h2>Admin Login</h2>
                 
-                <div id="errorMessage"></div>
-                <div id="successMessage"></div>
+                <div id="errorMessage" style="color: #ff0000; background: rgba(255, 0, 0, 0.1); padding: 10px; border-radius: 5px; margin: 10px 0; display: none; text-align: center;"></div>
+                <div id="successMessage" style="color: #00ff00; background: rgba(0, 255, 0, 0.1); padding: 10px; border-radius: 5px; margin: 10px 0; display: none; text-align: center;"></div>
                 
                 <input type="text" placeholder="Username" id="nameInput" class="input-field" autocomplete="username">
                 
                 <div class="input-with-icon">
                     <input type="password" placeholder="Passwort" id="passwordInput" class="input-field" autocomplete="current-password">
-                    <button id="showPasswordBtn" type="button" class="show-password" aria-label="Toggle password visibility" title="Toggle password visibility" onclick="showPasswordBtn()">
+                    <button id="showPasswordBtn" type="button" class="show-password" aria-label="Toggle password visibility" title="Toggle password visibility">
                         <img id="eyeIcon" src="/Media/icons8-closed-eye-50.png" alt="Show password" />
                     </button>
                 </div>
                 
-                <button id="loginBtn" type="button" class="button" onclick="login()">Login</button>
+                <button id="loginBtn" type="button" class="button">Login</button>
             </div>
         </div>
     </main>
     <footer>
         <p>&copy; 2025 QueueWorks</p>
     </footer>
+
+    <script src="/Backend/login.js"></script>
+    <script>
+        const AUTH_KEY = 'queueworks_admin_session';
+        const API_URL = 'http://localhost:3000';
+
+        // Initialize password toggle using the existing function
+        document.addEventListener('DOMContentLoaded', function () {
+            const passwordToggleConfig = {
+                passwordId: 'passwordInput',
+                buttonId: 'showPasswordBtn',
+                iconId: 'eyeIcon',
+                openIcon: '/Media/icons8-eye-50.png',
+                closedIcon: '/Media/icons8-closed-eye-50.png'
+            };
+            
+            if (typeof window.showpasswordbtn === 'function') {
+                try {
+                    showpasswordbtn(passwordToggleConfig);
+                } catch (err) {
+                    console.info('showpasswordbtn exists but threw:', err);
+                }
+            }
+            
+            // Allow Enter key to submit
+            const passwordInput = document.getElementById('passwordInput');
+            const nameInput = document.getElementById('nameInput');
+            
+            passwordInput.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    document.getElementById('loginBtn').click();
+                }
+            });
+            
+            nameInput.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    passwordInput.focus();
+                }
+            });
+        });
+
+        // Login functionality
+        document.getElementById('loginBtn').addEventListener('click', async function() {
+            const username = document.getElementById('nameInput').value.trim();
+            const password = document.getElementById('passwordInput').value;
+            const errorMsg = document.getElementById('errorMessage');
+            const successMsg = document.getElementById('successMessage');
+            const loginBtn = document.getElementById('loginBtn');
+            
+            // Hide previous messages
+            errorMsg.style.display = 'none';
+            successMsg.style.display = 'none';
+            
+            // Validate inputs
+            if (!username || !password) {
+                errorMsg.textContent = 'Bitte Username und Passwort eingeben.';
+                errorMsg.style.display = 'block';
+                return;
+            }
+            
+            // Disable button during request
+            loginBtn.disabled = true;
+            loginBtn.textContent = 'Logging in...';
+            loginBtn.style.opacity = '0.6';
+            
+            try {
+                const response = await fetch(`${API_URL}/auth/login`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        username: username,
+                        password: password
+                    })
+                });
+                
+                // Check if response is JSON
+                const contentType = response.headers.get('content-type');
+                if (!contentType || !contentType.includes('application/json')) {
+                    const text = await response.text();
+                    console.error('Server response:', text);
+                    throw new Error('Server hat keine JSON-Antwort zurückgegeben. Läuft der Server?');
+                }
+                
+                const data = await response.json();
+                
+                if (response.ok && data.token) {
+                    // Store session token
+                    sessionStorage.setItem(AUTH_KEY, data.token);
+                    
+                    // Show success message
+                    successMsg.textContent = 'Login erfolgreich! Weiterleitung...';
+                    successMsg.style.display = 'block';
+                    
+                    // Redirect to admin page
+                    setTimeout(() => {
+                        window.location.href = 'admin.html';
+                    }, 1000);
+                } else {
+                    // Show error message
+                    errorMsg.textContent = data.message || 'Ungültiger Username oder Passwort.';
+                    errorMsg.style.display = 'block';
+                    loginBtn.disabled = false;
+                    loginBtn.textContent = 'Login';
+                    loginBtn.style.opacity = '1';
+                }
+            } catch (error) {
+                console.error('Login error:', error);
+                errorMsg.textContent = 'Verbindungsfehler. Bitte versuchen Sie es erneut.';
+                errorMsg.style.display = 'block';
+                loginBtn.disabled = false;
+                loginBtn.textContent = 'Login';
+                loginBtn.style.opacity = '1';
+            }
+        });
+
+        // Check if already logged in
+        window.addEventListener('DOMContentLoaded', () => {
+            const token = sessionStorage.getItem(AUTH_KEY);
+            if (token) {
+                // Verify if token is still valid
+                fetch(`${API_URL}/auth/verify`, {
+                    method: 'POST',
+                    headers: {
+                        'Authorization': `Bearer ${token}`
+                    }
+                })
+                .then(resp => {
+                    if (resp.ok) {
+                        // Already logged in, redirect to admin
+                        window.location.href = 'admin.html';
+                    }
+                })
+                .catch(err => {
+                    // Token invalid, clear it
+                    sessionStorage.removeItem(AUTH_KEY);
+                });
+            }
+        });
+    </script>
 </body>
 </html>

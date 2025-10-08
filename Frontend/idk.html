@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Server Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+        }
+        .test-box {
+            background: #f0f0f0;
+            padding: 20px;
+            margin: 10px 0;
+            border-radius: 8px;
+        }
+        .success { background: #d4edda; color: #155724; }
+        .error { background: #f8d7da; color: #721c24; }
+        button {
+            background: #4a90e2;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        pre {
+            background: #2d2d2d;
+            color: #f8f8f2;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+        }
+    </style>
+</head>
+<body>
+    <h1>QueueWorks Server Test</h1>
+    
+    <div class="test-box">
+        <h3>1. Test GET /tickets</h3>
+        <button onclick="testTickets()">Test Tickets Endpoint</button>
+        <div id="tickets-result"></div>
+    </div>
+    
+    <div class="test-box">
+        <h3>2. Test POST /auth/login (will fail without credentials)</h3>
+        <button onclick="testLogin()">Test Login Endpoint</button>
+        <div id="login-result"></div>
+    </div>
+    
+    <div class="test-box">
+        <h3>3. Create Test Admin User</h3>
+        <input type="text" id="test-username" placeholder="Username" value="admin">
+        <input type="password" id="test-password" placeholder="Password" value="test123">
+        <button onclick="createTestAdmin()">Create Admin</button>
+        <div id="admin-result"></div>
+    </div>
+
+    <script>
+        const API_URL = 'http://localhost:3000';
+
+        async function testTickets() {
+            const resultDiv = document.getElementById('tickets-result');
+            resultDiv.innerHTML = '<p>Testing...</p>';
+            
+            try {
+                const response = await fetch(`${API_URL}/tickets`);
+                const data = await response.json();
+                resultDiv.innerHTML = `
+                    <div class="success">
+                        <strong>✅ Success!</strong>
+                        <pre>${JSON.stringify(data, null, 2)}</pre>
+                    </div>
+                `;
+            } catch (error) {
+                resultDiv.innerHTML = `
+                    <div class="error">
+                        <strong>❌ Error:</strong>
+                        <pre>${error.message}</pre>
+                        <p>Make sure your server is running on port 3000!</p>
+                    </div>
+                `;
+            }
+        }
+
+        async function testLogin() {
+            const resultDiv = document.getElementById('login-result');
+            resultDiv.innerHTML = '<p>Testing...</p>';
+            
+            try {
+                const response = await fetch(`${API_URL}/auth/login`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ username: 'test', password: 'test' })
+                });
+                
+                const contentType = response.headers.get('content-type');
+                if (contentType && contentType.includes('application/json')) {
+                    const data = await response.json();
+                    resultDiv.innerHTML = `
+                        <div class="${response.ok ? 'success' : 'error'}">
+                            <strong>${response.ok ? '✅' : '⚠️'} Response (${response.status}):</strong>
+                            <pre>${JSON.stringify(data, null, 2)}</pre>
+                            ${!response.ok ? '<p>This is expected - the endpoint exists!</p>' : ''}
+                        </div>
+                    `;
+                } else {
+                    const text = await response.text();
+                    resultDiv.innerHTML = `
+                        <div class="error">
+                            <strong>❌ Server returned non-JSON response:</strong>
+                            <pre>${text}</pre>
+                            <p><strong>Problem:</strong> The /auth/login endpoint doesn't exist or isn't configured properly!</p>
+                            <p><strong>Solution:</strong> Make sure you updated Backend/main.js with the authentication code.</p>
+                        </div>
+                    `;
+                }
+            } catch (error) {
+                resultDiv.innerHTML = `
+                    <div class="error">
+                        <strong>❌ Error:</strong>
+                        <pre>${error.message}</pre>
+                        <p>Make sure your server is running!</p>
+                    </div>
+                `;
+            }
+        }
+
+        async function createTestAdmin() {
+            const resultDiv = document.getElementById('admin-result');
+            const username = document.getElementById('test-username').value;
+            const password = document.getElementById('test-password').value;
+            
+            resultDiv.innerHTML = '<p>Creating admin user...</p>';
+            
+            try {
+                const response = await fetch(`${API_URL}/setup/create-admin`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ username, password })
+                });
+                
+                const data = await response.json();
+                resultDiv.innerHTML = `
+                    <div class="${response.ok ? 'success' : 'error'}">
+                        <strong>${response.ok ? '✅ Success!' : '❌ Error'}</strong>
+                        <pre>${JSON.stringify(data, null, 2)}</pre>
+                        ${response.ok ? '<p>Now try logging in with these credentials!</p>' : ''}
+                    </div>
+                `;
+            } catch (error) {
+                resultDiv.innerHTML = `
+                    <div class="error">
+                        <strong>❌ Error:</strong>
+                        <pre>${error.message}</pre>
+                    </div>
+                `;
+            }
+        }
+    </script>
+</body>
+</html>

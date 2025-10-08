@@ -6,9 +6,6 @@
     <title>Admin Dashboard - QueueWorks</title>
     <link rel="icon" type="image/x-icon" href="/Media/head.svg">
     <link rel="stylesheet" href="style.css">
-    <style>
-        /* ... (previous CSS remains unchanged) ... */
-    </style>
 </head>
 <body>
     <main>
@@ -23,8 +20,15 @@
                 </div>
                 <img src="/Media/logo.svg" alt="QueueWorks Logo" class="logo-live">
                 
-                <div id="admin-content">
-                    <h1>Admin Dashboard</h1>
+                <div id="auth-check" class="loading-screen">
+                    <p>Checking authentication...</p>
+                </div>
+                
+                <div id="admin-content" style="display: none;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                        <h1 style="margin: 0;">Admin Dashboard</h1>
+                        <button id="logout-btn" class="button-small">Logout</button>
+                    </div>
                     
                     <div id="notify" class="notify"></div>
                     
@@ -34,7 +38,7 @@
                             <option value="Basis">Basis</option>
                             <option value="Praxis">Praxis</option>
                         </select>
-                        <button id="refresh-tickets" class="action-button">🔄 Refresh</button>
+                        <button id="refresh-tickets" class="button">🔄 Refresh</button>
                         <button id="delete-selected" class="deletebuttons">Delete Selected</button>
                         <button id="delete-all" class="deletebuttons">Delete All Tickets</button>
                     </div>
@@ -52,8 +56,58 @@
 
     <script type="module">
         const API_URL = 'http://localhost:3000/tickets';
+        const AUTH_KEY = 'queueworks_admin_session';
         let selectedTicketId = null;
         let allTickets = [];
+
+        // Check authentication on page load
+        async function checkAuth() {
+            const authCheck = document.getElementById('auth-check');
+            const adminContent = document.getElementById('admin-content');
+            
+            // Check if user has valid session
+            const sessionToken = sessionStorage.getItem(AUTH_KEY);
+            
+            if (!sessionToken) {
+                authCheck.innerHTML = `
+                    <div class="access-denied">
+                        <h2>⛔ Zugriff verweigert</h2>
+                        <p>Sie müssen sich anmelden, um auf das Admin-Dashboard zuzugreifen.</p>
+                        <a href="login.html">Zur Anmeldung</a>
+                    </div>
+                `;
+                return false;
+            }
+            
+            // Verify session with backend
+            try {
+                const resp = await fetch('http://localhost:3000/auth/verify', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${sessionToken}`
+                    }
+                });
+                
+                if (!resp.ok) throw new Error('Invalid session');
+                
+                // Authentication successful
+                authCheck.style.display = 'none';
+                adminContent.style.display = 'block';
+                return true;
+            } catch (err) {
+                console.error('Auth verification failed:', err);
+                sessionStorage.removeItem(AUTH_KEY);
+                authCheck.innerHTML = `
+                    <div class="access-denied">
+                        <h2>⏱️ Sitzung abgelaufen</h2>
+                        <p>Ihre Sitzung ist abgelaufen. Bitte melden Sie sich erneut an.</p>
+                        <a href="login.html">Zur Anmeldung</a>
+                    </div>
+                `;
+                return false;
+            }
+        }
 
         async function loadTickets(filterLJ = '') {
             const notify = document.getElementById('notify');
@@ -61,7 +115,12 @@
             notify.textContent = '';
             
             try {
-                const resp = await fetch(API_URL);
+                const sessionToken = sessionStorage.getItem(AUTH_KEY);
+                const resp = await fetch(API_URL, {
+                    headers: {
+                        'Authorization': `Bearer ${sessionToken}`
+                    }
+                });
                 
                 if (!resp.ok) throw new Error(`Server ${resp.status}`);
                 const tickets = await resp.json();
@@ -128,6 +187,13 @@
         }
 
         // Event listeners
+        document.getElementById('logout-btn').addEventListener('click', () => {
+            if (confirm('Möchten Sie sich wirklich abmelden?')) {
+                sessionStorage.removeItem(AUTH_KEY);
+                window.location.href = 'login.html';
+            }
+        });
+        
         document.getElementById('lehrjahr').addEventListener('change', (e) => {
             const filterValue = e.target.value;
             loadTickets(filterValue);
@@ -151,8 +217,12 @@
             if (!confirm(`Delete ticket #${selectedTicketId}? This cannot be undone.`)) return;
             
             try {
+                const sessionToken = sessionStorage.getItem(AUTH_KEY);
                 const resp = await fetch(`${API_URL}/${selectedTicketId}`, { 
-                    method: 'DELETE'
+                    method: 'DELETE',
+                    headers: {
+                        'Authorization': `Bearer ${sessionToken}`
+                    }
                 });
                 if (!resp.ok) throw new Error(`Server ${resp.status}`);
                 
@@ -170,8 +240,12 @@
             if (!confirm('Delete ALL tickets? This cannot be undone.')) return;
             
             try {
+                const sessionToken = sessionStorage.getItem(AUTH_KEY);
                 const resp = await fetch(API_URL, { 
-                    method: 'DELETE'
+                    method: 'DELETE',
+                    headers: {
+                        'Authorization': `Bearer ${sessionToken}`
+                    }
                 });
                 if (!resp.ok) throw new Error(`Server ${resp.status}`);
                 
@@ -186,7 +260,10 @@
 
         // Initialize
         (async () => {
-            loadTickets();
+            const isAuthenticated = await checkAuth();
+            if (isAuthenticated) {
+                loadTickets();
+            }
         })();
     </script>
 </body>
