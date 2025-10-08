@@ -197,10 +197,8 @@
                 const logoutBtn = document.getElementById('logout-btn');
                 if (logoutBtn) {
                     logoutBtn.addEventListener('click', () => {
-                        if (confirm('Möchten Sie sich wirklich abmelden?')) {
                             sessionStorage.removeItem(AUTH_KEY);
                             window.location.href = 'login.html';
-                        }
                     });
                 }
                 

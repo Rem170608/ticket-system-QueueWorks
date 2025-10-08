@@ -1,5 +1,6 @@
-// login.js
+const API_URL = 'http://localhost:3000';
 const AUTH_KEY = 'queueworks_admin_session';
+>>>>>>> b85edcae466be727ec6c9297a8fe6f93aa6e5ef9:Frontend/Javasrcipt files/login.js
         const API_URL = 'http://localhost:3000';
 
         // Check if admin exists and redirect to setup if needed
