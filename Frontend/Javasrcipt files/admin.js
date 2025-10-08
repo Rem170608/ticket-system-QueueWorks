@@ -4,7 +4,16 @@
         let selectedTicketId = null;
         let allTickets = [];
 
-        // Function to show notification
+        // Function to request notification permission
+        async function requestNotificationPermission() {
+            const permission = await Notification.requestPermission();
+            if (permission === "granted") {
+                showNotification("Benachrichtigungen aktiviert", false);
+                return true;
+            }
+            return false;
+        }
+
         function showNotification(message, isError = false) {
             const notify = document.getElementById('notify');
             if (notify) {
@@ -205,13 +214,106 @@
             }
         }
 
+        // Function to request notification permission
+        async function requestNotificationPermission() {
+            if (!("Notification" in window)) {
+                console.log("This browser does not support notifications");
+                return false;
+            }
+
+            console.log('Current notification permission:', Notification.permission);
+            try {
+                const permission = await Notification.requestPermission();
+                console.log('Permission after request:', permission);
+            
+            } catch (err) {
+                console.error("Error requesting notification permission:", err);
+            }
+            return false;
+        }
+
+        // Function to check for new tickets
+        let lastKnownIds = new Set();
+        async function checkForNewTickets() {
+            try {
+                const sessionToken = sessionStorage.getItem(AUTH_KEY);
+                const resp = await fetch(API_URL, {
+                    headers: {
+                        'Authorization': `Bearer ${sessionToken}`
+                    }
+                });
+                
+                if (!resp.ok) throw new Error(`Server ${resp.status}`);
+                const tickets = await resp.json();
+                console.log('All current tickets:', tickets);
+
+                // On first run, just store the IDs
+                if (lastKnownIds.size === 0) {
+                    console.log('First run - storing initial ticket IDs');
+                    tickets.forEach(ticket => lastKnownIds.add(ticket.id));
+                    return;
+                }
+
+                // Find new tickets by comparing IDs
+                const newTickets = tickets.filter(ticket => !lastKnownIds.has(ticket.id));
+                console.log('New tickets found:', newTickets);
+
+                // If we have new tickets, show notifications
+                if (newTickets.length > 0) {
+                    console.log('New tickets to notify about:', newTickets.length);
+                    
+                    if (Notification.permission === "granted") {
+                        // Show a notification for each new ticket
+                        for (const ticket of newTickets) {
+                            console.log('Creating notification for ticket:', ticket);
+                            try {
+                                    const notification = new Notification(`${ticket.name}`, {
+                                        body: `Nachricht: ${ticket.msg}`,
+                                        icon: "/Media/head.svg",
+                                        tag: 'new-ticket-' + ticket.id // Ensures unique notification per ticket
+                                    });
+
+                                notification.onclick = function() {
+                                    window.focus();
+                                };
+                                console.log('Notification created successfully');
+                            } catch (notifError) {
+                                console.error('Error creating notification:', notifError);
+                            }
+                            lastKnownIds.add(ticket.id);
+                        }
+                    } else {
+                        console.log('Notifications not permitted:', Notification.permission);
+                    }
+                } else {
+                    console.log('No new tickets found');
+                }
+
+                // Update known IDs
+                lastKnownIds.clear();
+                tickets.forEach(ticket => lastKnownIds.add(ticket.id));
+            } catch (err) {
+                console.error("Error checking for new tickets:", err);
+            }
+        }
+
+                // Start checking immediately and then every 20 seconds
+        setInterval(checkForNewTickets, 20000);  // Check every 20 seconds (20 * 1000 ms)
+        checkForNewTickets(); // Initial check
+
         // Initialize when document is ready
         document.addEventListener('DOMContentLoaded', async () => {
             const isAuthenticated = await checkAuth();
             if (!isAuthenticated) return;
             
+            // Request notification permission
+            await requestNotificationPermission();
+            
             // Load initial tickets
-            loadTickets();
+            await loadTickets();
+            
+            // Start checking for new tickets every 30 seconds
+            setInterval(checkForNewTickets, 20000);
             
             // Setup all event listeners after authentication
             const setupEventListeners = () => {
