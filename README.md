@@ -8,23 +8,23 @@ An in-depth paragraph about your project and overview of use.
 
 ## Roadmap
 
-- [ ] Simple GUI  
+- [X] Simple GUI  
   - [X] Landing page  
   - [X] Live Tickets  
-  - [ ] Admin Panel / Login  
-- [ ] Basic Features
+  - [X] Admin Panel / Login  
+- [X] Basic Features
   - [X] Database
   - [X] Ticket Category
   - [X] Ticket Message
   - [X] Lehrjahr Filter
-  - [ ] Delete Ticket
+  - [X] Delete Ticket
 - [ ] Advanced Features  
   - [X] Mass delete
   - [X] Bad actor Prevention
   - [ ] Autodelete at 00:00 CEST (UTC+2)
-  - [ ] Login Cookie
+  - [X] Login Cookie
   - [ ] Dark Mode
-  - [ ] Docker
+  - [X] Docker
 
 ## Getting Started
 
