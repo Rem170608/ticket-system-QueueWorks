@@ -1,6 +1,6 @@
 // Admin Dashboard Script
         const API_URL = 'http://localhost:3000/tickets';
-        const AUTH_KEY = 'queueworks_admin_session';
+        const AUTH_KEY = 'queueworks_admin_session'; 
         let selectedTicketId = null;
         let allTickets = [];
 
@@ -130,82 +130,144 @@
                 .replace(/'/g, '&#39;');
         }
 
-        // Event listeners
-        document.getElementById('logout-btn').addEventListener('click', () => {
-            if (confirm('Möchten Sie sich wirklich abmelden?')) {
-                sessionStorage.removeItem(AUTH_KEY);
-                window.location.href = 'login.html';
-            }
-        });
-        
-        document.getElementById('lehrjahr').addEventListener('change', (e) => {
-            const filterValue = e.target.value;
-            loadTickets(filterValue);
-        });
-
-        document.getElementById('refresh-tickets').addEventListener('click', () => {
-            const lj = document.getElementById('lehrjahr').value;
-            loadTickets(lj);
-            document.getElementById('notify').textContent = 'Tickets refreshed!';
-            setTimeout(() => {
-                document.getElementById('notify').textContent = '';
-            }, 2000);
-        });
-
-        document.getElementById('delete-selected').addEventListener('click', async () => {
-            if (!selectedTicketId) {
-                alert('Please select a ticket first.');
-                return;
-            }
+        async function deleteTickets() {
+            const lj = document.getElementById('lehrjahr')?.value || '';
+            const isFiltered = lj !== '';
             
-            if (!confirm(`Delete ticket #${selectedTicketId}? This cannot be undone.`)) return;
+            // Prepare confirmation message based on current filter
+            const confirmMessage = isFiltered
+                ? `Alle Tickets für Lehrjahr ${lj} löschen? Dies kann nicht rückgängig gemacht werden.`
+                : 'ALLE Tickets aus ALLEN Lehrjahren löschen? Dies kann nicht rückgängig gemacht werden.';
+
+            if (!confirm(confirmMessage)) return;
             
             try {
                 const sessionToken = sessionStorage.getItem(AUTH_KEY);
-                const resp = await fetch(`${API_URL}/${selectedTicketId}`, { 
-                    method: 'DELETE',
-                    headers: {
-                        'Authorization': `Bearer ${sessionToken}`
-                    }
-                });
-                if (!resp.ok) throw new Error(`Server ${resp.status}`);
-                
-                document.getElementById('notify').textContent = 'Ticket deleted successfully.';
-                selectedTicketId = null;
-                const lj = document.getElementById('lehrjahr').value;
-                loadTickets(lj);
-            } catch (err) {
-                console.error('Failed to delete ticket:', err);
-                alert('Error deleting ticket.');
-            }
-        });
 
-        document.getElementById('delete-all').addEventListener('click', async () => {
-            if (!confirm('Delete ALL tickets? This cannot be undone.')) return;
-            
-            try {
-                const sessionToken = sessionStorage.getItem(AUTH_KEY);
-                const resp = await fetch(API_URL, { 
-                    method: 'DELETE',
-                    headers: {
-                        'Authorization': `Bearer ${sessionToken}`
+                if (isFiltered) {
+                    // Get tickets for the selected Lehrjahr
+                    const ticketsToDelete = allTickets.filter(t => t.LJ === lj);
+                    
+                    if (ticketsToDelete.length === 0) {
+                        alert('Keine Tickets für dieses Lehrjahr gefunden.');
+                        return;
                     }
-                });
-                if (!resp.ok) throw new Error(`Server ${resp.status}`);
-                
-                document.getElementById('notify').textContent = 'All tickets deleted.';
-                selectedTicketId = null;
-                loadTickets();
-            } catch (err) {
-                console.error('Failed to delete all tickets:', err);
-                alert('Error deleting tickets.');
-            }
-        });
 
-        // Initialize
-        (async () => {
+                    // Delete filtered tickets one by one
+                    for (const ticket of ticketsToDelete) {
+                        await fetch(`${API_URL}/${ticket.id}`, {
+                            method: 'DELETE',
+                            headers: {
+                                'Authorization': `Bearer ${sessionToken}`
+                            }
+                        });
+                    }
+                    document.getElementById('notify').textContent = `Alle Tickets für Lehrjahr ${lj} gelöscht.`;
+                } else {
+                    // No filter selected - delete all tickets
+                    const resp = await fetch(API_URL, {
+                        method: 'DELETE',
+                        headers: {
+                            'Authorization': `Bearer ${sessionToken}`
+                        }
+                    });
+                    if (!resp.ok) throw new Error(`Server ${resp.status}`);
+                    document.getElementById('notify').textContent = 'Alle Tickets aus allen Lehrjahren gelöscht.';
+                }
+                
+                selectedTicketId = null;
+                loadTickets(lj); // Keep the current filter when reloading
+            } catch (err) {
+                console.error('Failed to delete tickets:', err);
+                alert('Fehler beim Löschen der Tickets.');
+            }
+        }
+
+        // Initialize when document is ready
+        document.addEventListener('DOMContentLoaded', async () => {
             const isAuthenticated = await checkAuth();
-            if (isAuthenticated) {
-                loadTickets();
-            }
-        })();
+            if (!isAuthenticated) return;
+            
+            // Load initial tickets
+            loadTickets();
+            
+            // Setup all event listeners after authentication
+            const setupEventListeners = () => {
+                // Logout button
+                const logoutBtn = document.getElementById('logout-btn');
+                if (logoutBtn) {
+                    logoutBtn.addEventListener('click', () => {
+                        if (confirm('Möchten Sie sich wirklich abmelden?')) {
+                            sessionStorage.removeItem(AUTH_KEY);
+                            window.location.href = 'login.html';
+                        }
+                    });
+                }
+                
+                // Filter dropdown
+                const lehrjahrSelect = document.getElementById('lehrjahr');
+                if (lehrjahrSelect) {
+                    lehrjahrSelect.addEventListener('change', (e) => {
+                        loadTickets(e.target.value);
+                    });
+                }
+
+                // Refresh button
+                const refreshBtn = document.getElementById('refresh-tickets');
+                if (refreshBtn) {
+                    refreshBtn.addEventListener('click', () => {
+                        const lj = document.getElementById('lehrjahr')?.value || '';
+                        loadTickets(lj);
+                        const notify = document.getElementById('notify');
+                        if (notify) {
+                            notify.textContent = 'Tickets refreshed!';
+                            setTimeout(() => {
+                                notify.textContent = '';
+                            }, 2000);
+                        }
+                    });
+                }
+
+                // Delete selected ticket button
+                const deleteSelectedBtn = document.getElementById('delete-selected');
+                if (deleteSelectedBtn) {
+                    deleteSelectedBtn.addEventListener('click', async () => {
+                        if (!selectedTicketId) {
+                            alert('Bitte wählen Sie zuerst ein Ticket aus.');
+                            return;
+                        }
+                        
+                        if (!confirm(`Ticket #${selectedTicketId} löschen? Dies kann nicht rückgängig gemacht werden.`)) return;
+                        
+                        try {
+                            const sessionToken = sessionStorage.getItem(AUTH_KEY);
+                            const resp = await fetch(`${API_URL}/${selectedTicketId}`, { 
+                                method: 'DELETE',
+                                headers: {
+                                    'Authorization': `Bearer ${sessionToken}`
+                                }
+                            });
+                            if (!resp.ok) throw new Error(`Server ${resp.status}`);
+                            
+                            const notify = document.getElementById('notify');
+                            if (notify) notify.textContent = 'Ticket erfolgreich gelöscht.';
+                            selectedTicketId = null;
+                            const lj = document.getElementById('lehrjahr')?.value || '';
+                            loadTickets(lj);
+                        } catch (err) {
+                            console.error('Failed to delete ticket:', err);
+                            alert('Fehler beim Löschen des Tickets.');
+                        }
+                    });
+                }
+
+                // Delete all tickets button (respects current filter)
+                const deleteAllBtn = document.getElementById('delete-all');
+                if (deleteAllBtn) {
+                    deleteAllBtn.addEventListener('click', () => deleteTickets());
+                }
+            };
+
+            // Set up all event listeners
+            setupEventListeners();
+        });
