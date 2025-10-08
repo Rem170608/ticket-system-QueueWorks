@@ -15,7 +15,7 @@
                     <div class="navbar-buttons">
                         <a href="index.html" class="nav-link">Home</a>
                         <a href="live.html" class="nav-link">Live</a>
-                        <a href="login.html" class="nav-link">Login</a>
+                        <a href="admin-setup.html" class="nav-link" id="loginNavLink">Admin Setup</a>
                     </div>
                 </div>
                 <img src="/Media/logo.svg" alt="logo" class="logo">
@@ -25,16 +25,15 @@
                 <div id="errorMessage" style="color: #ff0000; background: rgba(255, 0, 0, 0.1); padding: 10px; border-radius: 5px; margin: 10px 0; display: none; text-align: center;"></div>
                 <div id="successMessage" style="color: #00ff00; background: rgba(0, 255, 0, 0.1); padding: 10px; border-radius: 5px; margin: 10px 0; display: none; text-align: center;"></div>
                 
-                <input type="text" placeholder="Username" id="nameInput" class="input-field" autocomplete="username">
-                
-                <div class="input-with-icon">
-                    <input type="password" placeholder="Passwort" id="passwordInput" class="input-field" autocomplete="current-password">
-                    <button id="showPasswordBtn" type="button" class="show-password" aria-label="Toggle password visibility" title="Toggle password visibility">
-                        <img id="eyeIcon" src="/Media/icons8-closed-eye-50.png" alt="Show password" />
-                    </button>
+                <div id="loginForm">
+                    <div class="input-with-icon">
+                        <input type="password" placeholder="Passwort" id="passwordInput" class="input-field" autocomplete="current-password">
+                        <button id="showPasswordBtn" type="button" class="show-password" aria-label="Toggle password visibility" title="Toggle password visibility">
+                            <img id="eyeIcon" src="/Media/icons8-closed-eye-50.png" alt="Show password" />
+                        </button>
+                    </div>
+                    <button id="loginBtn" type="button" class="button">Login</button>
                 </div>
-                
-                <button id="loginBtn" type="button" class="button">Login</button>
             </div>
         </div>
     </main>
@@ -47,44 +46,68 @@
         const AUTH_KEY = 'queueworks_admin_session';
         const API_URL = 'http://localhost:3000';
 
-        // Initialize password toggle using the existing function
+        // Check if admin exists and redirect to setup if needed
+        async function checkAdminSetup() {
+            try {
+                const response = await fetch(`${API_URL}/auth/check-admin`);
+                const data = await response.json();
+                
+                if (!data.adminExists) {
+                    // Redirect to setup page if admin doesn't exist
+                    window.location.href = 'admin-setup.html';
+                }
+
+                // Update login nav link to point to login.html since admin exists
+                const loginNavLink = document.getElementById('loginNavLink');
+                if (loginNavLink) {
+                    loginNavLink.href = 'login.html';
+                }
+            } catch (error) {
+                console.error('Setup check error:', error);
+                document.getElementById('errorMessage').textContent = 'Server nicht erreichbar';
+                document.getElementById('errorMessage').style.display = 'block';
+            }
+        }
+
+
+        // Initialize password toggle
         document.addEventListener('DOMContentLoaded', function () {
-            const passwordToggleConfig = {
-                passwordId: 'passwordInput',
-                buttonId: 'showPasswordBtn',
-                iconId: 'eyeIcon',
-                openIcon: '/Media/icons8-eye-50.png',
-                closedIcon: '/Media/icons8-closed-eye-50.png'
-            };
-            
+            // Check for setup messages
+            const setupMessage = sessionStorage.getItem('setupMessage');
+            if (setupMessage) {
+                document.getElementById('errorMessage').textContent = setupMessage;
+                document.getElementById('errorMessage').style.display = 'block';
+                sessionStorage.removeItem('setupMessage');
+            }
+
+            // Check admin setup status
+            checkAdminSetup();
+
+            // Setup password toggle
             if (typeof window.showpasswordbtn === 'function') {
                 try {
-                    showpasswordbtn(passwordToggleConfig);
+                    showpasswordbtn({
+                        passwordId: 'passwordInput',
+                        buttonId: 'showPasswordBtn',
+                        iconId: 'eyeIcon',
+                        openIcon: '/Media/icons8-eye-50.png',
+                        closedIcon: '/Media/icons8-closed-eye-50.png'
+                    });
                 } catch (err) {
                     console.info('showpasswordbtn exists but threw:', err);
                 }
             }
             
-            // Allow Enter key to submit
-            const passwordInput = document.getElementById('passwordInput');
-            const nameInput = document.getElementById('nameInput');
-            
-            passwordInput.addEventListener('keypress', function(e) {
+            // Add Enter key handler
+            document.getElementById('passwordInput')?.addEventListener('keypress', function(e) {
                 if (e.key === 'Enter') {
                     document.getElementById('loginBtn').click();
-                }
-            });
-            
-            nameInput.addEventListener('keypress', function(e) {
-                if (e.key === 'Enter') {
-                    passwordInput.focus();
                 }
             });
         });
 
         // Login functionality
-        document.getElementById('loginBtn').addEventListener('click', async function() {
-            const username = document.getElementById('nameInput').value.trim();
+        document.getElementById('loginBtn')?.addEventListener('click', async function() {
             const password = document.getElementById('passwordInput').value;
             const errorMsg = document.getElementById('errorMessage');
             const successMsg = document.getElementById('successMessage');
@@ -94,9 +117,9 @@
             errorMsg.style.display = 'none';
             successMsg.style.display = 'none';
             
-            // Validate inputs
-            if (!username || !password) {
-                errorMsg.textContent = 'Bitte Username und Passwort eingeben.';
+            // Validate input
+            if (!password) {
+                errorMsg.textContent = 'Bitte Passwort eingeben.';
                 errorMsg.style.display = 'block';
                 return;
             }
@@ -113,7 +136,7 @@
                         'Content-Type': 'application/json'
                     },
                     body: JSON.stringify({
-                        username: username,
+                        username: 'noserq_user',
                         password: password
                     })
                 });
@@ -121,28 +144,20 @@
                 // Check if response is JSON
                 const contentType = response.headers.get('content-type');
                 if (!contentType || !contentType.includes('application/json')) {
-                    const text = await response.text();
-                    console.error('Server response:', text);
                     throw new Error('Server hat keine JSON-Antwort zurückgegeben. Läuft der Server?');
                 }
                 
                 const data = await response.json();
                 
                 if (response.ok && data.token) {
-                    // Store session token
                     sessionStorage.setItem(AUTH_KEY, data.token);
-                    
-                    // Show success message
                     successMsg.textContent = 'Login erfolgreich! Weiterleitung...';
                     successMsg.style.display = 'block';
-                    
-                    // Redirect to admin page
                     setTimeout(() => {
                         window.location.href = 'admin.html';
                     }, 1000);
                 } else {
-                    // Show error message
-                    errorMsg.textContent = data.message || 'Ungültiger Username oder Passwort.';
+                    errorMsg.textContent = data.message || 'Ungültiges Passwort.';
                     errorMsg.style.display = 'block';
                     loginBtn.disabled = false;
                     loginBtn.textContent = 'Login';

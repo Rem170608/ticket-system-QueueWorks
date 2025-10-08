@@ -2,15 +2,22 @@ const express = require('express');
 const mysql = require('mysql2');
 const cors = require('cors');
 const jwt = require('jsonwebtoken');
-const bcrypt = require('bcryptjs');
 
 const app = express();
 
-app.use(cors({
-    origin: ['http://127.0.0.1:5500', 'http://localhost:5500'],
-    methods: ['GET', 'POST', 'DELETE'],
-    credentials: true
-}));
+// Enable CORS for all routes
+app.use((req, res, next) => {
+    res.header('Access-Control-Allow-Origin', 'http://127.0.0.1:5500');
+    res.header('Access-Control-Allow-Methods', 'GET, POST, DELETE, OPTIONS');
+    res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization');
+    res.header('Access-Control-Allow-Credentials', 'true');
+    
+    // Handle preflight requests
+    if (req.method === 'OPTIONS') {
+        return res.sendStatus(200);
+    }
+    next();
+});
 
 app.use(express.json());
 console.log('Backend gestartet...');
@@ -46,6 +53,71 @@ function verifyToken(req, res, next) {
 
 // ============ AUTHENTICATION ENDPOINTS ============
 
+// Check if admin exists
+app.get('/auth/check-admin', (req, res) => {
+    console.log('Received check-admin request');
+    // First, check if table exists
+    const checkTableSql = `
+        SELECT COUNT(*) as tableExists 
+        FROM information_schema.tables 
+        WHERE table_schema = 'ticket-queueworks' 
+        AND table_name = 'admin_users'`;
+    
+    pool.query(checkTableSql, (err, tableResults) => {
+        if (err) {
+            console.error('Database error:', err);
+            return res.status(500).json({ 
+                adminExists: false,
+                error: 'Database error' 
+            });
+        }
+
+        // If table doesn't exist, create it
+        if (tableResults[0].tableExists === 0) {
+            const createTableSql = `
+                CREATE TABLE admin_users (
+                    id INT AUTO_INCREMENT PRIMARY KEY,
+                    username VARCHAR(255) NOT NULL UNIQUE,
+                    password VARCHAR(255),
+                    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+                )`;
+            
+            pool.query(createTableSql, (err) => {
+                if (err) {
+                    console.error('Table creation error:', err);
+                    return res.status(500).json({ 
+                        adminExists: false,
+                        error: 'Database error' 
+                    });
+                }
+                // No admin exists yet since we just created the table
+                return res.json({ 
+                    adminExists: false,
+                    hasPassword: false
+                });
+            });
+        } else {
+            // Table exists, check for admin user
+            const checkAdminSql = "SELECT * FROM admin_users WHERE username = 'noserq_user'";
+            pool.query(checkAdminSql, (err, results) => {
+                if (err) {
+                    console.error('Database error:', err);
+                    return res.status(500).json({ 
+                        adminExists: false,
+                        error: 'Database error' 
+                    });
+                }
+                
+                const adminExists = results.length > 0;
+                res.json({ 
+                    adminExists,
+                    hasPassword: adminExists && results[0].password !== null && results[0].password !== ''
+                });
+            });
+        }
+    });
+});
+
 // Login endpoint
 app.post('/auth/login', (req, res) => {
     const { username, password } = req.body;
@@ -53,45 +125,43 @@ app.post('/auth/login', (req, res) => {
     if (!username || !password) {
         return res.status(400).json({ message: 'Username und Passwort erforderlich' });
     }
+
+    // Only allow noserq_user to login
+    if (username !== 'noserq_user') {
+        return res.status(401).json({ message: 'Ungültiger Username oder Passwort' });
+    }
     
     // Query admin users table
     const sql = "SELECT * FROM admin_users WHERE username = ?";
-    pool.query(sql, [username], async (err, results) => {
+    pool.query(sql, [username], (err, results) => {
         if (err) {
             console.error('Database error:', err);
-            return res.status(500).json({ message: 'Server Fehler' });
+            return res.status(500).json({ message: 'Datenbankfehler. Bitte versuchen Sie es später erneut.' });
         }
         
         if (results.length === 0) {
-            return res.status(401).json({ message: 'Ungültiger Username oder Passwort' });
+            return res.status(401).json({ message: 'Admin-Benutzer existiert nicht' });
         }
         
         const user = results[0];
         
-        // Compare password with hashed password
-        try {
-            const isValidPassword = await bcrypt.compare(password, user.password);
-            
-            if (!isValidPassword) {
-                return res.status(401).json({ message: 'Ungültiger Username oder Passwort' });
-            }
-            
-            // Generate JWT token
-            const token = jwt.sign(
-                { id: user.id, username: user.username },
-                JWT_SECRET,
-                { expiresIn: '8h' }
-            );
-            
-            res.json({ 
-                token, 
-                message: 'Login erfolgreich',
-                username: user.username 
-            });
-        } catch (bcryptErr) {
-            console.error('Bcrypt error:', bcryptErr);
-            return res.status(500).json({ message: 'Authentifizierungsfehler' });
+        // Direct password comparison since we're not using bcrypt anymore
+        if (password !== user.password) {
+            return res.status(401).json({ message: 'Ungültiges Passwort' });
         }
+        
+        // Generate JWT token
+        const token = jwt.sign(
+            { id: user.id, username: user.username },
+            JWT_SECRET,
+            { expiresIn: '8h' }
+        );
+        
+        res.json({ 
+            token, 
+            message: 'Login erfolgreich',
+            username: user.username 
+        });
     });
 });
 
@@ -101,6 +171,44 @@ app.post('/auth/verify', verifyToken, (req, res) => {
 });
 
 // ============ TICKET ENDPOINTS ============
+
+// Ensure ticket table exists
+app.use((req, res, next) => {
+    const checkTableSql = `
+        SELECT COUNT(*) as tableExists 
+        FROM information_schema.tables 
+        WHERE table_schema = 'ticket-queueworks' 
+        AND table_name = 'ticket'`;
+    
+    pool.query(checkTableSql, (err, tableResults) => {
+        if (err) {
+            console.error('Database error:', err);
+            return res.status(500).json({ error: 'Database error' });
+        }
+
+        if (tableResults[0].tableExists === 0) {
+            const createTableSql = `
+                CREATE TABLE ticket (
+                    id INT AUTO_INCREMENT PRIMARY KEY,
+                    name VARCHAR(255) NOT NULL,
+                    cat VARCHAR(255) NOT NULL,
+                    LJ VARCHAR(50) NOT NULL,
+                    msg TEXT NOT NULL,
+                    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+                )`;
+            
+            pool.query(createTableSql, (err) => {
+                if (err) {
+                    console.error('Table creation error:', err);
+                    return res.status(500).json({ error: 'Database error' });
+                }
+                next();
+            });
+        } else {
+            next();
+        }
+    });
+});
 
 // Endpoint to submit a ticket (public - no auth required)
 app.post('/submit-ticket', (req, res) => {
@@ -174,34 +282,90 @@ app.delete('/tickets', verifyToken, (req, res) => {
 
 // ============ SETUP ENDPOINT (for initial admin user creation) ============
 
-// Endpoint to create admin user - USE ONCE then comment out!
-app.post('/setup/create-admin', async (req, res) => {
-    const { username, password } = req.body;
+// Endpoint to create admin user (first-time setup only)
+app.post('/setup/create-admin', (req, res) => {
+    const { password } = req.body;
+    const username = 'noserq_user';  // Hardcoded username
     
-    if (!username || !password) {
-        return res.status(400).json({ error: 'Username and password required' });
+    if (!password) {
+        return res.status(400).json({ error: 'Passwort erforderlich' });
     }
+
+    // Check if table exists first
+    const checkTableSql = `
+        SELECT COUNT(*) as tableExists 
+        FROM information_schema.tables 
+        WHERE table_schema = 'ticket-queueworks' 
+        AND table_name = 'admin_users'`;
     
-    try {
-        const hashedPassword = await bcrypt.hash(password, 10);
-        
-        const sql = "INSERT INTO admin_users (username, password) VALUES (?, ?)";
-        pool.query(sql, [username, hashedPassword], (err, result) => {
-            if (err) {
-                if (err.code === 'ER_DUP_ENTRY') {
-                    return res.status(400).json({ error: 'Username already exists' });
+    pool.query(checkTableSql, (err, tableResults) => {
+        if (err) {
+            console.error('Database error:', err);
+            return res.status(500).json({ error: 'Datenbankfehler' });
+        }
+
+        // If table doesn't exist, create it
+        if (tableResults[0].tableExists === 0) {
+            const createTableSql = `
+                CREATE TABLE admin_users (
+                    id INT AUTO_INCREMENT PRIMARY KEY,
+                    username VARCHAR(255) NOT NULL UNIQUE,
+                    password VARCHAR(255),
+                    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+                )`;
+            
+            pool.query(createTableSql, (createErr) => {
+                if (createErr) {
+                    console.error('Table creation error:', createErr);
+                    return res.status(500).json({ error: 'Fehler beim Erstellen der Datenbanktabelle' });
                 }
+                // Table created, now create admin user
+                createAdminUser();
+            });
+        } else {
+            // Table exists, proceed with admin user creation/check
+            createAdminUser();
+        }
+    });
+
+    function createAdminUser() {
+        // Check if admin already exists
+        pool.query("SELECT * FROM admin_users WHERE username = ?", [username], (err, results) => {
+            if (err) {
                 console.error(err);
-                return res.status(500).json({ error: 'Database error' });
+                return res.status(500).json({ error: 'Datenbankfehler' });
             }
-            res.json({ message: 'Admin user created successfully', id: result.insertId });
+            
+            if (results.length > 0) {
+                if (!results[0].password) {
+                    // Update existing admin with password
+                    const updateSql = "UPDATE admin_users SET password = ? WHERE username = ?";
+                    pool.query(updateSql, [password, username], (updateErr) => {
+                        if (updateErr) {
+                            console.error(updateErr);
+                            return res.status(500).json({ error: 'Fehler beim Aktualisieren des Passworts' });
+                        }
+                        res.json({ message: 'Admin-Passwort erfolgreich gesetzt', username });
+                    });
+                } else {
+                    return res.status(400).json({ error: 'Admin-Benutzer existiert bereits' });
+                }
+            } else {
+                // Create new admin user
+                const insertSql = "INSERT INTO admin_users (username, password) VALUES (?, ?)";
+                pool.query(insertSql, [username, password], (insertErr) => {
+                    if (insertErr) {
+                        console.error(insertErr);
+                        return res.status(500).json({ error: 'Fehler beim Erstellen des Admin-Benutzers' });
+                    }
+                    res.json({ message: 'Admin-Benutzer erfolgreich erstellt', username });
+                });
+            }
         });
-    } catch (err) {
-        console.error(err);
-        res.status(500).json({ error: 'Server error' });
     }
 });
 
+// End of setup endpoint
 const PORT = 3000;
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
