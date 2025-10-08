@@ -331,3 +331,19 @@ body {
             border-radius: 5px;
             overflow-x: auto;
         }
+        .error-message {
+           color: #ff0000; 
+           background: rgba(255, 0, 0, 0.1); 
+           padding: 10px; border-radius: 5px; 
+           margin: 10px 0; 
+           display: none; 
+           text-align: center;
+        }   
+        .success-message {
+           color: #00ff00; 
+           background: rgba(0, 255, 0, 0.1); 
+           padding: 10px; border-radius: 5px; 
+           margin: 10px 0; 
+           display: none; 
+           text-align: center;
+        }

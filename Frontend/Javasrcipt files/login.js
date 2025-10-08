@@ -1,3 +1,4 @@
+// login.js
 const AUTH_KEY = 'queueworks_admin_session';
         const API_URL = 'http://localhost:3000';
 
