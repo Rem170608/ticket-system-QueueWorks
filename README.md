@@ -24,7 +24,7 @@ An in-depth paragraph about your project and overview of use.
   - [ ] Autodelete at 00:00 CEST (UTC+2)
   - [X] Login Cookie
   - [ ] Dark Mode
-  - [X] Docker
+  - [ ] Docker
 
 ## Getting Started
 
