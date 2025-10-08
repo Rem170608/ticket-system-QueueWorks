@@ -50,7 +50,7 @@ async function login() {
             // Store session key in localStorage
             localStorage.setItem(AUTH_KEY, 'authenticated');
             alert('Login erfolgreich!');
-            window.location.href = 'http://127.0.0.1:5500/Frontend/admin.html';
+            window.location.href = 'http://127.0.0.1:5500/Frontend/"Html files"/admin.html';
         } else {
             alert('Ungültiger Benutzername oder Passwort!');
         }
