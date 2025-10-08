@@ -1,3 +1,38 @@
+// Function to show notification
+function showNotification(message, isError = false) {
+    const notifyDiv = document.getElementById('notify');
+    if (!notifyDiv) {
+        // Create notification div if it doesn't exist
+        const newNotifyDiv = document.createElement('div');
+        newNotifyDiv.id = 'notify';
+        newNotifyDiv.style.padding = '10px';
+        newNotifyDiv.style.margin = '10px 0';
+        newNotifyDiv.style.borderRadius = '5px';
+        newNotifyDiv.style.textAlign = 'center';
+        
+        // Insert after logo
+        const logo = document.querySelector('.logo');
+        if (logo && logo.parentNode) {
+            logo.parentNode.insertBefore(newNotifyDiv, logo.nextSibling);
+        }
+    }
+    
+    const notify = document.getElementById('notify');
+    if (notify) {
+        notify.textContent = message;
+        notify.style.display = 'block';
+        notify.style.backgroundColor = isError ? 'rgba(255, 0, 0, 0.1)' : 'rgba(0, 255, 0, 0.1)';
+        notify.style.color = isError ? '#ff0000' : '#008000';
+        
+        // Hide notification after 3 seconds if it's a success message
+        if (!isError) {
+            setTimeout(() => {
+                notify.style.display = 'none';
+            }, 3000);
+        }
+    }
+}
+
 // Function to submit a ticket
 async function submitTicket() {
     const name = document.getElementById('nameInput').value;
@@ -5,9 +40,9 @@ async function submitTicket() {
     const LJ = document.getElementById('lehrjahr').value;
     const msg = document.getElementById('descriptionInput').value;
 
-
+    // Validate inputs
     if (!name || !cat || !LJ || !msg) {
-        alert('Bitte alle Felder ausfüllen!');
+        showNotification('Bitte füllen Sie alle Felder aus.', true);
         return;
     }
 
@@ -24,15 +59,18 @@ async function submitTicket() {
             throw new Error('Network response was not ok');
         }
 
-        alert('Ticket erfolgreich eingereicht!');
-        window.location.href = '/Frontend/index.html';
+        showNotification('Ticket erfolgreich eingereicht! Sie werden weitergeleitet...');
+        // Redirect after showing the success message
+        setTimeout(() => {
+            window.location.href = '/Frontend/Html files/index.html';
+        }, 750);
     } catch (error) {
         console.error('Error:', error);
-        alert('Fehler beim Einreichen des Tickets');
+        showNotification('Fehler beim Einreichen des Tickets. Bitte versuchen Sie es erneut.', true);
     }
-
- 
 }
 
-// Make submitTicket available globally
+
+// Make functions available globally
 window.submitTicket = submitTicket;
+window.showNotification = showNotification;
