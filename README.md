@@ -10,13 +10,13 @@ An in-depth paragraph about your project and overview of use.
 
 - [ ] Simple GUI  
   - [X] Landing page  
-  - [ ] Live Tickets  
+  - [X] Live Tickets  
   - [ ] Admin Panel / Login  
 - [ ] Basic Features
   - [X] Database
   - [X] Ticket Category
   - [X] Ticket Message
-  - [ ] Lehrjahr Filter
+  - [X] Lehrjahr Filter
   - [ ] Delete Ticket
 - [ ] Advanced Features  
   - [X] Mass delete
