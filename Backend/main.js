@@ -2,6 +2,7 @@ const express = require('express');
 const mysql = require('mysql2');
 const cors = require('cors');
 const jwt = require('jsonwebtoken');
+const schedule = require('node-schedule');
 
 const app = express();
 
@@ -365,9 +366,26 @@ app.post('/setup/create-admin', (req, res) => {
     }
 });
 
+// Function to delete all tickets and reset ID counter
+function deleteAllTicketsAndResetId() {
+    // First, truncate the table to delete all records and reset auto-increment
+    const truncateSql = "TRUNCATE TABLE ticket";
+    pool.query(truncateSql, (err) => {
+        if (err) {
+            console.error('Error clearing tickets:', err);
+            return;
+        }
+        console.log(`[${new Date().toLocaleString('de-CH', { timeZone: 'Europe/Zurich' })}] All tickets deleted and ID counter reset to 1`);
+    });
+}
+
+schedule.scheduleJob({ hour: 0, minute: 0 }, () => {
+    deleteAllTicketsAndResetId();
+});
+
 // End of setup endpoint
 const PORT = 3000;
-app.listen(PORT, () => {
+app.listen(PORT, () => {    
     console.log(`Server running on port ${PORT}`);
     console.log('Available endpoints:');
     console.log('  POST /auth/login - Login');
