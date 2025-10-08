@@ -146,7 +146,6 @@ a:hover {
     transition: all 0.02s ease;
 }
 .show-password {
-    /* Default styles for the inline icon button (will be positioned by .input-with-icon) */
     background: transparent;
     border: none;
     padding: 6px;
@@ -158,17 +157,13 @@ a:hover {
     color: #666;
     transition: transform 0.08s ease, opacity 0.12s ease;
 }
-
-/* Wrapper to place the button on the right inside the input */
 .input-with-icon {
     position: relative;
     display: block;
 }
-
 .input-with-icon .input-field {
-    padding-right: 46px; /* make room for the button */
+    padding-right: 46px;
 }
-
 .input-with-icon .show-password {
     position: absolute;
     right: 10px;
@@ -179,22 +174,25 @@ a:hover {
     background-color: transparent;
     border-radius: 8px;
 }
-
 .input-with-icon .show-password img {
     width: 18px;
     height: 18px;
     display: block;
 }
-
 .input-with-icon .show-password:hover {
     background-color: rgba(74,144,226,0.08);
     transform: translateY(-50%) scale(1.05);
 }
-
 .input-with-icon .show-password:focus {
     outline: 2px solid rgba(74,144,226,0.25);
 }
-
+.bad-actor {
+    color: red;
+    font-weight: bold;
+    margin-top: 10px;
+    padding: 10px;
+    border-radius: 15px;
+}
 .deletebuttons {
     background-color: red;
     color: white;
@@ -251,7 +249,6 @@ a:hover {
     font-weight: bold;
     margin-bottom: 8px;
 }
-
 .ticket-box p {
     margin: 0;
     color: #222;
@@ -274,17 +271,14 @@ a:hover {
     cursor: pointer;
     transition: all 0.3s ease;
 }
-
 .ticket-box:hover {
     transform: scale(1.02);
     box-shadow: 0 4px 8px rgba(0,0,0,0.2);
 }
-
 .ticket-box.selected {
     border: 3px solid #ff0000;
     box-shadow: 0 0 15px rgba(255, 0, 0, 0.5);
 }
-
 .admin-controls {
     display: flex;
     gap: 10px;
