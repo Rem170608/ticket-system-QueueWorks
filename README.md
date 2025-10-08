@@ -1,6 +1,47 @@
 # Ticket system by QueueWorks
+### Quick Install 🚀
 
-This is a easy to use and User friendly Ticket Syste, for everyone.
+Choose your operating system:
+
+---
+
+#### 🍎 macOS
+
+One-line install using Homebrew:
+```bash
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh) && \
+  brew install node mysql && \
+  brew services start mysql && \
+  npm install -g node-schedule express mysql2 cors jsonwebtoken"
+```
+
+---
+
+#### 🪟 Windows
+
+One-line install using Chocolatey:
+```powershell
+Set-ExecutionPolicy Bypass -Scope Process -Force; \
+  [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; \
+  iex ((New-Object System.Net.WebClient).DownloadString('https://community.chocolatey.org/install.ps1')) && \
+  choco install -y nodejs mysql && \
+  npm install -g node-schedule express mysql2 cors jsonwebtoken
+```
+
+---
+
+### What Gets Installed:
+
+📦 **Required Software:**
+- Node.js - Powers the backend server
+- MySQL - Handles the database
+
+⚙️ **NPM Packages:**
+- node-schedule: Automatic ticket cleanup
+- express: Web server framework
+- mysql2: Database connection
+- cors: Cross-origin requests
+- jsonwebtoken: Authenticationo use and User friendly Ticket Syste, for everyone.
 
 ## Description
 
