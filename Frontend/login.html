@@ -38,6 +38,7 @@
                     </div>
                     <button id="loginBtn" type="button" class="button">Login</button>
                 </div>
+                <p id="loc" style="margin-top: 10px;" class="bad-actor"></p>
             </div>
         </div>
     </main>
@@ -161,14 +162,15 @@
                         window.location.href = 'admin.html';
                     }, 1000);
                 } else {
-                    errorMsg.textContent = data.message || 'Ungültiges Passwort.';
+                    // Show error message
+                    console.error('Login failed:', response.ok, data, response.status, response.statusText, data.token, data.message, contentType, response, response.headers);
+                    errorMsg.textContent = data.message || 'Ungültiger Username oder Passwort.';
                     errorMsg.style.display = 'block';
                     loginBtn.disabled = false;
                     loginBtn.textContent = 'Login';
                     loginBtn.style.opacity = '1';
                 }
             } catch (error) {
-                console.error('Login error:', error);
                 errorMsg.textContent = 'Verbindungsfehler. Bitte versuchen Sie es erneut.';
                 errorMsg.style.display = 'block';
                 loginBtn.disabled = false;

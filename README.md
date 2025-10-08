@@ -20,7 +20,7 @@ An in-depth paragraph about your project and overview of use.
   - [ ] Delete Ticket
 - [ ] Advanced Features  
   - [X] Mass delete
-  - [ ] Ticket IP
+  - [X] Bad actor Prevention
   - [ ] Autodelete at 00:00 CEST (UTC+2)
   - [ ] Login Cookie
   - [ ] Dark Mode
