@@ -67,27 +67,7 @@ An in-depth paragraph about your project and overview of use.
   - [ ] Dark Mode
   - [X] Docker
 
-## Getting Started
 
-### Quick Install
-
-#### macOS (using Homebrew)
-```bash
-/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh) && brew install node mysql visual-studio-code && brew services start mysql && npm install -g node-schedule express mysql2 cors jsonwebtoken"
-```
-
-#### Windows (using Chocolatey)
-```powershell
-Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://community.chocolatey.org/install.ps1')) && choco install -y nodejs mysql vscode && npm install -g node-schedule express mysql2 cors jsonwebtoken
-```
-
-This command will install all required dependencies:
-- Node.js
-- MySQL Server
-- Visual Studio Code
-- Required npm packages
-
-After installation, you will need to [configure the database](#mysql-tickets).
 
 ### Installing
 
