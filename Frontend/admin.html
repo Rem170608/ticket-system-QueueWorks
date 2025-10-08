@@ -56,7 +56,6 @@
 
     <script type="module">
         const API_URL = 'http://localhost:3000/tickets';
-        const AUTH_KEY = 'queueworks_admin_session';
         let selectedTicketId = null;
         let allTickets = [];
 
@@ -115,12 +114,7 @@
             notify.textContent = '';
             
             try {
-                const sessionToken = sessionStorage.getItem(AUTH_KEY);
-                const resp = await fetch(API_URL, {
-                    headers: {
-                        'Authorization': `Bearer ${sessionToken}`
-                    }
-                });
+                const resp = await fetch(API_URL);
                 
                 if (!resp.ok) throw new Error(`Server ${resp.status}`);
                 const tickets = await resp.json();
@@ -217,12 +211,8 @@
             if (!confirm(`Delete ticket #${selectedTicketId}? This cannot be undone.`)) return;
             
             try {
-                const sessionToken = sessionStorage.getItem(AUTH_KEY);
                 const resp = await fetch(`${API_URL}/${selectedTicketId}`, { 
-                    method: 'DELETE',
-                    headers: {
-                        'Authorization': `Bearer ${sessionToken}`
-                    }
+                    method: 'DELETE'
                 });
                 if (!resp.ok) throw new Error(`Server ${resp.status}`);
                 
@@ -240,12 +230,8 @@
             if (!confirm('Delete ALL tickets? This cannot be undone.')) return;
             
             try {
-                const sessionToken = sessionStorage.getItem(AUTH_KEY);
                 const resp = await fetch(API_URL, { 
-                    method: 'DELETE',
-                    headers: {
-                        'Authorization': `Bearer ${sessionToken}`
-                    }
+                    method: 'DELETE'
                 });
                 if (!resp.ok) throw new Error(`Server ${resp.status}`);
                 

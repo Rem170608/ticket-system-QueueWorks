@@ -10,13 +10,13 @@ An in-depth paragraph about your project and overview of use.
 
 - [ ] Simple GUI  
   - [X] Landing page  
-  - [ ] Live Tickets  
+  - [X] Live Tickets  
   - [ ] Admin Panel / Login  
 - [ ] Basic Features
   - [X] Database
   - [X] Ticket Category
   - [X] Ticket Message
-  - [ ] Lehrjahr Filter
+  - [X] Lehrjahr Filter
   - [ ] Delete Ticket
 - [ ] Advanced Features  
   - [X] Mass delete
@@ -43,13 +43,15 @@ Make sure you have:
 
 - [MySQL Server installed and running](https://www.apachefriends.org/download.html)
 
-- [A configured database (see Installing Sql DB)](#mysql-db)
+- [A configured database (see Installing Sql DB)](#mysql-tickets)
 
 ### Installing
 
 #### Node.js
 
 #### MySql DB
+
+##### Mysql Tickets
 
 **Important**: Replace the password with your own, secure password. Note that the password is again used in the main.js file where you also need to replace it.
 
@@ -58,7 +60,13 @@ Make sure you have:
 CREATE DATABASE IF NOT EXISTS `ticket-queueworks`;
 USE `ticket-queueworks`;
 
--- Create the table
+-- Create the tables
+CREATE TABLE IF NOT EXISTS admin_users (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    username VARCHAR(50) UNIQUE NOT NULL,
+    password VARCHAR(255) NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
 CREATE TABLE IF NOT EXISTS `ticket` (
     `id` INT PRIMARY KEY AUTO_INCREMENT,
     `cat` VARCHAR(255) NULL,
@@ -73,7 +81,12 @@ CREATE USER IF NOT EXISTS 'noserq_user'@'%' IDENTIFIED BY 'secure_password_here'
 GRANT ALL PRIVILEGES ON `ticket-queueworks`.* TO 'noserq_user'@'%';
 FLUSH PRIVILEGES;
 
+-- Add an index for faster queries
+CREATE INDEX idx_lj ON ticket(LJ);
+CREATE INDEX idx_created_at ON ticket(created_at DESC);
 ```
+
+#### Mysql Login
 
 ### Executing program
 
