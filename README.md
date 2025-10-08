@@ -61,22 +61,6 @@ Make sure you have:
 CREATE DATABASE IF NOT EXISTS `ticket-queueworks`;
 USE `ticket-queueworks`;
 
--- Create the tables
-CREATE TABLE IF NOT EXISTS 'admin_users' (
-    'id' INT AUTO_INCREMENT PRIMARY KEY,
-    'username' VARCHAR(50) UNIQUE NOT NULL,
-    'password' VARCHAR(255) NOT NULL,
-    'created_at' TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-);
-
--- Add an index for faster queries
-CREATE INDEX idx_lj ON ticket(LJ);
-CREATE INDEX idx_created_at ON ticket(created_at DESC);
-
--- create one Admin user
-CREATE USER IF NOT EXISIS 'admin'@'%' IDENTIFIED BY 'secure_admin_password_here';
-GRANT ALL PRIVILEGES ON `ticket-queueworks`.* TO 'admin'@'%';
-
 CREATE TABLE IF NOT EXISTS `ticket` (
     `id` INT PRIMARY KEY AUTO_INCREMENT,
     `cat` VARCHAR(255) NULL,
@@ -85,7 +69,19 @@ CREATE TABLE IF NOT EXISTS `ticket` (
     `name` VARCHAR(255) NULL,
     `time` TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
--- Create one user with full access
+
+-- Create the admin_users table
+CREATE TABLE IF NOT EXISTS `admin_users` (
+    `id` INT PRIMARY KEY AUTO_INCREMENT,
+    `username` VARCHAR(255) UNIQUE NOT NULL,
+    `password` VARCHAR(255) NOT NULL,
+    `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- Insert an admin user
+INSERT INTO `admin_users` (username, password) VALUES ('admin_user', 'secure_password_here');
+
+-- Optionally create a user with full access
 CREATE USER IF NOT EXISTS 'noserq_user'@'%' IDENTIFIED BY 'secure_password_here';
 GRANT ALL PRIVILEGES ON `ticket-queueworks`.* TO 'noserq_user'@'%';
 FLUSH PRIVILEGES;
