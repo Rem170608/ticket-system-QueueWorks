@@ -1,43 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>QueueWorks – Live Tickets</title>
-  <link rel="icon" type="image/x-icon" href="/Media/head.svg" />
-  <link rel="stylesheet" href="style.css" />
-</head>
-
-<body>
-  <main>
-    <div class="container-live">
-      <div class="card-live">
-        <div class="navbar-live">
-          <div class="navbar-buttons-live">
-            <a href="index.html" class="nav-link-live">Home</a>
-            <a href="live.html" class="nav-link-live">Live</a>
-            <a href="login.html" class="nav-link-live">Login</a>
-          </div>
-        </div>
-
-        <img src="/Media/logo.svg" alt="QueueWorks Logo" class="logo-live" />
-
-        <div id="notify" class="notify"></div>
-
-        <!-- ✅ Ticket grid (3×3 layout) -->
-        <div id="tickets-container" class="tickets-grid">
-          <p>Loading tickets...</p>
-        </div>
-      </div>
-    </div>
-  </main>
-
-  <footer>
-    <p>&copy; 2025 QueueWorks</p>
-  </footer>
-
-  <script type="module">
-    const API_URL = 'http://localhost:3000/tickets';
+const API_URL = 'http://localhost:3000/tickets';
 
     async function loadTickets() {
       const notify = document.getElementById('notify');
@@ -88,6 +49,3 @@
     // Auto-refresh every 10 seconds
     loadTickets();
     setInterval(loadTickets, 10000);
-  </script>
-</body>
-</html>

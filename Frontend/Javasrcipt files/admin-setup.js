@@ -1,60 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Setup - QueueWorks</title>
-    <link rel="icon" type="image/x-icon" href="/Media/head.svg">
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
-    <main>
-        <div class="container">
-            <div class="card">
-                <div class="navbar">
-                    <div class="navbar-buttons">
-                        <a href="index.html" class="nav-link">Home</a>
-                        <a href="live.html" class="nav-link">Live</a>
-                        <a href="login.html" class="nav-link" id="loginNavLink">Login</a>
-                    </div>
-                </div>
-                <img src="/Media/logo.svg" alt="logo" class="logo">
-                
-                <h2>Admin Setup</h2>
-                
-                <div id="errorMessage" style="color: #ff0000; background: rgba(255, 0, 0, 0.1); padding: 10px; border-radius: 5px; margin: 10px 0; display: none; text-align: center;"></div>
-                <div id="successMessage" style="color: #00ff00; background: rgba(0, 255, 0, 0.1); padding: 10px; border-radius: 5px; margin: 10px 0; display: none; text-align: center;"></div>
-                
-                <div id="setupForm" style="display: none;">
-                      <div class="input-with-icon">
-                        <input type="text" placeholder="Benutzername" id="usernameInput" class="input-field" value="noserq_user" autocomplete="username" disabled>
-                    </div>
-                    <div class="input-with-icon">
-                    <div class="input-with-icon">
-                        <input type="password" placeholder="Neues Passwort" id="newPasswordInput" class="input-field">
-                        <button id="showNewPasswordBtn" type="button" class="show-password" aria-label="Toggle password visibility" title="Toggle password visibility">
-                            <img id="newEyeIcon" src="/Media/icons8-closed-eye-50.png" alt="Show password" />
-                        </button>
-                    </div>
-                    
-                    <div class="input-with-icon">
-                        <input type="password" placeholder="Passwort bestätigen" id="confirmPasswordInput" class="input-field">
-                        <button id="showConfirmPasswordBtn" type="button" class="show-password" aria-label="Toggle password visibility" title="Toggle password visibility">
-                            <img id="confirmEyeIcon" src="/Media/icons8-closed-eye-50.png" alt="Show password" />
-                        </button>
-                    </div>
-                    
-                    <button id="setupBtn" type="button" class="button">Passwort setzen</button>
-                </div>
-            </div>
-        </div>
-    </main>
-    <footer>
-        <p>&copy; 2025 QueueWorks</p>
-    </footer>
-
-    <script>
-        const API_URL = 'http://localhost:3000';
+const API_URL = 'http://localhost:3000';
 
         // Check if admin already exists
         async function checkAdminExists() {
@@ -84,14 +28,14 @@
                 if (data.adminExists) {
                     // If admin exists, redirect to login and show message
                     sessionStorage.setItem('setupMessage', 'Admin bereits eingerichtet. Bitte melden Sie sich an.');
-                    window.location.href = 'login.html';
+                    window.location.href = '/Frontend/Html files/login.html';
                     return;
                 }
 
                 // Update navigation link to show admin-setup while on setup page
                 const loginNavLink = document.getElementById('loginNavLink');
                 if (loginNavLink) {
-                    loginNavLink.href = 'admin-setup.html';
+                    loginNavLink.href = '/Frontend/Html files/admin-setup.html';
                 }
 
                 // Show setup form
@@ -228,6 +172,3 @@
                 setupBtn.style.opacity = '1';
             }
         });
-    </script>
-</body>
-</html>
