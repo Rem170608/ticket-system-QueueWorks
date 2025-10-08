@@ -5,6 +5,7 @@ async function submitTicket() {
     const LJ = document.getElementById('lehrjahr').value;
     const msg = document.getElementById('descriptionInput').value;
 
+
     if (!name || !cat || !LJ || !msg) {
         alert('Bitte alle Felder ausfüllen!');
         return;
@@ -29,6 +30,8 @@ async function submitTicket() {
         console.error('Error:', error);
         alert('Fehler beim Einreichen des Tickets');
     }
+
+ 
 }
 
 // Make submitTicket available globally

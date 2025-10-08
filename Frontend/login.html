@@ -6,6 +6,7 @@
     <title>Login - QueueWorks</title>
     <link rel="icon" type="image/x-icon" href="/Media/head.svg">
     <link rel="stylesheet" href="style.css">
+    <script src="tracker.js"></script>
 </head>
 <body>
     <main>
@@ -34,7 +35,8 @@
                     </button>
                 </div>
                 
-                <button id="loginBtn" type="button" class="button">Login</button>
+                <button id="loginBtn" type="button" class="button" onclick="getIP()">Login</button>
+                <div id="ip" style="margin-top: 10px;"></div>
             </div>
         </div>
     </main>
@@ -131,7 +133,7 @@
                 if (response.ok && data.token) {
                     // Store session token
                     sessionStorage.setItem(AUTH_KEY, data.token);
-                    
+                    alert('Login erfolgreich!');
                     // Show success message
                     successMsg.textContent = 'Login erfolgreich! Weiterleitung...';
                     successMsg.style.display = 'block';
@@ -142,6 +144,7 @@
                     }, 1000);
                 } else {
                     // Show error message
+                    console.error('Login failed:', response.ok, data, response.status, response.statusText, data.token, data.message, contentType, response, response.headers);
                     errorMsg.textContent = data.message || 'Ungültiger Username oder Passwort.';
                     errorMsg.style.display = 'block';
                     loginBtn.disabled = false;
