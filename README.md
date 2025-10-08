@@ -28,23 +28,25 @@ An in-depth paragraph about your project and overview of use.
 
 ## Getting Started
 
-### Dependencies
+### Quick Install
 
-This project runs on Node.js and uses the following main libraries:
+#### macOS (using Homebrew)
+```bash
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh) && brew install node mysql visual-studio-code && brew services start mysql && npm install -g node-schedule express mysql2 cors jsonwebtoken"
+```
 
-- express – web server framework to handle routes and API endpoints
+#### Windows (using Chocolatey)
+```powershell
+Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://community.chocolatey.org/install.ps1')) && choco install -y nodejs mysql vscode && npm install -g node-schedule express mysql2 cors jsonwebtoken
+```
 
-- mysql – used for MySQL database connection and queries
+This command will install all required dependencies:
+- Node.js
+- MySQL Server
+- Visual Studio Code
+- Required npm packages
 
-- mysql2 – improved MySQL client with Promise support
-
-Make sure you have:
-
-- [Node.js (v18 or later recommended)](#nodejs)
-
-- [MySQL Server installed and running](https://www.apachefriends.org/download.html)
-
-- [A configured database (see Installing Sql DB)](#mysql-tickets)
+After installation, you will need to [configure the database](#mysql-tickets).
 
 ### Installing
 
