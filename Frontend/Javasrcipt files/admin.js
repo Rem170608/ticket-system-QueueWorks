@@ -270,7 +270,7 @@
                                     const notification = new Notification(`${ticket.name}`, {
                                         body: `Nachricht: ${ticket.msg}`,
                                         icon: "/Media/head.svg",
-                                        tag: 'new-ticket-' + ticket.id // Ensures unique notification per ticket
+                                        tag: 'new-ticket-' + ticket.id, // Ensures unique notification per ticket
                                     });
 
                                 notification.onclick = function() {
