@@ -1,11 +1,11 @@
 # Ticket system by QueueWorks
-### Quick Install 🚀
+### Quick Install 
 
 Choose your operating system:
 
 ---
 
-#### 🍎 macOS
+####  macOS
 
 One-line install using Homebrew:
 ```bash
@@ -17,7 +17,7 @@ One-line install using Homebrew:
 
 ---
 
-#### 🪟 Windows
+####  Windows
 
 One-line install using Chocolatey:
 ```powershell
@@ -32,11 +32,11 @@ Set-ExecutionPolicy Bypass -Scope Process -Force; \
 
 ### What Gets Installed:
 
-📦 **Required Software:**
+ **Required Software:**
 - Node.js - Powers the backend server
 - MySQL - Handles the database
 
-⚙️ **NPM Packages:**
+ **NPM Packages:**
 - node-schedule: Automatic ticket cleanup
 - express: Web server framework
 - mysql2: Database connection
