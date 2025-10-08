@@ -26,6 +26,10 @@
                 <div id="successMessage" style="color: #00ff00; background: rgba(0, 255, 0, 0.1); padding: 10px; border-radius: 5px; margin: 10px 0; display: none; text-align: center;"></div>
                 
                 <div id="setupForm" style="display: none;">
+                      <div class="input-with-icon">
+                        <input type="text" placeholder="Benutzername" id="usernameInput" class="input-field" value="noserq_user" autocomplete="username" disabled>
+                    </div>
+                    <div class="input-with-icon">
                     <div class="input-with-icon">
                         <input type="password" placeholder="Neues Passwort" id="newPasswordInput" class="input-field">
                         <button id="showNewPasswordBtn" type="button" class="show-password" aria-label="Toggle password visibility" title="Toggle password visibility">
@@ -116,29 +120,36 @@
             // Setup password toggles
             const passwordConfigs = [
                 {
-                    passwordId: 'newPasswordInput',
-                    buttonId: 'showNewPasswordBtn',
-                    iconId: 'newEyeIcon',
+                    input: document.getElementById('newPasswordInput'),
+                    button: document.getElementById('showNewPasswordBtn'),
+                    icon: document.getElementById('newEyeIcon')
                 },
                 {
-                    passwordId: 'confirmPasswordInput',
-                    buttonId: 'showConfirmPasswordBtn',
-                    iconId: 'confirmEyeIcon',
+                    input: document.getElementById('confirmPasswordInput'),
+                    button: document.getElementById('showConfirmPasswordBtn'),
+                    icon: document.getElementById('confirmEyeIcon')
                 }
             ];
             
             passwordConfigs.forEach(config => {
-                if (typeof window.showpasswordbtn === 'function') {
-                    try {
-                        showpasswordbtn({
-                            ...config,
-                            openIcon: '/Media/icons8-eye-50.png',
-                            closedIcon: '/Media/icons8-closed-eye-50.png'
-                        });
-                    } catch (err) {
-                        console.info('showpasswordbtn exists but threw:', err);
-                    }
-                }
+                const { input, button, icon } = config;
+                
+                // Show password on mousedown
+                button.addEventListener('mousedown', () => {
+                    input.type = 'text';
+                    icon.src = '/Media/icons8-eye-50.png';
+                });
+                
+                // Hide password on mouseup or mouseleave
+                button.addEventListener('mouseup', () => {
+                    input.type = 'password';
+                    icon.src = '/Media/icons8-closed-eye-50.png';
+                });
+                
+                button.addEventListener('mouseleave', () => {
+                    input.type = 'password';
+                    icon.src = '/Media/icons8-closed-eye-50.png';
+                });
             });
             
             // Add Enter key handlers
