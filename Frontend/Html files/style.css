@@ -199,7 +199,9 @@ pre {
     box-shadow: 0 2px 5px light-dark(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.3));
     transition: transform 0.2s ease, box-shadow 0.2s ease;
     min-height: 20%;
-    max-height: 80%
+    max-height: 80%;
+    min-width: 100px;
+    max-width: 300px;
 }
 .ticket-boxQ {
     background-color: light-dark(#d5e1ee, #1a1a1a);
@@ -212,7 +214,9 @@ pre {
     box-shadow: 0 2px 5px light-dark(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.3));
     transition: transform 0.2s ease, box-shadow 0.2s ease;
     min-height: 20%;
-    max-height: 80%
+    max-height: 80%;
+    min-width: 100px;
+    max-width: 300px;
 }
 .ticket-boxC {
     background-color: light-dark(#d5e1ee, #1a1a1a);
@@ -225,7 +229,9 @@ pre {
     box-shadow: 0 2px 5px light-dark(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.3));
     transition: transform 0.2s ease, box-shadow 0.2s ease;
     min-height: 20%;
-    max-height: 80%
+    max-height: 80%;
+     min-width: 100px;
+    max-width: 300px;
 }
 .ticket-boxI {
     background-color: light-dark(#d5e1ee, #1a1a1a);
@@ -238,7 +244,9 @@ pre {
     box-shadow: 0 2px 5px light-dark(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.3));
     transition: transform 0.2s ease, box-shadow 0.2s ease;
     min-height: 20%;
-    max-height: 80%
+    max-height: 80%;
+    min-width: 100px;
+    max-width: 300px;
 }
 .ticket-box:hover, .ticket-boxQ:hover, .ticket-boxC:hover, .ticket-boxI:hover {
     transform: scale(1.03);
