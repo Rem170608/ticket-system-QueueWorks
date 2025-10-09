@@ -110,65 +110,72 @@ const API_URL = 'http://localhost:3000';
             });
         });
 
-        // Setup functionality
-        document.getElementById('setupBtn')?.addEventListener('click', async function() {
-            const password = document.getElementById('newPasswordInput').value;
-            const confirmPassword = document.getElementById('confirmPasswordInput').value;
-            const errorMsg = document.getElementById('errorMessage');
-            const successMsg = document.getElementById('successMessage');
-            const setupBtn = document.getElementById('setupBtn');
-            
-            // Hide previous messages
-            errorMsg.style.display = 'none';
-            successMsg.style.display = 'none';
-            
-            // Validate passwords
-            if (!password || !confirmPassword) {
-                errorMsg.textContent = 'Bitte füllen Sie beide Passwortfelder aus.';
-                errorMsg.style.display = 'block';
-                return;
-            }
-            
-            if (password !== confirmPassword) {
-                errorMsg.textContent = 'Die Passwörter stimmen nicht überein.';
-                errorMsg.style.display = 'block';
-                return;
-            }
-            
-            setupBtn.disabled = true;
-            setupBtn.textContent = 'Setting up...';
-            setupBtn.style.opacity = '0.6';
-            
-            try {
-                const response = await fetch(`${API_URL}/setup/create-admin`, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({ password })
-                });
-                
-                const data = await response.json();
-                
-                if (response.ok) {
-                    successMsg.textContent = 'Admin account created! Redirecting to login...';
-                    successMsg.style.display = 'block';
-                    setTimeout(() => {
-                        window.location.href = 'login.html';
-                    }, 1500);
-                } else {
-                    errorMsg.textContent = data.error || 'Setup failed. Please try again.';
-                    errorMsg.style.display = 'block';
-                    setupBtn.disabled = false;
-                    setupBtn.textContent = 'Passwort setzen';
-                    setupBtn.style.opacity = '1';
-                }
-            } catch (error) {
-                console.error('Setup error:', error);
-                errorMsg.textContent = 'Connection error. Please try again.';
-                errorMsg.style.display = 'block';
-                setupBtn.disabled = false;
-                setupBtn.textContent = 'Passwort setzen';
-                setupBtn.style.opacity = '1';
-            }
+       // Setup functionality
+document.getElementById('setupBtn')?.addEventListener('click', async function() {
+    const username = document.getElementById('usernameInput').value.trim();
+    const password = document.getElementById('newPasswordInput').value;
+    const confirmPassword = document.getElementById('confirmPasswordInput').value;
+    const errorMsg = document.getElementById('errorMessage');
+    const successMsg = document.getElementById('successMessage');
+    const setupBtn = document.getElementById('setupBtn');
+    
+    // Hide previous messages
+    errorMsg.style.display = 'none';
+    successMsg.style.display = 'none';
+    
+    // Validate inputs
+    if (!username) {
+        errorMsg.textContent = 'Bitte geben Sie einen Benutzernamen ein.';
+        errorMsg.style.display = 'block';
+        return;
+    }
+
+    if (!password || !confirmPassword) {
+        errorMsg.textContent = 'Bitte füllen Sie beide Passwortfelder aus.';
+        errorMsg.style.display = 'block';
+        return;
+    }
+    
+    if (password !== confirmPassword) {
+        errorMsg.textContent = 'Die Passwörter stimmen nicht überein.';
+        errorMsg.style.display = 'block';
+        return;
+    }
+    
+    setupBtn.disabled = true;
+    setupBtn.textContent = 'Setting up...';
+    setupBtn.style.opacity = '0.6';
+    
+    try {
+        const response = await fetch(`${API_URL}/setup/create-admin`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ username, password }) // ✅ Include username
         });
+        
+        const data = await response.json();
+        
+        if (response.ok) {
+            successMsg.textContent = 'Admin account created! Redirecting to login...';
+            successMsg.style.display = 'block';
+            setTimeout(() => {
+                window.location.href = 'login.html';
+            }, 1500);
+        } else {
+            errorMsg.textContent = data.error || 'Setup failed. Please try again.';
+            errorMsg.style.display = 'block';
+            setupBtn.disabled = false;
+            setupBtn.textContent = 'Passwort setzen';
+            setupBtn.style.opacity = '1';
+        }
+    } catch (error) {
+        console.error('Setup error:', error);
+        errorMsg.textContent = 'Connection error. Please try again.';
+        errorMsg.style.display = 'block';
+        setupBtn.disabled = false;
+        setupBtn.textContent = 'Passwort setzen';
+        setupBtn.style.opacity = '1';
+    }
+});
