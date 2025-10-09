@@ -221,11 +221,11 @@ app.post('/submit-ticket', (req, res) => {
 // Get all tickets
 app.get('/tickets', (req, res) => {
     const ljFilter = req.query.LJ;
-    let sql = 'SELECT * FROM ticket ORDER BY id DESC';
+    let sql = 'SELECT * FROM ticket ORDER BY id ASC';
     let params = [];
     
     if (ljFilter) {
-        sql = 'SELECT * FROM ticket WHERE LJ = ? ORDER BY id DESC';
+        sql = 'SELECT * FROM ticket WHERE LJ = ? ORDER BY id ASC';
         params = [ljFilter];
     }
     
