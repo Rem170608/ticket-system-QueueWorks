@@ -11,8 +11,7 @@ body {
     flex-direction: column;
     min-height: 100vh;
     max-width: 800px;
-    margin: 50px auto;
-    padding: 20px;
+    margin: 0px auto auto auto;
 }
 
 header {
@@ -26,7 +25,7 @@ footer
     color: light-dark(#333, #ffffff);
     text-align: center;
     padding: 10px 20px;
-    margin-top: auto;
+    margin-top: 50px;
     position: relative
 }
 h1 {
@@ -65,9 +64,10 @@ pre {
     height: auto;
     display: block;
     margin: auto;
+    margin-bottom: 20px;
 }
 .logo-scuffed{
-    transform: rotate(180deg) scale(1.5);
+    transform: rotate(180deg) scale(1.7);
 }
 
 /* Navigation */
@@ -80,7 +80,7 @@ pre {
 }
 .navbar-scuffed{
     transition: 0.2s;
-    transform: scale(5);
+    transform: scale(2.5);
 }
 .navbar-buttons, .navbar-buttons-live {
     margin: 0 5px;
@@ -139,6 +139,7 @@ pre {
     align-items: center;
     padding: 0px;
     max-width: 100%;
+    margin-top: 20px;
 }
 .card-live {
     max-width: 90%;
@@ -149,7 +150,7 @@ pre {
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 20px;
+    margin-top: 20px;
     max-width: 90%;
 }
 .tickets-container-live {
@@ -165,7 +166,6 @@ pre {
     border-radius: 15px;
     box-shadow: 0 2px 4px light-dark(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.3));
     padding: 20px;
-    margin: 10px;
     flex: 1;
     max-width: 90%;
     text-align: center;
