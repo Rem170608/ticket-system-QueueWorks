@@ -56,12 +56,23 @@ document.addEventListener('DOMContentLoaded', function () {
             errorMsg.style.display = 'none';
             successMsg.style.display = 'none';
             
+            if(!username && !password) {
+                errorMsg.textContent = 'Bitte Benutzername und Passwort eingeben.';
+                errorMsg.style.display = 'block';
+                return;
+            }
             // Validate input
             if (!password) {
                 errorMsg.textContent = 'Bitte Passwort eingeben.';
                 errorMsg.style.display = 'block';
                 return;
             }
+            if (!username) {
+                errorMsg.textContent = 'Bitte Benutzername eingeben.';
+                errorMsg.style.display = 'block';
+                return;
+            }   
+            
             
             // Disable button during request
             loginBtn.disabled = true;

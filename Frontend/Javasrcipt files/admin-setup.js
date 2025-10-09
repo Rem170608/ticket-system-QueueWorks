@@ -112,6 +112,7 @@ const API_URL = 'http://localhost:3000';
 
         // Setup functionality
         document.getElementById('setupBtn')?.addEventListener('click', async function() {
+            const username = document.getElementById('usernameInput').value;
             const password = document.getElementById('newPasswordInput').value;
             const confirmPassword = document.getElementById('confirmPasswordInput').value;
             const errorMsg = document.getElementById('errorMessage');

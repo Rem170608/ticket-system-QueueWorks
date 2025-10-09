@@ -99,8 +99,8 @@ app.get('/auth/check-admin', (req, res) => {
             });
         } else {
             // Table exists, check for admin user
-            const checkAdminSql = "SELECT * FROM admin_users WHERE username = 'noserq_user'";
-            pool.query(checkAdminSql, (err, results) => {
+            const checkAdminSql = "SELECT * FROM admin_users WHERE username = ?";
+            pool.query(checkAdminSql, [username], (err, results) => {
                 if (err) {
                     console.error('Database error:', err);
                     return res.status(500).json({ 
@@ -128,7 +128,7 @@ app.post('/auth/login', (req, res) => {
     }
 
     // Only allow noserq_user to login
-    if (username !== 'noserq_user') {
+    if (username !== username) {
         return res.status(401).json({ message: 'Ungültiger Username oder Passwort' });
     }
     
@@ -286,7 +286,7 @@ app.delete('/tickets', verifyToken, (req, res) => {
 // Endpoint to create admin user (first-time setup only)
 app.post('/setup/create-admin', (req, res) => {
     const { password } = req.body;
-    const username = 'noserq_user';  // Hardcoded username
+    const username = req.body.username;
     
     if (!password) {
         return res.status(400).json({ error: 'Passwort erforderlich' });
