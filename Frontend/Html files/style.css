@@ -201,7 +201,7 @@ pre {
     min-height: 20%;
     max-height: 80%;
     min-width: 100px;
-    max-width: 300px;
+    max-width: 400px;
 }
 .ticket-boxQ {
     background-color: light-dark(#d5e1ee, #1a1a1a);
@@ -216,7 +216,7 @@ pre {
     min-height: 20%;
     max-height: 80%;
     min-width: 100px;
-    max-width: 300px;
+    max-width: 400px;
 }
 .ticket-boxC {
     background-color: light-dark(#d5e1ee, #1a1a1a);
@@ -230,8 +230,8 @@ pre {
     transition: transform 0.2s ease, box-shadow 0.2s ease;
     min-height: 20%;
     max-height: 80%;
-     min-width: 100px;
-    max-width: 300px;
+    min-width: 100px;
+    max-width: 400px;
 }
 .ticket-boxI {
     background-color: light-dark(#d5e1ee, #1a1a1a);
@@ -246,7 +246,7 @@ pre {
     min-height: 20%;
     max-height: 80%;
     min-width: 100px;
-    max-width: 300px;
+    max-width: 400px;
 }
 .ticket-box:hover, .ticket-boxQ:hover, .ticket-boxC:hover, .ticket-boxI:hover {
     transform: scale(1.03);
