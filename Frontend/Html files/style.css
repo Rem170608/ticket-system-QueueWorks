@@ -294,6 +294,12 @@ pre {
     margin: 10px 0;
     border-radius: 8px;
 }
+.admin-button-container {
+    display: flex;
+    gap: 5px;
+    align-items: center;
+    min-width: 100%;
+}
 
 /* Inputs and Buttons */
 
@@ -315,17 +321,18 @@ pre {
     outline: none;
 }
 .button {
-    background-color: #4a90e2;
+    background-color: ligh-dark(#4a90e2, #357abd);
     color: white;
     border: none;
     border-radius: 15px;
     padding: 12px 20px;
     font-size: 16px;
     cursor: pointer;
+    min-width: 80px;
     width: 100%;
 }
 .button:hover {
-    background-color: #357abd;
+    background-color: light-dark(#357abd, #4a90e2);
     scale: 1.02;
     transition: all 0.02s ease;
 }
@@ -371,7 +378,7 @@ pre {
     outline: 2px solid light-dark(rgba(74,144,226,0.25), rgba(74,144,226,0.4));
 }
 .deletebuttons {
-    background-color: light-dark(red, #cc0000);
+    background-color: light-dark(#ff4d4d, #cc0000 );
     color: light-dark(white, white);
     border: none;
     border-radius: 15px;
@@ -379,9 +386,10 @@ pre {
     font-size: 16px;
     cursor: pointer;
     width: 100%;
+    align-self: left;
 }
 .deletebuttons:hover {
-    background-color: light-dark(darkred, red);
+    background-color: light-dark(#cc0000, #ff4d4d);
     scale: 1.02;
     transition: all 0.02s ease;
 }
