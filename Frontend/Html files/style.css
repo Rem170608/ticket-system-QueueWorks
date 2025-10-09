@@ -41,25 +41,6 @@ h3 {
     font-size: 22px;
     margin-bottom: 8px;
 }
-a {
-    background-color: light-dark(#4a90e2, #357abd);
-    color: light-dark(white, white);
-    text-align: center;
-    display:  inline-block;
-    text-decoration: none;
-    border-radius: 15px;
-    margin: 5px 10px;
-    min-width: 80px;
-    padding: 12px 12px;
-    font-weight: bold;
-    cursor: pointer;
-    transition: all 0.02s ease;
-}
-a:hover {
-    background-color: light-dark(#357abd, #4a90e2);
-    scale: 1.05;
-    transition: all 0.02s ease;
-}
 button {
     background: light-dark(#4a90e2, #357abd);
     color: light-dark(white, white);
@@ -79,18 +60,27 @@ pre {
 
 /* Logo */
 
-.logo, .logo-live {
+.logo, .logo-live, .logo-scuffed {
     max-width: 300px;
     height: auto;
+    display: block;
+    margin: auto;
+}
+.logo-scuffed{
+    transform: rotate(180deg) scale(1.5);
 }
 
 /* Navigation */
 
-.navbar, .navbar-live {
+.navbar, .navbar-live, .navbar-scuffed {
     padding: 10px 10px;
     display: flex;
     justify-content: center;
     max-width: 100%;
+}
+.navbar-scuffed{
+    transition: 0.2s;
+    transform: scale(5);
 }
 .navbar-buttons, .navbar-buttons-live {
     margin: 0 5px;
@@ -113,15 +103,32 @@ pre {
     scale: 1.05;
     transition: all 0.02s ease;
 }
-.nav-link {
-    margin: 0 10px;
-    color: light-dark(#ffffff, #ffffff);
+.nav-link, .nav-link-live, .nav-link-scuffed {
+    background-color: light-dark(#4a90e2, #357abd);
+    color: light-dark(white, white);
+    text-align: center;
+    display:  inline-block;
     text-decoration: none;
+    border-radius: 15px;
+    margin: 5px 10px;
+    min-width: 80px;
+    padding: 12px 12px;
     font-weight: bold;
-    padding: 8px 12px;
-    border-radius: 8px;
-    transition: background-color 0.3s, color 0.3s;
+    cursor: pointer;
+    transition: all 0.02s ease;
 }
+.nav-link:hover, .nav-link-live:hover{
+    background-color: light-dark(#357abd, #4a90e2);
+    scale: 1.05;
+    transition: all 0.02s eas
+}
+.nav-link-scuffed:hover {
+    color: #00ff00;
+    background-color: light-dark(#db1212ad, #e77878);
+    scale: 1.15;
+    transition: all 0.02s eas
+}
+
 
 /* Layout */
 
