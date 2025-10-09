@@ -125,7 +125,7 @@
             
             tickets.forEach(t => {
                 const el = document.createElement('div');
-                el.className = 'ticket-box';
+                el.className = `ticket-box${t.cat || ''}`;
                 el.dataset.id = t.id;
                 
                 if (selectedTicketId === t.id) {
