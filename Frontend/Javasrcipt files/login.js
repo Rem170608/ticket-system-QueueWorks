@@ -1,18 +1,43 @@
 const API_URL = 'http://localhost:3000';
 const AUTH_KEY = 'queueworks_admin_session';
 
-// Initialize password toggle and setup event handlers
-document.addEventListener('DOMContentLoaded', function () {
-    // Check for setup messages
-    const setupMessage = sessionStorage.getItem('setupMessage');
-    if (setupMessage) {
-        const errorMsg = document.getElementById('errorMessage');
-        if (errorMsg) {
-            errorMsg.textContent = setupMessage;
-            errorMsg.style.display = 'block';
-            sessionStorage.removeItem('setupMessage');
+
+        // Check if admin exists and redirect to setup if needed
+        async function checkAdminSetup() {
+            try {
+                const response = await fetch(`${API_URL}/auth/check-admin`);
+                const data = await response.json();
+                
+                if (!data.adminExists) {
+                    // Redirect to setup page if admin doesn't exist
+                    window.location.href = 'admin-setup.html';
+                }
+
+                // Update login nav link to point to login.html since admin exists
+                const loginNavLink = document.getElementById('loginNavLink');
+                if (loginNavLink) {
+                    loginNavLink.href = 'login.html';
+                }
+            } catch (error) {
+                console.error('Setup check error:', error);
+                document.getElementById('errorMessage').textContent = 'Server nicht erreichbar';
+                document.getElementById('errorMessage').style.display = 'block';
+            }
         }
-    }
+
+
+        // Initialize password toggle
+        document.addEventListener('DOMContentLoaded', function () {
+            // Check for setup messages
+            const setupMessage = sessionStorage.getItem('setupMessage');
+            if (setupMessage) {
+                document.getElementById('errorMessage').textContent = setupMessage;
+                document.getElementById('errorMessage').style.display = 'block';
+                sessionStorage.removeItem('setupMessage');
+            }
+
+            // Check admin setup status
+            checkAdminSetup();
 
             // Setup password toggle with mousedown/mouseup
             const passwordInput = document.getElementById('passwordInput');
