@@ -6,7 +6,7 @@
     <title>Login - QueueWorks</title>
     <link rel="icon" type="image/x-icon" href="/Media/head.svg">
     <link rel="stylesheet" href="style.css">
-    <script src="../Javasrcipt files/script.js"></script>
+    <script src="../Javascript/script.js"></script> <!-- optional shared frontend JS -->
 </head>
 <body>
     <main>
@@ -28,7 +28,7 @@
 
                 <div id="loginForm">
                     <div class="input-with-icon">
-                        <input type="text" placeholder="Benutzername" id="usernameInput" class="input-field" autocomplete="current-username">
+                        <input type="text" placeholder="Benutzername" id="usernameInput" class="input-field" autocomplete="username">
                     </div>
                     <div class="input-with-icon">
                         <input type="password" placeholder="Passwort" id="passwordInput" class="input-field" autocomplete="current-password">
@@ -36,7 +36,8 @@
                             <img id="eyeIcon" src="/Media/icons8-closed-eye-50.png" alt="Show password" />
                         </button>
                     </div>
-                             <button id="loginBtn" type="button" class="button">Login</button>
+
+                    <button id="loginBtn" type="button" class="button">Login</button>
                 </div>
             </div>
         </div>
@@ -46,7 +47,6 @@
     </footer>
 
     <!-- Scripts -->
-    <script src="../../Backend/login.js"></script>
-    <script src="../Javasrcipt files/login.js"></script>
+    <script src="../Javascript/login.js"></script>
 </body>
 </html>

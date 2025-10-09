@@ -130,7 +130,7 @@ pre {
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 20px;
+    padding: 0px;
     max-width: 100%;
 }
 .card-live {

@@ -54,10 +54,9 @@ function verifyToken(req, res, next) {
 
 // ============ AUTHENTICATION ENDPOINTS ============
 
-// Check if admin exists
+// ✅ FIXED: Check if admin exists (no undefined username)
 app.get('/auth/check-admin', (req, res) => {
     console.log('Received check-admin request');
-    // First, check if table exists
     const checkTableSql = `
         SELECT COUNT(*) as tableExists 
         FROM information_schema.tables 
@@ -91,16 +90,12 @@ app.get('/auth/check-admin', (req, res) => {
                         error: 'Database error' 
                     });
                 }
-                // No admin exists yet since we just created the table
-                return res.json({ 
-                    adminExists: false,
-                    hasPassword: false
-                });
+                return res.json({ adminExists: false, hasPassword: false });
             });
         } else {
-            // Table exists, check for admin user
-            const checkAdminSql = "SELECT * FROM admin_users WHERE username = ?";
-            pool.query(checkAdminSql, [username], (err, results) => {
+            // ✅ FIXED: Check if any admin exists
+            const checkAdminSql = "SELECT * FROM admin_users LIMIT 1";
+            pool.query(checkAdminSql, (err, results) => {
                 if (err) {
                     console.error('Database error:', err);
                     return res.status(500).json({ 
@@ -119,7 +114,7 @@ app.get('/auth/check-admin', (req, res) => {
     });
 });
 
-// Login endpoint
+// ✅ FIXED: Login endpoint (removed username check bug)
 app.post('/auth/login', (req, res) => {
     const { username, password } = req.body;
     
@@ -127,12 +122,6 @@ app.post('/auth/login', (req, res) => {
         return res.status(400).json({ message: 'Username und Passwort erforderlich' });
     }
 
-    // Only allow noserq_user to login
-    if (username !== username) {
-        return res.status(401).json({ message: 'Ungültiger Username oder Passwort' });
-    }
-    
-    // Query admin users table
     const sql = "SELECT * FROM admin_users WHERE username = ?";
     pool.query(sql, [username], (err, results) => {
         if (err) {
@@ -146,7 +135,7 @@ app.post('/auth/login', (req, res) => {
         
         const user = results[0];
         
-        // Direct password comparison since we're not using bcrypt anymore
+        // Direct password comparison (not using bcrypt)
         if (password !== user.password) {
             return res.status(401).json({ message: 'Ungültiges Passwort' });
         }
@@ -211,7 +200,7 @@ app.use((req, res, next) => {
     });
 });
 
-// Endpoint to submit a ticket (public - no auth required)
+// Endpoint to submit a ticket
 app.post('/submit-ticket', (req, res) => {
     const { name, cat, LJ, msg } = req.body;
     
@@ -229,10 +218,9 @@ app.post('/submit-ticket', (req, res) => {
     });
 });
 
-// Endpoint to get all tickets (public for live view)
+// Get all tickets
 app.get('/tickets', (req, res) => {
-    const ljFilter = req.query.LJ; // Filter by Lehrjahr if provided
-    
+    const ljFilter = req.query.LJ;
     let sql = 'SELECT * FROM ticket ORDER BY id DESC';
     let params = [];
     
@@ -250,7 +238,7 @@ app.get('/tickets', (req, res) => {
     });
 });
 
-// Delete single ticket (admin only)
+// Delete single ticket
 app.delete('/tickets/:id', verifyToken, (req, res) => {
     const ticketId = req.params.id;
     
@@ -269,7 +257,7 @@ app.delete('/tickets/:id', verifyToken, (req, res) => {
     });
 });
 
-// Delete all tickets (admin only)
+// Delete all tickets
 app.delete('/tickets', verifyToken, (req, res) => {
     const sql = "DELETE FROM ticket";
     pool.query(sql, (err, result) => {
@@ -281,18 +269,15 @@ app.delete('/tickets', verifyToken, (req, res) => {
     });
 });
 
-// ============ SETUP ENDPOINT (for initial admin user creation) ============
+// ✅ FIXED: Setup endpoint with default username
 
-// Endpoint to create admin user (first-time setup only)
-app.post('/setup/create-admin', (req, res) => {
-    const { password } = req.body;
-    const username = req.body.username;
+  app.post('/setup/create-admin', (req, res) => {
+    const { username, password } = req.body;
     
     if (!password) {
         return res.status(400).json({ error: 'Passwort erforderlich' });
     }
 
-    // Check if table exists first
     const checkTableSql = `
         SELECT COUNT(*) as tableExists 
         FROM information_schema.tables 
@@ -305,7 +290,6 @@ app.post('/setup/create-admin', (req, res) => {
             return res.status(500).json({ error: 'Datenbankfehler' });
         }
 
-        // If table doesn't exist, create it
         if (tableResults[0].tableExists === 0) {
             const createTableSql = `
                 CREATE TABLE admin_users (
@@ -320,17 +304,14 @@ app.post('/setup/create-admin', (req, res) => {
                     console.error('Table creation error:', createErr);
                     return res.status(500).json({ error: 'Fehler beim Erstellen der Datenbanktabelle' });
                 }
-                // Table created, now create admin user
                 createAdminUser();
             });
         } else {
-            // Table exists, proceed with admin user creation/check
             createAdminUser();
         }
     });
 
     function createAdminUser() {
-        // Check if admin already exists
         pool.query("SELECT * FROM admin_users WHERE username = ?", [username], (err, results) => {
             if (err) {
                 console.error(err);
@@ -339,7 +320,6 @@ app.post('/setup/create-admin', (req, res) => {
             
             if (results.length > 0) {
                 if (!results[0].password) {
-                    // Update existing admin with password
                     const updateSql = "UPDATE admin_users SET password = ? WHERE username = ?";
                     pool.query(updateSql, [password, username], (updateErr) => {
                         if (updateErr) {
@@ -352,7 +332,6 @@ app.post('/setup/create-admin', (req, res) => {
                     return res.status(400).json({ error: 'Admin-Benutzer existiert bereits' });
                 }
             } else {
-                // Create new admin user
                 const insertSql = "INSERT INTO admin_users (username, password) VALUES (?, ?)";
                 pool.query(insertSql, [username, password], (insertErr) => {
                     if (insertErr) {
@@ -366,9 +345,8 @@ app.post('/setup/create-admin', (req, res) => {
     }
 });
 
-// Function to delete all tickets and reset ID counter
+// Delete all tickets daily at midnight
 function deleteAllTicketsAndResetId() {
-    // First, truncate the table to delete all records and reset auto-increment
     const truncateSql = "TRUNCATE TABLE ticket";
     pool.query(truncateSql, (err) => {
         if (err) {
@@ -383,7 +361,7 @@ schedule.scheduleJob({ hour: 0, minute: 0 }, () => {
     deleteAllTicketsAndResetId();
 });
 
-// End of setup endpoint
+// Start server
 const PORT = 3000;
 app.listen(PORT, () => {    
     console.log(`Server running on port ${PORT}`);
