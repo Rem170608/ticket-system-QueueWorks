@@ -72,13 +72,13 @@ An in-depth paragraph about your project and overview of use.
   - [X] Dark Mode
   - [ ] Docker
 
-### Installing
+## Installing
 
-#### Node.js
+### Node.js
 
-#### MySql DB
+### MySql DB
 
-##### Mysql Tickets
+#### Mysql Tickets
 
 **Important**: Replace the password with your own, secure password. Note that the password is again used in the main.js file where you also need to replace it.
 

@@ -115,7 +115,7 @@ pre {
 }
 .nav-link {
     margin: 0 10px;
-    color: light-dark(#333, #ffffff);
+    color: light-dark(#ffffff, #ffffff);
     text-decoration: none;
     font-weight: bold;
     padding: 8px 12px;
@@ -181,7 +181,7 @@ pre {
     box-sizing: border-box;
     overflow: hidden;
 }
-.ticket-box {
+.ticket-box{
     background-color: light-dark(#d5e1ee, #1a1a1a);
     border: 2px solid light-dark(#4a90e2, #4a90e2);
     border-radius: 15px;
@@ -194,7 +194,46 @@ pre {
     min-height: 20%;
     max-height: 80%
 }
-.ticket-box:hover {
+.ticket-boxQ {
+    background-color: light-dark(#d5e1ee, #1a1a1a);
+    border: 2px solid light-dark(#fc6a03, #ed7014);
+    border-radius: 15px;
+    padding: 16px;
+    text-align: center;
+    font-size: 0.95rem;
+    font-weight: 500;
+    box-shadow: 0 2px 5px light-dark(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.3));
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    min-height: 20%;
+    max-height: 80%
+}
+.ticket-boxC {
+    background-color: light-dark(#d5e1ee, #1a1a1a);
+    border: 2px solid light-dark(#0F5132, #0A5C36);
+    border-radius: 15px;
+    padding: 16px;
+    text-align: center;
+    font-size: 0.95rem;
+    font-weight: 500;
+    box-shadow: 0 2px 5px light-dark(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.3));
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    min-height: 20%;
+    max-height: 80%
+}
+.ticket-boxI {
+    background-color: light-dark(#d5e1ee, #1a1a1a);
+    border: 2px solid light-dark(#ce2029, #ff0800 );
+    border-radius: 15px;
+    padding: 16px;
+    text-align: center;
+    font-size: 0.95rem;
+    font-weight: 500;
+    box-shadow: 0 2px 5px light-dark(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.3));
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    min-height: 20%;
+    max-height: 80%
+}
+.ticket-box:hover, .ticket-boxQ:hover, .ticket-boxC:hover, .ticket-boxI:hover {
     transform: scale(1.03);
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
 }
@@ -222,15 +261,15 @@ pre {
         height: auto;
     }
 }
-.ticket-box {
+.ticket-box, .ticket-boxQ, .ticket-boxC, .ticket-boxI {
     cursor: pointer;
     transition: all 0.3s ease;
 }
-.ticket-box:hover {
+.ticket-box:hover, .ticket-boxQ:hover, .ticket-boxC:hover, .ticket-boxI:hover {
     transform: scale(1.02);
     box-shadow: 0 4px 8px rgba(0,0,0,0.2);
 }
-.ticket-box.selected {
+.ticket-box.selected, .ticket-boxQ.selected, .ticket-boxC.selected, .ticket-boxI.selected {
     border: 3px solid #ff0000;
     box-shadow: 0 0 15px rgba(255, 0, 0, 0.5);
 }
