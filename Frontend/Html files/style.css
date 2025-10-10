@@ -1,444 +1,219 @@
 :root {
-    color-scheme: light dark;
+  color-scheme: light dark;
+  --color-text: light-dark(#333, #ffffff);
+  --color-body-footer: light-dark(#d5e1ee, #1a1a1a);
+  --color-button: light-dark(#4a90e2, #357abd);
+  --color-button-hover: light-dark(#357abd, #4a90e2);
+  --color-button-txt: light-dark(white, white);
+  --color-button-action: light-dark(#ff4d4d, #cc0000);
+  --color-button-shadow: light-dark(#2d2d2d, #575757);
+  --color-button-action-hover: light-dark(#cc0000, #ff4d4d);
+  --color-navigation: light-dark(#4a90e2, #357abd);
+  --color-navbar-buttons-bg: light-dark(white, #2d2d2d);
+  --color-card-bg: light-dark(#fff, #2d2d2d);
+  --color-card-shadow: light-dark(rgba(0,0,0,0.1), rgba(0,0,0,0.3));
+  --color-tickets-grid-bg: light-dark(#ffffff, #2d2d2d);
+  --color-ticket-box-bg: light-dark(#d5e1ee, #1a1a1a);
+  --color-ticket-box-border: light-dark(#4a90e2, #4a90e2);
+  --color-ticket-boxQ-border: light-dark(#fc6a03, #ed7014);
+  --color-ticket-boxC-border: light-dark(#0F5132, #0A5C36);
+  --color-ticket-boxI-border: light-dark(#ce2029, #ff0800);
+  --color-input-border: light-dark(#ccc, #444);
+  --color-input-bg: light-dark(#ffffff, #2d2d2d);
+  --color-input-text: light-dark(#333, #ffffff);
+  --color-show-password: light-dark(#666, #999);
+  --color-show-password-hover: light-dark(rgba(74,144,226,0.08), rgba(74,144,226,0.15));
+  --color-show-password-focus: light-dark(rgba(74,144,226,0.25), rgba(74,144,226,0.4));
+  --color-delete-button: light-dark(#ff4d4d, #cc0000);
+  --color-delete-button-hover: light-dark(#cc0000, #ff4d4d);
+  --color-bad-actor: light-dark(red, #ff6666);
+  --color-notify: light-dark(rgb(255, 0, 0), rgb(255, 102, 102));
+  --color-success-bg: light-dark(#d4edda, #1e3b2f);
+  --color-success-text: light-dark(#155724, #4fd792);
+  --color-error-bg: light-dark(#f8d7da, #3b1f1f);
+  --color-error-text: light-dark(#721c24, #ff9999);
+  --color-error-message-text: light-dark(#ff0000, #ff6666);
+  --color-error-message-bg: light-dark(rgba(255, 0, 0, 0.1), rgba(255, 0, 0, 0.2));
+  --color-success-message-text: light-dark(#00ff00, #66ff66);
+  --color-success-message-bg: light-dark(rgba(0, 255, 0, 0.1), rgba(0, 255, 0, 0.2));
+}
+html{
+  min-height: 100%;
 }
 body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: light-dark(#d5e1ee, #1a1a1a);
-    color: light-dark(#333, #ffffff);
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-    max-width: 800px;
-    margin: 0px auto auto auto;
+  background-color: var(--color-body-footer);
+  color: var(--color-text);
+  min-height: 100vh;
+  display: grid;
+  grid-template-rows: 1fr auto;
+  margin: 0;
 }
-
-header {
-    background-color: light-dark(#4a90e2, #2d2d2d);
-    color: light-dark(#ffffff, #ffffff);
-    text-align: center;
+main {
+  display: grid;
+  grid-template-columns: 1fr 2fr 1fr;
+  grid-template-rows: 0.5fr 2fr 1fr;
+  gap: 1rem;
+  padding: 1.5rem;
+  align-items: stretch;
+  justify-items: center;
+  min-height: calc(100vh - 6rem);
+  box-sizing: border-box;
 }
-footer
-{
-    background-color: light-dark(#d5e1ee, #1a1a1a);
-    color: light-dark(#333, #ffffff);
-    text-align: center;
-    padding: 10px 20px;
-    margin-top: auto;
-    position: relative
+footer {
+  grid-row: 2;
+  display: flex;
+  justify-content: center; 
+  align-items: center;     
+  padding: 0.75rem 0.75rem;
+  text-align: center;
+  width: 100%;
+  box-sizing: border-box;
 }
-h1 {
-    margin: 0;
-    font-size: 28px;
-}
-h2 {
-    font-size: 24px;
-    margin-bottom: 10px;
-}
-h3 {
-    font-size: 22px;
-    margin-bottom: 8px;
-}
-button {
-    background: light-dark(#4a90e2, #357abd);
-    color: light-dark(white, white);
-    border: none;
-    padding: 10px 20px;
-    border-radius: 5px;
-    cursor: pointer;
-    margin: 5px;
-}
-pre {
-    background: light-dark(#2d2d2d, #1a1a1a);
-    color: light-dark(#f8f8f2, #ffffff);
-    padding: 15px;
-    border-radius: 5px;
-    overflow-x: auto;
-}
-
-/* Logo */
-
-.logo, .logo-live, .logo-scuffed {
-    max-width: 300px;
-    height: auto;
-    display: block;
-    margin: auto;
-    margin-bottom: 20px;
-}
-.logo-scuffed{
-    transform: rotate(180deg) scale(1.7);
-}
-
-/* Navigation */
-
-.navbar, .navbar-live, .navbar-scuffed {
-    padding: 10px 10px;
-    display: flex;
-    justify-content: center;
-    max-width: 100%;
-}
-.navbar-scuffed{
-    transition: 0.2s;
-    transform: scale(2.5);
-}
-.navbar-buttons, .navbar-buttons-live {
-    margin: 0 5px;
-    padding: 10px 15px;
-    background-color: light-dark(white, #2d2d2d);
-    border-radius: 15px;
-}
-.logout-button {
-    background-color: light-dark(#ff4d4d, #cc0000);
-    color: light-dark(white, white);
-    border: none;
-    border-radius: 15px;
-    padding: 12px 20px;
-    font-size: 16px;
-    cursor: pointer;
-    transition: all 0.02s ease;
-}
-.logout-button:hover {
-    background-color: light-dark(#cc0000, #ff4d4d);
-    scale: 1.05;
-    transition: all 0.02s ease;
-}
-.nav-link, .nav-link-live, .nav-link-scuffed {
-    background-color: light-dark(#4a90e2, #357abd);
-    color: light-dark(white, white);
-    text-align: center;
-    display:  inline-block;
-    text-decoration: none;
-    border-radius: 15px;
-    margin: 5px 10px;
-    min-width: 80px;
-    padding: 12px 12px;
-    font-weight: bold;
-    cursor: pointer;
-    transition: all 0.02s ease;
-}
-.nav-link:hover, .nav-link-live:hover{
-    background-color: light-dark(#357abd, #4a90e2);
-    scale: 1.05;
-    transition: all 0.02s eas
-}
-.nav-link-scuffed:hover {
-    color: #00ff00;
-    background-color: light-dark(#db1212ad, #e77878);
-    scale: 1.15;
-    transition: all 0.02s eas
+a {
+  font-weight: bolder;
+  font-size: 22px;
 }
 
 
-/* Layout */
+/* Main classes */
 
-.container, .container-live {
-    flex: 1;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 0px;
-    max-width: 100%;
-    margin-top: 20px;
+.logo {
+  max-width: 600px;
+  height: auto;
+  margin-bottom: 30px;
 }
-.card-live {
-    max-width: 90%;
+.navbar-container {
+  background-color: var(--color-card-bg);
+  color: var(--color-body-footer);
+  width: 100%;
+  height: 100%;
+  grid-column: 2 / 3;
+  grid-row: 1 / 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5rem 1rem;
+  box-sizing: border-box;
+  border-radius: 17px;
 }
-.container-ticket-container-live {
-    flex: 1;
-    background-color: #333;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: 20px;
-    max-width: 90%;
+.navbar-buttons {
+  height: 85%;
+  width: 85%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
 }
-.tickets-container-live {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    max-width: 100%;
-    background-color: #357abd;
-
+.button-small, .button-large {
+  background-color: var(--color-button);
+  color: var(--color-button-txt);
+  box-shadow: 0 7px var(--color-button-shadow);
+  padding: 12px;
+  min-width: 30%;
+  display: flex;
+  justify-content: center;
+  border-radius: 17px;
+  text-decoration: none;
 }
-.card-live, .card {
-    background-color: light-dark(#fff, #2d2d2d);
-    border-radius: 15px;
-    box-shadow: 0 2px 4px light-dark(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.3));
-    padding: 20px;
-    flex: 1;
-    max-width: 90%;
-    text-align: center;
+.button-small:hover, .button-large:hover {
+  background-color: var(--color-button-hover);
+}
+.button-small:active, .button-large:active {
+  box-shadow: 0 3px var(--color-button-shadow);
+  transform: translateY(4px);
+}
+.button-large {
+  min-width: 100%;
+  margin-top: 10px;
+  border: none;
+  font-weight: bolder;
+  font-size: 16px;
 }
 .card {
-    max-width: 500px;
+  background-color: var(--color-card-bg);
+  color: var(--color-body-footer);
+  width: 100%;
+  height: 100%;
+  grid-column: 2 / 3;
+  grid-row: 2 / 4;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+  box-sizing: border-box;
+  border-radius: 17px;
+  box-shadow: 0 6px 18px var(--color-card-shadow);
 }
-.spacer {
-    height: 20px;
-}
-.tickets-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 20px;
-    background-color: light-dark(#ffffff, #2d2d2d);
-    border-radius: 15px;
-    padding: 20px;
-    width: 100%;
-    height: 100%;
-    box-sizing: border-box;
-    overflow: hidden;
-}
-.ticket-box{
-    background-color: light-dark(#d5e1ee, #1a1a1a);
-    border: 2px solid light-dark(#4a90e2, #4a90e2);
-    border-radius: 15px;
-    padding: 16px;
-    text-align: center;
-    font-size: 0.95rem;
-    font-weight: 500;
-    box-shadow: 0 2px 5px light-dark(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.3));
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
-    min-height: 20%;
-    max-height: 80%;
-    min-width: 100px;
-    max-width: 400px;
-}
-.ticket-boxQ {
-    background-color: light-dark(#d5e1ee, #1a1a1a);
-    border: 2px solid light-dark(#fc6a03, #ed7014);
-    border-radius: 15px;
-    padding: 16px;
-    text-align: center;
-    font-size: 0.95rem;
-    font-weight: 500;
-    box-shadow: 0 2px 5px light-dark(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.3));
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
-    min-height: 20%;
-    max-height: 80%;
-    min-width: 100px;
-    max-width: 400px;
-}
-.ticket-boxC {
-    background-color: light-dark(#d5e1ee, #1a1a1a);
-    border: 2px solid light-dark(#0F5132, #0A5C36);
-    border-radius: 15px;
-    padding: 16px;
-    text-align: center;
-    font-size: 0.95rem;
-    font-weight: 500;
-    box-shadow: 0 2px 5px light-dark(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.3));
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
-    min-height: 20%;
-    max-height: 80%;
-    min-width: 100px;
-    max-width: 400px;
-}
-.ticket-boxI {
-    background-color: light-dark(#d5e1ee, #1a1a1a);
-    border: 2px solid light-dark(#ce2029, #ff0800 );
-    border-radius: 15px;
-    padding: 16px;
-    text-align: center;
-    font-size: 0.95rem;
-    font-weight: 500;
-    box-shadow: 0 2px 5px light-dark(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.3));
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
-    min-height: 20%;
-    max-height: 80%;
-    min-width: 100px;
-    max-width: 400px;
-}
-.ticket-box:hover, .ticket-boxQ:hover, .ticket-boxC:hover, .ticket-boxI:hover {
-    transform: scale(1.03);
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
-}
-.ticket-box small {
-    display: block;
-    color: light-dark(#333, #ffffff);
-    font-weight: bold;
-    margin-bottom: 8px;
-}
-.ticket-box p {
-    margin: 0;
-    color: light-dark(#222, #dddddd);
-    line-height: 1.3;
-    word-break: break-word;
-}
-@media (max-width: 900px) {
-    .tickets-grid {
-        grid-template-columns: repeat(2, 1fr);
-        height: auto;
-    }
-}
-@media (max-width: 600px) {
-    .tickets-grid {
-        grid-template-columns: 1fr;
-        height: auto;
-    }
-}
-.ticket-box, .ticket-boxQ, .ticket-boxC, .ticket-boxI {
-    cursor: pointer;
-    transition: all 0.3s ease;
-}
-.ticket-box:hover, .ticket-boxQ:hover, .ticket-boxC:hover, .ticket-boxI:hover {
-    transform: scale(1.02);
-    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-}
-.ticket-box.selected, .ticket-boxQ.selected, .ticket-boxC.selected, .ticket-boxI.selected {
-    border: 3px solid #ff0000;
-    box-shadow: 0 0 15px rgba(255, 0, 0, 0.5);
-}
-.test-box {
-    background: light-dark(#f0f0f0, #2d2d2d);
-    padding: 20px;
-    margin: 10px 0;
-    border-radius: 8px;
-}
-.admin-button-container {
-    display: flex;
-    gap: 5px;
-    align-items: center;
-    min-width: 100%;
-}
-
-/* Inputs and Buttons */
-
 .input-field {
-    width: 100%;
-    padding: 10px;
-    margin: 10px 0;
-    border: 2.25px solid light-dark(#ccc, #444);
-    border-radius: 15px;
-    box-sizing: border-box;
-    font-size: 16px;
-    transition: border-color 0.3s;
-    font-weight: bold;
-    background-color: light-dark(#ffffff, #2d2d2d);
-    color: light-dark(#333, #ffffff);
+  width: 100%;
+  padding: 10px;
+  margin: 5px 0;
+  border: 2.25px solid light-dark(#ccc, #444);
+  border-radius: 15px;
+  box-sizing: border-box;
+  font-size: 16px;
+  transition: border-color 0.3s;
+  font-weight: bold;
 }
 .input-field:focus {
-    border-color: #4a90e2;
-    outline: none;
+  border-color: #4a90e2;
+  outline: none;
 }
-.button {
-    background-color: ligh-dark(#4a90e2, #357abd);
-    color: white;
-    border: none;
-    border-radius: 15px;
-    padding: 12px 20px;
-    font-size: 16px;
-    cursor: pointer;
-    min-width: 80px;
-    width: 100%;
-}
-.button:hover {
-    background-color: light-dark(#357abd, #4a90e2);
-    scale: 1.02;
-    transition: all 0.02s ease;
-}
-.show-password {
-    background: transparent;
-    border: none;
-    padding: 6px;
-    margin: 0;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    color: light-dark(#666, #999);
-    transition: transform 0.08s ease, opacity 0.12s ease;
-}
-.input-with-icon {
-    position: relative;
-    display: block;
-}
-.input-with-icon .input-field {
-    padding-right: 46px;
-}
-.input-with-icon .show-password {
-    position: absolute;
-    right: 10px;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 28px;
-    height: 28px;
-    background-color: transparent;
-    border-radius: 8px;
-}
-.input-with-icon .show-password img {
-    width: 18px;
-    height: 18px;
-    display: block;
-}
-.input-with-icon .show-password:hover {
-    background-color: light-dark(rgba(74,144,226,0.08), rgba(74,144,226,0.15));
-    transform: translateY(-50%) scale(1.05);
-}
-.input-with-icon .show-password:focus {
-    outline: 2px solid light-dark(rgba(74,144,226,0.25), rgba(74,144,226,0.4));
-}
-.deletebuttons {
-    background-color: light-dark(#ff4d4d, #cc0000 );
-    color: light-dark(white, white);
-    border: none;
-    border-radius: 15px;
-    padding: 12px 20px;
-    font-size: 16px;
-    cursor: pointer;
-    width: 100%;
-    align-self: left;
-}
-.deletebuttons:hover {
-    background-color: light-dark(#cc0000, #ff4d4d);
-    scale: 1.02;
-    transition: all 0.02s ease;
-}
-.admin-controls {
-    display: flex;
-    gap: 10px;
-    flex-wrap: wrap;
-    margin: 20px 0;
-    justify-content: center;
+.side-frame {
+  width: 100%;
+  height: 100%;
+  background: transparent;
 }
 
-/* Communication between system and users */
 
-.bad-actor {
-    color: light-dark(red, #ff6666);
-    font-weight: bold;
-    margin-top: 10px;
-    padding: 10px;
-    border-radius: 15px;
+@media (max-width: 900px) {
+  main {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto 1fr;
+    gap: 0.75rem;
+    padding: 1rem;
+  }
+
+  .navbar-container {
+    grid-column: 1 / 2;
+    grid-row: 1 / 2;
+  }
+
+  .card {
+    grid-column: 1 / 2;
+    grid-row: 2 / 3;
+    width: 100%;
+    height: auto;
+  }
+  .navbar-link {
+    min-width: 25%;
+  }
 }
-.notify {
-    text-align: center;
-    color: light-dark(rgb(255, 0, 0), rgb(255, 102, 102));
-    margin-bottom: 10px;
-    font-weight: bold;
-}
-.success { 
-    background: light-dark(#d4edda, #1e3b2f); 
-    color: light-dark(#155724, #4fd792); 
-}
-.error { 
-    background: light-dark(#f8d7da, #3b1f1f); 
-    color: light-dark(#721c24, #ff9999); 
-}
-.error-message {
-    color: light-dark(#ff0000, #ff6666); 
-    background: light-dark(rgba(255, 0, 0, 0.1), rgba(255, 0, 0, 0.2)); 
-    padding: 10px; 
-    border-radius: 5px; 
-    margin: 10px 0; 
-    display: none; 
-    text-align: center;
-}   
-.success-message {
-    color: light-dark(#00ff00, #66ff66); 
-    background: light-dark(rgba(0, 255, 0, 0.1), rgba(0, 255, 0, 0.2)); 
-    padding: 10px; 
-    border-radius: 5px; 
-    margin: 10px 0; 
-    display: none; 
-    text-align: center;
+@media (max-width: 600px) {
+  main {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto 1fr;
+    gap: 0.75rem;
+    padding: 0.5rem;
+  }
+
+  .navbar-container {
+    grid-column: 1 / 2;
+    grid-row: 1 / 2;
+  }
+
+  .card {
+    grid-column: 1 / 2;
+    grid-row: 2 / 3;
+    width: 100%;
+    height: auto;
+  }
+  .navbar-link {
+    min-width: 15%;
+  }
+  .logo {
+    max-width: 250px;
+    height: auto;
+  }
 }

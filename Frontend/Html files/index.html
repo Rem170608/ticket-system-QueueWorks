@@ -10,36 +10,32 @@
 </head>
 <body>
     <main>
-        <div class="container">
-            <div class="card">
-                <div class="navbar">
-                    <div class="navbar-buttons">
-                        <a href="index.html" class="nav-link">Home</a>
-                        <a href="live.html" class="nav-link">Live</a>
-                        <a href="login.html" class="nav-link">Login</a>
-
-                    </div>
-                </div>
-                <img src="/Media/logo.svg" alt="logo" class="logo">
-                <div class="spacer"></div>
-                <div id="errorMessage" class="error-message"></div>
-                <div id="successMessage" class="success-message"></div>
-                
-                <input type="text" placeholder="Vorname Name" id="nameInput" class="input-field" maxlength="30">
-                <select id="category" class="input-field">
-                    <option value="" disabled selected>Kategorie</option>
-                    <option value="Q">Frage</option>
-                    <option value="C">Korrektur</option>
-                    <option value="I">Problem</option>
-                </select>
-                <select name="lehrjahr" id="lehrjahr" class="input-field">
-                    <option value="" disabled selected>Lehrjahr</option>
-                    <option value="Basis">Basis</option>
-                    <option value="Praxis">Praxis</option>
-                </select>
-                <input type="text" placeholder="Beschreibung (Bsp. 'Problem mit Github')" id="descriptionInput" class="input-field">
-                <button id="submitBtn" class="button" onClick="submitTicket()">Ticket ziehen</button>
+        <div class="navbar-container">
+            <div class="navbar-buttons">
+                <a href="index.html" class="button-small">Home</a>
+                <a href="live.html" class="button-small">Live</a>
+                <a href="login.html" class="button-small">Login</a>
             </div>
+        </div>
+        <div class="card">
+            <img src="/Media/logo.svg" alt="logo" class="logo">
+            <div class="spacer"></div>
+            <div id="errorMessage" class="error-message"></div>
+            <div id="successMessage" class="success-message"></div>
+            <input type="text" placeholder="Vorname Name" id="nameInput" class="input-field" maxlength="30">
+            <select id="category" class="input-field">
+                <option value="" disabled selected>Kategorie</option>
+                <option value="Q">Frage</option>
+                <option value="C">Korrektur</option>
+                <option value="I">Problem</option>
+            </select>
+            <select name="lehrjahr" id="lehrjahr" class="input-field">
+                <option value="" disabled selected>Lehrjahr</option>
+                <option value="Basis">Basis</option>
+                <option value="Praxis">Praxis</option>
+            </select>
+            <input type="text" placeholder="Beschreibung (Bsp. 'Problem mit Github')" id="descriptionInput" class="input-field">
+            <button id="submitBtn" class="button-large" onClick="submitTicket()">Ticket ziehen</button>
         </div>
     </main>
     <footer>

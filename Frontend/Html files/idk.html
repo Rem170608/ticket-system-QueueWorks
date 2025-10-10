@@ -1,29 +1,38 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Server Test</title>
-    <link rel="icon" type="image/x-icon" href="/Media/head.svg">
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
-    <h1>QueueWorks Server Test</h1>
-    
-    <div class="test-box">
-        <h3>1. Test GET /tickets</h3>
-        <button onclick="testTickets()">Test Tickets Endpoint</button>
-        <div id="tickets-result"></div>
-    </div>
-    
-    <div class="test-box">
-        <h3>2. Test POST /auth/login (will fail without credentials)</h3>
-        <button onclick="testLogin()">Test Login Endpoint</button>
-        <div id="login-result"></div>
-    </div>
-    <script src="/Frontend/Javasrcipt files/idk.js"></script>
-    
+    <link rel="icon" type="image/x-icon" href="/Media/head.svg" />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <main>
+      <div class="navbar-container">
+        <div class="navbar-buttons">
+          <a href="index.html" class="button-small">Home</a>
+          <a href="live.html" class="button-small">Live</a>
+          <a href="login.html" class="button-small">Login</a>
+        </div>
+      </div>
 
-    
-</body>
+      <div class="card">
+        <h1>QueueWorks Server Test</h1>
+
+        <div class="test-box">
+          <h3>1. Test GET /tickets</h3>
+          <button onclick="testTickets()">Test Tickets Endpoint</button>
+          <div id="tickets-result"></div>
+        </div>
+
+        <div class="test-box">
+          <h3>2. Test POST /auth/login (will fail without credentials)</h3>
+          <button onclick="testLogin()">Test Login Endpoint</button>
+          <div id="login-result"></div>
+        </div>
+      </div>
+    </main>
+    <script src="/Frontend/Javasrcipt files/idk.js"></script>
+  </body>
 </html>

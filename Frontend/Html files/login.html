@@ -1,52 +1,52 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Login - QueueWorks</title>
-    <link rel="icon" type="image/x-icon" href="/Media/head.svg">
-    <link rel="stylesheet" href="style.css">
-    <script src="../Javascript/script.js"></script> <!-- optional shared frontend JS -->
-</head>
-<body>
+    <link rel="icon" type="image/x-icon" href="/Media/head.svg" />
+    <link rel="stylesheet" href="style.css" />
+    <script src="../Javascript/script.js"></script>
+    <!-- optional shared frontend JS -->
+  </head>
+  <body>
     <main>
-        <div class="container">
-            <div class="card">
-                <div class="navbar">
-                    <div class="navbar-buttons">
-                        <a href="index.html" class="nav-link">Home</a>
-                        <a href="live.html" class="nav-link">Live</a>
-                        <a href="admin-setup.html" class="nav-link" id="adminNavLink">Admin Setup</a>
-                    </div>
-                </div>
-                <img src="/Media/logo.svg" alt="logo" class="logo">
-                
-                <h2>Admin Login</h2>
-
-                <div id="errorMessage" class="error-message"></div>
-                <div id="successMessage" class="success-message"></div>
-
-                <div id="loginForm">
-                    <div class="input-with-icon">
-                        <input type="text" placeholder="Benutzername" id="usernameInput" class="input-field" autocomplete="username">
-                    </div>
-                    <div class="input-with-icon">
-                        <input type="password" placeholder="Passwort" id="passwordInput" class="input-field" autocomplete="current-password">
-                        <button id="showPasswordBtn" type="button" class="show-password" aria-label="Toggle password visibility" title="Toggle password visibility">
-                            <img id="eyeIcon" src="/Media/icons8-closed-eye-50.png" alt="Show password" />
-                        </button>
-                    </div>
-
-                    <button id="loginBtn" type="button" class="button">Login</button>
-                </div>
-            </div>
+      <div class="navbar-container">
+        <div class="navbar-buttons">
+          <a href="index.html" class="button-small">Home</a>
+          <a href="live.html" class="button-small">Live</a>
+          <a href="admin-setup.html" class="button-small">Admin Setup</a>
         </div>
+      </div>
+
+      <div class="card">
+        <img src="/Media/logo.svg" alt="logo" class="logo" />
+
+        <h2>Admin Login</h2>
+
+        <div id="errorMessage" class="error-message"></div>
+        <div id="successMessage" class="success-message"></div>
+
+        <div id="loginForm">
+          <div class="input-with-icon">
+            <input type="text" placeholder="Benutzername" id="usernameInput" class="input-field" autocomplete="username" />
+          </div>
+          <div class="input-with-icon">
+            <input type="password" placeholder="Passwort" id="passwordInput" class="input-field" autocomplete="current-password" />
+            <button id="showPasswordBtn" type="button" class="show-password" aria-label="Toggle password visibility" title="Toggle password visibility">
+              <img id="eyeIcon" src="/Media/icons8-closed-eye-50.png" alt="Show password" />
+            </button>
+          </div>
+
+          <button id="loginBtn" type="button" class="button">Login</button>
+        </div>
+      </div>
     </main>
     <footer>
-        <p>&copy; 2025 QueueWorks</p>
+      <p>&copy; 2025 QueueWorks</p>
     </footer>
 
     <!-- Scripts -->
     <script src="../Javascript files/login.js"></script>
-</body>
+  </body>
 </html>

@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en"><script id="facebook-jssdk" src="Grid%20Garden%20-%20A%20game%20for%20learning%20CSS%20grid_files/fb-sdk.js"></script><script id="twitter-wjs" src="Grid%20Garden%20-%20A%20game%20for%20learning%20CSS%20grid_files/widgets.js"></script><script async="" src="Grid%20Garden%20-%20A%20game%20for%20learning%20CSS%20grid_files/analytics.js"></script><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <title>Grid Garden - A game for learning CSS grid</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta property="og:url" content="https://cssgridgarden.com">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Grid Garden">
+    <meta property="og:description" content="A game for learning CSS grid layout">
+    <meta property="og:image" content="https://cssgridgarden.com/images/screenshot.png">
+    <meta name="twitter:url" content="https://cssgridgarden.com">
+    <meta name="twitter:title" content="Grid Garden">
+    <meta name="twitter:description" content="A game for learning CSS grid layout">
+    <meta name="twitter:image" content="https://cssgridgarden.com/images/screenshot.png">
+    <meta name="google-adsense-account" content="ca-pub-9569380550956585">
+    <link rel="stylesheet" href="Grid%20Garden%20-%20A%20game%20for%20learning%20CSS%20grid_files/animate.min.css">
+    <link href="Grid%20Garden%20-%20A%20game%20for%20learning%20CSS%20grid_files/css.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="Grid%20Garden%20-%20A%20game%20for%20learning%20CSS%20grid_files/style.css">
+  <style>:is([id*='google_ads_iframe'],[id*='taboola-'],.taboolaHeight,.taboola-placeholder,#top-ad,#credential_picker_container,#credentials-picker-container,#credential_picker_iframe,[id*='google-one-tap-iframe'],#google-one-tap-popup-container,.google-one-tap__module,.google-one-tap-modal-div,#amp_floatingAdDiv,#ez-content-blocker-container) {display:none!important;min-height:0!important;height:0!important;}</style></head>
+  <body class="search_plugin_added">
+    <section id="sidebar">
+      <div class="header">
+        <div>
+          <h1 class="title">Grid Garden</h1>
+        </div>
+        <div id="level-counter">
+          <span class="arrow left disabled">
+            <span class="triangle"></span>
+          </span>
+          <span id="level-indicator">
+            <span id="labelLevel" class="translate">Level</span>
+            <span class="current">1</span>
+            <span id="labelOf" class="translate">of</span>
+            <span class="total">28</span>
+            <span class="caret">▾</span>
+          </span>
+          <span class="arrow right">
+            <span class="triangle"></span>
+          </span>
+          <div id="levelsWrapper" class="tooltip" style="display: none;">
+            <div id="levels"><span class="level-marker current" data-level="0" title="grid-column-start 1">1</span><span class="level-marker" data-level="1" title="grid-column-start 2">2</span><span class="level-marker" data-level="2" title="grid-column-end 1">3</span><span class="level-marker" data-level="3" title="grid-column-end 2">4</span><span class="level-marker" data-level="4" title="grid-column-end 3">5</span><span class="level-marker" data-level="5" title="grid-column-start 3">6</span><span class="level-marker" data-level="6" title="grid-column-end 4">7</span><span class="level-marker" data-level="7" title="grid-column-end 5">8</span><span class="level-marker" data-level="8" title="grid-column-start 4">9</span><span class="level-marker" data-level="9" title="grid-column 1">10</span><span class="level-marker" data-level="10" title="grid-column 2">11</span><span class="level-marker" data-level="11" title="grid-row-start 1">12</span><span class="level-marker" data-level="12" title="grid-row-start 2">13</span><span class="level-marker" data-level="13" title="grid-column-row 1">14</span><span class="level-marker" data-level="14" title="grid-column-row 2">15</span><span class="level-marker" data-level="15" title="grid-area 1">16</span><span class="level-marker" data-level="16" title="grid-area 2">17</span><span class="level-marker" data-level="17" title="order 1">18</span><span class="level-marker" data-level="18" title="order 2">19</span><span class="level-marker" data-level="19" title="grid-template-columns 1">20</span><span class="level-marker" data-level="20" title="grid-template-columns 2">21</span><span class="level-marker" data-level="21" title="grid-template-columns 4">22</span><span class="level-marker" data-level="22" title="grid-template-columns 5">23</span><span class="level-marker" data-level="23" title="grid-template-columns 3">24</span><span class="level-marker" data-level="24" title="grid-template-columns 6">25</span><span class="level-marker" data-level="25" title="grid-template-rows 1">26</span><span class="level-marker" data-level="26" title="grid-template 1">27</span><span class="level-marker" data-level="27" title="grid-template 2">28</span></div>
+            <div id="labelReset" class="translate">Reset</div>
+          </div>
+        </div>
+      </div>
+      <p id="instructions"><p>Welcome to Grid Garden, where you write 
+CSS code to grow your carrot garden! Water only the areas that have 
+carrots by using the <code class="help">grid-column-start</code> property.</p><p>For example, <code>grid-column-start: 3;</code>
+ will water the area starting at the 3rd vertical grid line, which is 
+another way of saying the 3rd vertical border from the left in the grid.<img src="Grid%20Garden%20-%20A%20game%20for%20learning%20CSS%20grid_files/begin_codepip_grid.png"></p></p>
+      <div id="editor">
+        <div id="css">
+          <div class="line-numbers">1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9<br>10<br>11<br>12<br>13<br>14</div>
+          <pre id="before">#garden {
+  display: grid;
+  grid-template-columns: 20% 20% 20% 20% 20%;
+  grid-template-rows: 20% 20% 20% 20% 20%;
+}
+
+#water {
+</pre>
+          <textarea id="code" autofocus="" autocapitalize="none" spellcheck="false" style="height: 24px;">grid-columns-start: 3;</textarea>
+          <pre id="after">}</pre>
+        </div>
+        <button id="next" class="translate disabled">Next</button>
+      </div>
+      <div id="share" style="display: none;">
+        <div class="games">
+          <a target="_blank" data-title="Flexbox Froggy" href="https://codepip.com/games/flexbox-froggy/">
+            <img src="Grid%20Garden%20-%20A%20game%20for%20learning%20CSS%20grid_files/flexbox-froggy.png" alt="Flexbox Froggy">
+          </a>
+          <a target="_blank" data-title="Anchoreum" href="https://codepip.com/games/anchoreum/">
+            <img src="Grid%20Garden%20-%20A%20game%20for%20learning%20CSS%20grid_files/anchoreum.png" alt="Anchoreum">
+          </a>
+          <a target="_blank" data-title="Disarray" href="https://codepip.com/games/disarray/">
+            <img src="Grid%20Garden%20-%20A%20game%20for%20learning%20CSS%20grid_files/disarray.png" alt="Disarray">
+          </a>
+          <a target="_blank" data-title="CSS Scoops" href="https://codepip.com/games/css-scoops/">
+            <img src="Grid%20Garden%20-%20A%20game%20for%20learning%20CSS%20grid_files/css-scoops.png" alt="CSS Scoops">
+          </a>
+        </div>
+        <p class="social">
+          <span id="tweet">
+            <a href="https://twitter.com/share" class="twitter-share-button" {count}="" data-url="https://cssgridgarden.com" data-via="playcodepip" data-text="I just beat Grid Garden, a game for learning CSS grid layout!">Tweet</a>
+            <a href="https://twitter.com/playcodepip" class="twitter-follow-button" data-show-count="false">Follow @playcodepip</a>
+          </span>
+          <div></div>
+        </p>
+      </div>
+
+      <div class="credits">
+        <span id="labelFooter" class="translate">Grid Garden is created by</span>
+        <a href="https://codepip.com/">Codepip</a> •
+        <a href="https://youtube.com/codepip">YouTube</a> •
+        <a href="https://twitter.com/playcodepip">Twitter</a> •
+        <a href="https://github.com/thomaspark/gridgarden/">GitHub</a> •
+        <span id="language">
+          <span id="languageActive" class="toggle translate">English</span>
+          <span class="tooltip">
+            <a href="#en">English</a>
+            <a href="#es">Español</a>
+            <a href="#fr">Français</a>
+            <a href="#de">Deutsch</a>
+            <a href="#nl">Nederlands</a>
+            <a href="#it">Italiano</a>
+            <a href="#pt-br">Português(BR)</a>
+            <a href="#pt-pt">Português(PT)</a>
+            <a href="#ca">Català</a>
+            <a href="#sv">Svenska</a>
+            <a href="#no">Norsk</a>
+            <a href="#fi">Suomi</a>
+            <a href="#pl">Polski</a>
+            <a href="#sk">Slovenčina</a>
+            <a href="#hu">Magyar</a>
+            <a href="#ro">Română</a>
+            <a href="#al">Shqip</a>
+            <a href="#bg">Български</a>
+            <a href="#et">Eesti</a>
+            <a href="#lv">Latviešu</a>
+            <a href="#lt">Lietuvių</a>
+            <a href="#ru">Русский</a>
+            <a href="#ua">Українська</a>
+            <a href="#el">Ελληνικά</a>
+            <a href="#tr">Türkçe</a>
+            <a href="#az">Azərbaycanca</a>
+            <a href="#ar">العربية</a>
+            <a href="#fa">فارسی</a>
+            <a href="#ps">پښتو</a> 
+            <a href="#ur">اردو</a>
+            <a href="#hi">हिंदी</a>
+            <a href="#bn">বাংলা</a>
+            <a href="#ta">தமிழ்</a>
+            <a href="#zh-cn">简体中文</a>
+            <a href="#zh-tw">繁體中文</a>
+            <a href="#ja">日本語</a>
+            <a href="#ko">한국어</a>
+            <a href="#vi">Tiếng Việt</a>
+            <a href="#th">ภาษาไทย</a>
+            <a href="#id">Bahasa Indonesia</a>
+            <a href="#tl">Tagalog</a>
+            <a href="#yo">Yorùbá</a>
+          </span>
+        </span>
+      </div>
+      <div class="credits">
+        <span id="flexboxFroggy" class="translate">Want to learn more CSS? Play</span> <a href="https://codepip.com/games/flexbox-froggy/">Flexbox Froggy</a> or <a href="https://codepip.com/games/anchoreum/">Anchoreum</a>.
+      </div>
+    </section>
+    <section id="view">
+      <div id="board">
+        <div id="overlay" class="" style="">
+          <span class="plot"></span>
+          <span class="plot"></span>
+          <span class="plot"></span>
+          <span class="plot"></span>
+          <span class="plot"></span>
+          <span class="plot"></span>
+          <span class="plot"></span>
+          <span class="plot"></span>
+          <span class="plot"></span>
+          <span class="plot"></span>
+          <span class="plot"></span>
+          <span class="plot"></span>
+          <span class="plot"></span>
+          <span class="plot"></span>
+          <span class="plot"></span>
+          <span class="plot"></span>
+          <span class="plot"></span>
+          <span class="plot"></span>
+          <span class="plot"></span>
+          <span class="plot"></span>
+          <span class="plot"></span>
+          <span class="plot"></span>
+          <span class="plot"></span>
+          <span class="plot"></span>
+          <span class="plot"></span>
+          <span class="plot"></span>
+          <span class="plot"></span>
+          <span class="plot"></span>
+          <span class="plot"></span>
+          <span class="plot"></span>
+          <span class="plot"></span>
+          <span class="plot"></span>
+          <span class="plot"></span>
+          <span class="plot"></span>
+          <span class="plot"></span>
+          <span class="plot"></span>
+          <span class="plot"></span>
+          <span class="plot"></span>
+          <span class="plot"></span>
+          <span class="plot"></span>
+        </div>
+        <div id="plants" class="" style=""><div class="plant carrot" style="grid-column-start: 3;"><div class="bg"></div></div></div>
+        <div id="garden" class="" style=""><div class="treatment carrot" style="grid-columns-start: 3;"><div class="bg"></div></div></div>
+        <div id="soil" class="" style="">
+          <span class="plot"></span>
+          <span class="plot"></span>
+          <span class="plot"></span>
+          <span class="plot"></span>
+          <span class="plot"></span>
+          <span class="plot"></span>
+          <span class="plot"></span>
+          <span class="plot"></span>
+          <span class="plot"></span>
+          <span class="plot"></span>
+          <span class="plot"></span>
+          <span class="plot"></span>
+          <span class="plot"></span>
+          <span class="plot"></span>
+          <span class="plot"></span>
+          <span class="plot"></span>
+          <span class="plot"></span>
+          <span class="plot"></span>
+          <span class="plot"></span>
+          <span class="plot"></span>
+          <span class="plot"></span>
+          <span class="plot"></span>
+          <span class="plot"></span>
+          <span class="plot"></span>
+          <span class="plot"></span>
+          <span class="plot"></span>
+          <span class="plot"></span>
+          <span class="plot"></span>
+          <span class="plot"></span>
+          <span class="plot"></span>
+          <span class="plot"></span>
+          <span class="plot"></span>
+          <span class="plot"></span>
+          <span class="plot"></span>
+          <span class="plot"></span>
+          <span class="plot"></span>
+          <span class="plot"></span>
+          <span class="plot"></span>
+          <span class="plot"></span>
+          <span class="plot"></span>
+        </div>
+      </div>
+    </section>
+    <script src="Grid%20Garden%20-%20A%20game%20for%20learning%20CSS%20grid_files/jquery.min.js"></script>
+    <script src="Grid%20Garden%20-%20A%20game%20for%20learning%20CSS%20grid_files/levels.js"></script>
+    <script src="Grid%20Garden%20-%20A%20game%20for%20learning%20CSS%20grid_files/docs.js"></script>
+    <script src="Grid%20Garden%20-%20A%20game%20for%20learning%20CSS%20grid_files/messages.js"></script>
+    <script src="Grid%20Garden%20-%20A%20game%20for%20learning%20CSS%20grid_files/game.js"></script>
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-23019901-18', 'auto');
+      ga('send', 'pageview');
+    </script>
+    <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');
+    </script>
+    <div id="fb-root"></div>
+    <script>(function(d, s, id) {
+      var js, fjs = d.getElementsByTagName(s)[0];
+      if (d.getElementById(id)) return;
+      js = d.createElement(s); js.id = id;
+      js.src = "https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.5&appId=1820320434958041";
+      fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));</script>
+  
+
+<protonpass-root-3511 data-protonpass-role="root" data-protonpass-theme="dark"></protonpass-root-3511></body></html>
