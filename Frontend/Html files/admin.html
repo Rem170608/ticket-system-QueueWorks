@@ -44,31 +44,51 @@
                             <h1><i class="bi bi-speedometer2 me-2"></i>Admin Dashboard</h1>
                         </div>
                         
+                        
                         <div id="notify" class="notify"></div>
                         
-                        <div class="admin-controls row g-3 mb-4">
-                            <div class="col-md-3">
-                            </div>
-                            <div class="col-md-12">
-                                <div class="d-flex gap-4 flex-wrap">
-                                    <button id="refresh-tickets" class="btn btn-primary flex-fill">
-                                        <i class="bi bi-arrow-clockwise me-2"></i>Aktualisieren
-                                    </button>
-                                    <button id="delete-selected" class="btn btn-danger flex-fill">
-                                        <i class="bi bi-trash me-2"></i>Ausgewählte löschen
-                                    </button>
-                                    <button id="delete-all" class="btn btn-danger flex-fill">
-                                        <i class="bi bi-trash3 me-2"></i>Alle Tickets löschen
-                                    </button>
-                                    <select name="lehrjahr" id="lehrjahr" class="form-select form-select-lg">
-                                        <option value="">Alle Tickets</option>
-                                        <option value="Basis">Basis</option>
-                                        <option value="Praxis">Praxis</option>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-                        
+      <div class="admin-controls row g-3 mb-4 text-center max-width-600 mx-auto">
+    <div class="col-md-12">
+        <div class="d-flex flex-wrap justify-content-center gap-2 align-items-stretch">
+
+            <!-- Buttons -->
+            <button id="refresh-tickets" class="btn btn-primary flex-fill">
+                <i class="bi bi-arrow-clockwise me-2"></i>Aktualisieren
+            </button>
+            <button id="delete-selected" class="btn btn-danger flex-fill">
+                <i class="bi bi-trash me-2"></i>Ausgewählte löschen
+            </button>
+            <button id="delete-all" class="btn btn-danger flex-fill">
+                <i class="bi bi-trash3 me-2"></i>Alle Tickets löschen
+            </button>
+
+            <!-- Dropdown -->
+            <select name="lehrjahr" id="lehrjahr" class="form-select form-select-lg flex-fill">
+                <option value="">Alle Tickets</option>
+                <option value="Basis">Basis</option>
+                <option value="Praxis">Praxis</option>
+            </select>
+
+            <!-- Cards (Frage, Korrektur, Problem) -->
+            <div class="card flex-fill text-white frage-box d-flex align-items-center justify-content-center">
+                <div class="card-body p-0 py-2 w-100">
+                    <i class="bi bi-question-circle me-2"></i><strong>Frage</strong>
+                </div>
+            </div>
+            <div class="card flex-fill text-white korrektur-box d-flex align-items-center justify-content-center">
+                <div class="card-body p-0 py-2 w-100">
+                    <i class="bi bi-check-circle me-2"></i><strong>Korrektur</strong>
+                </div>
+            </div>
+            <div class="card flex-fill text-white problem-box d-flex align-items-center justify-content-center">
+                <div class="card-body p-0 py-2 w-100">
+                    <i class="bi bi-exclamation-triangle me-2"></i><strong>Problem</strong>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>         
                         <div id="tickets-container" class="tickets-grid">
                             <div class="text-center w-100">
                                 <div class="spinner-border text-primary" role="status">

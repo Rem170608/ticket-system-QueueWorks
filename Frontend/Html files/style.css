@@ -205,18 +205,61 @@ body {
 }
 
 /* Admin Controls */
-.admin-controls {
-    display: flex;
-    gap: 0.75rem;
-    flex-wrap: wrap;
-    margin: 1.25rem 0;
+/* Frage = Yellow */
+.frage-box {
+    background-color: light-dark(#fff4e6, #2d1f0a);
+    border: 2px solid light-dark(#fc6a03, #ed7014);
 }
 
-.admin-button-container {
-    display: flex;
-    gap: 0.75rem;
-    flex: 1;
-    max-width: 50%;
+/* Korrektur = Green */
+.korrektur-box {
+    background-color: light-dark(#e8f5e9, #0d1f0f);
+    border: 2px solid light-dark(#0F5132, #0A5C36);
+}
+
+/* Problem = Red */
+.problem-box {
+   background-color: light-dark(#ffebee, #2d0a0a);
+   border: 2px solid light-dark(#ce2029, #ff0800);
+}
+
+/* Match the button height/look */
+.admin-controls .card {
+    min-width: 150px;
+    text-align: center;
+    transition: transform 0.2s;
+    border-radius: 0.375rem; /* same as Bootstrap buttons */
+}
+
+/* Make all controls align perfectly vertically */
+.admin-controls .d-flex {
+  gap: 0.5rem;
+  align-items: stretch; /* ensures all items same height */
+}
+
+/* Make everything exactly the same height and padding */
+.admin-controls button,
+.admin-controls select,
+.admin-controls .card {
+  height: 52px; /* uniform height for all controls */
+  margin: 0;
+  border-radius: 0.375rem;
+}
+
+/* Dropdown alignment fix */
+.admin-controls select {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 0.75rem;
+}.admin-controls .card {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.admin-controls .card:hover {
+  transform: scale(1.03);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
 }
 
 /* Loading Screen */
@@ -295,3 +338,4 @@ footer {
 .alert {
     animation: fadeIn 0.3s ease-in-out;
 }
+

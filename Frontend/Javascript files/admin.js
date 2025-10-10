@@ -172,7 +172,7 @@ function renderTickets(tickets) {
 
     tickets.forEach(t => {
         const el = document.createElement('div');
-        el.className = `ticket-box ${t.cat || ''}`.trim();
+        el.className = `ticket-box${t.cat || ''}`;
         el.dataset.id = t.id;
 
         if (selectedTicketIds.has(t.id)) el.classList.add('selected');
