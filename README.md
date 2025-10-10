@@ -64,7 +64,7 @@ An in-depth paragraph about your project and overview of use.
   - [X] Bad actor Prevention
   - [x] Autodelete at 00:00 CEST (UTC+2)
   - [X] Login Cookie
-  - [ ] Dark Mode
+  - [X] Dark Mode
   - [X] Docker
 
 
