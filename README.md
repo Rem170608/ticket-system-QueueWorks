@@ -90,7 +90,7 @@ CREATE TABLE IF NOT EXISTS `ticket` (
     `LJ` VARCHAR(255) NULL,
     `msg` VARCHAR(255) NULL,
     `name` VARCHAR(255) NULL,
-    `time` TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    `time` TIME DEFAULT CURRENT_TIMESTAMP
 );
 
 -- Create the admin_users table

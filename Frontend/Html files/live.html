@@ -19,14 +19,46 @@
             <a href="login.html" class="nav-link-live">Login</a>
           </div>
         </div>
-        <img src="/Media/logo.svg" alt="QueueWorks Logo" class="logo-live" onClick="easteregg()"/>
+        <img src="/Media/logo.svg" alt="QueueWorks Logo" class="logo-live" onclick="easteregg()"/>
         <div id="notify" class="notify"></div>
         <div id="tickets-container" class="tickets-grid">
-          <p>Loading tickets...</p>
+          <p>Laden der Tickets...</p>
         </div>
       </div>
     </div>
   </main>
+  <div class="ticket-card-category">
+  <div class="tickets-grid-category">
+        <div class="ticket-boxQ" style=" min-width: 70px; margin-left: 20px;"><h2>Frage</h2></div>
+        <div class="ticket-boxC" style=" min-width: 70px; margin-left: 10px; margin-right: 10px;"><h2>Korrektur</h2></div>
+        <div class="ticket-boxI" style=" min-width: 70px; margin-right: 20px;"><h2>Problem</h2></div>
+
+    <style>
+   .ticket-card-catergory {
+    background-color: light-dark(#fff, #2d2d2d);
+    border-radius: 15px;
+    box-shadow: 0 2px 4px light-dark(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.3));
+    padding: 20px;
+    flex: 1;
+    max-width: 90%;
+    text-align: center;
+} 
+.tickets-grid-category {
+    display: grid;
+    margin-left: 20px;
+    margin-top: 50px;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    background-color: light-dark(#ffffff, #2d2d2d);
+    border-radius: 15px;
+    padding: 20px;
+    width: 95%;
+    height: 100%;
+    box-sizing: border-box;
+    overflow: hidden;
+}
+    </style>
+  </div>
   <footer>
     <p>&copy; 2025 QueueWorks</p>
   </footer>

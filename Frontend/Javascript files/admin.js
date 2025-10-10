@@ -139,13 +139,14 @@ function renderTickets(tickets) {
         }
         
         el.innerHTML = `
+        <small>${t.time || ''}</small>
             <div class="ticket-header">
                 <strong>#${t.id}</strong>
-                <em>${escapeHtml(t.cat || '')}</em>
-                <small>${t.LJ || ''}</small>
+                <small>${escapeHtml(t.LJ || '')}</small>
             </div>
             <p><strong>${escapeHtml(t.name)}</strong></p>
             <p>${escapeHtml(t.msg)}</p>
+            
         `;
         
         // Toggle selection on click
@@ -296,7 +297,7 @@ async function checkForNewTickets() {
                     console.log('Creating notification for ticket:', ticket);
                     try {
                             const notification = new Notification(`${ticket.name}`, {
-                                body: `Nachricht: ${ticket.msg}`,
+                                body: `Nachricht: ${ticket.msg}\nZeit: ${ticket.time}`,
                                 icon: "/Media/head.svg",
                                 tag: 'new-ticket-' + ticket.id, // Ensures unique notification per ticket
                             });
@@ -326,7 +327,7 @@ async function checkForNewTickets() {
 }
 
         // Start checking immediately and then every 20 seconds
-setInterval(checkForNewTickets, 20000);  // Check every 20 seconds (20 * 1000 ms)
+setInterval(checkForNewTickets, 1000);  // Check every 20 seconds (20 * 1000 ms)
 checkForNewTickets(); // Initial check
 
 // Initialize when document is ready

@@ -19,6 +19,12 @@ header {
     color: light-dark(#ffffff, #ffffff);
     text-align: center;
 }
+.admin-header {
+    text-align: center;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    color: light-dark(#333, #ffffff);
+}
 footer
 {
     background-color: light-dark(#d5e1ee, #1a1a1a);
