@@ -25,7 +25,7 @@ footer
     color: light-dark(#333, #ffffff);
     text-align: center;
     padding: 10px 20px;
-    margin-top: 50px;
+    margin-top: auto;
     position: relative
 }
 h1 {
