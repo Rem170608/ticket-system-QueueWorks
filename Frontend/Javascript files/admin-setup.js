@@ -158,7 +158,7 @@ document.getElementById('setupBtn')?.addEventListener('click', async function() 
         const data = await response.json();
         
         if (response.ok) {
-            successMsg.textContent = 'Admin account created! Redirecting to login...';
+            successMsg.textContent = 'Admin erfolgreich eingerichtet! Weiterleitung zur Anmeldung...';
             successMsg.style.display = 'block';
             setTimeout(() => {
                 window.location.href = 'login.html';
