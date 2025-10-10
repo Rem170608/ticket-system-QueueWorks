@@ -30,7 +30,7 @@ function showNotification(message, isError = false) {
         if (!isError) {
             setTimeout(() => {
                 notify.style.display = 'none';
-            }, 3000);
+            }, 1000);
         }
     }
 }
@@ -369,14 +369,8 @@ document.addEventListener('DOMContentLoaded', async () => {
             refreshBtn.addEventListener('click', () => {
                 const lj = document.getElementById('lehrjahr')?.value || '';
                 loadTickets(lj);
-                const notify = document.getElementById('notify');
-                if (notify) {
-                    notify.textContent = 'Tickets refreshed!';
-                    setTimeout(() => {
-                        notify.textContent = '';
-                    }, 2000);
-                }
-            });
+                showNotification('Tickets aktualisiert', false);
+                });
         }
 
         // Delete selected ticket(s) button
