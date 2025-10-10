@@ -1,63 +1,58 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Dashboard - QueueWorks</title>
-    <link rel="icon" type="image/x-icon" href="/Media/head.svg">
-    <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin Dashboard - QueueWorks</title>
+<link rel="icon" type="image/x-icon" href="/Media/head.svg">
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <main>
-        <div class="container-live">
-            <div class="card-live">
-                <div class="navbar-live">
-                    <div class="navbar-buttons-live">
-                        <a href="index.html" class="nav-link-live">Home</a>
-                        <a href="live.html" class="nav-link-live">Live</a>
-                        <a href="login.html" class="nav-link-live">Login</a>
-                    </div>
-                    <div class="navbar-buttons-live" style="margin-left: auto;"> 
-                        <button id="logout-btn" class="logout-button">Logout</button>
-                    </div>
-                </div>
-                <img src="/Media/logo.svg" alt="QueueWorks Logo" class="logo-live">
-                
-                <div id="auth-check" class="loading-screen">
-                    <p>Checking authentication...</p>
-                </div>
-                
-                <div id="admin-content" style="display: none;">
-                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
-                        <h1 style="margin: 0;">Admin Dashboard</h1>
-                    </div>
-                    
-                    <div id="notify" class="notify"></div>
-                    
-                    <div class="admin-controls">
-                        <select name="lehrjahr" id="lehrjahr" class="input-field">
-                            <option value="">All Tickets</option>
-                            <option value="Basis">Basis</option>
-                            <option value="Praxis">Praxis</option>
-                        </select>
-                        <div class="admin-button-container">
-                            <button id="refresh-tickets" class="button">🔄 Refresh</button>
-                            <button id="delete-selected" class="deletebuttons">Delete Selected</button>
-                            <button id="delete-all" class="deletebuttons">Delete All Tickets</button>
-                        </div>
-                    </div>
-                    
-                    <div id="tickets-container" class="tickets-grid">
-                        <p>Loading tickets...</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </main>
-    <footer>
-        <p>&copy; 2025 QueueWorks</p>
-    </footer>
-    <!-- Fixed script path -->
-    <script src="../Javascript files/admin.js"></script>
+<main>
+<div class="container-live">
+<div class="card-live">
+<div class="navbar-live">
+<div class="navbar-buttons-live">
+<a href="index.html" class="nav-link-live">Home</a>
+<a href="live.html" class="nav-link-live">Live</a>
+<a href="login.html" class="nav-link-live">Login</a>
+</div>
+<div class="navbar-buttons-live" style="margin-left: auto;">
+<button id="logout-btn" class="logout-button">Logout</button>
+</div>
+</div>
+<img src="/Media/logo.svg" alt="QueueWorks Logo" class="logo-live">
+<div id="auth-check" class="loading-screen">
+<p>Checking authentication...</p>
+</div>
+<div id="admin-content" style="display: none;">
+<div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+<h1 style="margin: 0;">Admin Dashboard</h1>
+</div>
+<div id="notify" class="notify"></div>
+<div class="admin-controls">
+<select name="lehrjahr" id="lehrjahr" class="input-field">
+<option value="">Alle Tickets</option>
+<option value="Basis">Basis</option>
+<option value="Praxis">Praxis</option>
+</select>
+<div class="admin-button-container">
+<button id="refresh-tickets" class="button">🔄 Aktualisieren</button>
+<button id="delete-selected" class="deletebuttons">Ausgewählte löschen</button>
+<button id="delete-all" class="deletebuttons">Alle Tickets löschen</button>
+</div>
+</div>
+<div id="tickets-container" class="tickets-grid">
+<p>Tickets laden...</p>
+</div>
+</div>
+</div>
+</div>
+</main>
+<footer>
+<p>&copy; 2025 QueueWorks</p>
+</footer>
+<!-- Fixed script path -->
+<script src="../Javascript files/admin.js"></script>
 </body>
 </html>
