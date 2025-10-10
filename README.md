@@ -59,7 +59,7 @@ An in-depth paragraph about your project and overview of use.
   - [X] Ticket Message
   - [X] Lehrjahr Filter
   - [X] Delete Ticket
-- [ ] Advanced Features  
+- [X] Advanced Features  
   - [X] Mass delete
   - [X] Bad actor Prevention
   - [x] Autodelete at 00:00 CEST (UTC+2)
