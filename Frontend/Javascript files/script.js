@@ -1,33 +1,23 @@
 // Function to show notification
 function showNotification(message, isError = false) {
-    const notifyDiv = document.getElementById('notify');
-    if (!notifyDiv) {
-        // Create notification div if it doesn't exist
-        const newNotifyDiv = document.createElement('div');
-        newNotifyDiv.id = 'notify';
-        newNotifyDiv.style.padding = '10px';
-        newNotifyDiv.style.margin = '10px 0';
-        newNotifyDiv.style.borderRadius = '5px';
-        newNotifyDiv.style.textAlign = 'center';
-        
-        // Insert after logo
-        const logo = document.querySelector('.logo');
-        if (logo && logo.parentNode) {
-            logo.parentNode.insertBefore(newNotifyDiv, logo.nextSibling);
-        }
-    }
+    const errorMsg = document.getElementById('errorMessage');
+    const successMsg = document.getElementById('successMessage');
     
-    const notify = document.getElementById('notify');
-    if (notify) {
-        notify.textContent = message;
-        notify.style.display = 'block';
-        notify.style.backgroundColor = isError ? 'rgba(255, 0, 0, 0.1)' : 'rgba(0, 255, 0, 0.1)';
-        notify.style.color = isError ? '#ff0000' : '#008000';
-        
-        // Hide notification after 3 seconds if it's a success message
-        if (!isError) {
+    if (isError) {
+        if (errorMsg) {
+            errorMsg.textContent = message;
+            errorMsg.classList.remove('d-none');
+            if (successMsg) successMsg.classList.add('d-none');
+        }
+    } else {
+        if (successMsg) {
+            successMsg.textContent = message;
+            successMsg.classList.remove('d-none');
+            if (errorMsg) errorMsg.classList.add('d-none');
+            
+            // Auto-hide success messages after 3 seconds
             setTimeout(() => {
-                notify.style.display = 'none';
+                successMsg.classList.add('d-none');
             }, 3000);
         }
     }
@@ -39,12 +29,18 @@ async function submitTicket() {
     const cat = document.getElementById('category').value;
     const LJ = document.getElementById('lehrjahr').value;
     const msg = document.getElementById('descriptionInput').value;
+    const submitBtn = document.getElementById('submitBtn');
 
     // Validate inputs
     if (!name || !cat || !LJ || !msg) {
         showNotification('Bitte füllen Sie alle Felder aus.', true);
         return;
     }
+
+    // Disable button during submission
+    submitBtn.disabled = true;
+    const originalHtml = submitBtn.innerHTML;
+    submitBtn.innerHTML = '<span class="spinner-border spinner-border-sm me-2" role="status"></span>Wird eingereicht...';
 
     try {
         const response = await fetch('http://localhost:3000/submit-ticket', {
@@ -60,6 +56,13 @@ async function submitTicket() {
         }
 
         showNotification('Ticket erfolgreich eingereicht! Sie werden weitergeleitet...');
+        
+        // Clear form
+        document.getElementById('nameInput').value = '';
+        document.getElementById('category').value = '';
+        document.getElementById('lehrjahr').value = '';
+        document.getElementById('descriptionInput').value = '';
+        
         // Redirect after showing the success message
         setTimeout(() => {
             window.location.href = '/Frontend/Html files/index.html';
@@ -67,9 +70,10 @@ async function submitTicket() {
     } catch (error) {
         console.error('Error:', error);
         showNotification('Fehler beim Einreichen des Tickets. Bitte versuchen Sie es erneut.', true);
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = originalHtml;
     }
 }
-
 
 // Make functions available globally
 window.submitTicket = submitTicket;
