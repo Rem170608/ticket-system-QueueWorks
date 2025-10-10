@@ -48,14 +48,9 @@
                         
                         <div class="admin-controls row g-3 mb-4">
                             <div class="col-md-3">
-                                <select name="lehrjahr" id="lehrjahr" class="form-select form-select-lg">
-                                    <option value="">Alle Tickets</option>
-                                    <option value="Basis">Basis</option>
-                                    <option value="Praxis">Praxis</option>
-                                </select>
                             </div>
-                            <div class="col-md-9">
-                                <div class="d-flex gap-2 flex-wrap">
+                            <div class="col-md-12">
+                                <div class="d-flex gap-4 flex-wrap">
                                     <button id="refresh-tickets" class="btn btn-primary flex-fill">
                                         <i class="bi bi-arrow-clockwise me-2"></i>Aktualisieren
                                     </button>
@@ -65,6 +60,11 @@
                                     <button id="delete-all" class="btn btn-danger flex-fill">
                                         <i class="bi bi-trash3 me-2"></i>Alle Tickets löschen
                                     </button>
+                                    <select name="lehrjahr" id="lehrjahr" class="form-select form-select-lg">
+                                        <option value="">Alle Tickets</option>
+                                        <option value="Basis">Basis</option>
+                                        <option value="Praxis">Praxis</option>
+                                    </select>
                                 </div>
                             </div>
                         </div>

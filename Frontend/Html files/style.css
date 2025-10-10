@@ -26,6 +26,7 @@ body {
         background-color: #2d2d2d !important;
         color: #ffffff !important;
         border-color: #444 !important;
+        border-radius: 15px
     }
     
     .form-control:focus, .form-select:focus {
@@ -72,7 +73,9 @@ body {
 /* Custom Button Styles */
 .btn-primary {
     background-color: light-dark(#4a90e2, #357abd) !important;
+    min-width: 120px;
     border-color: light-dark(#4a90e2, #357abd) !important;
+    border-radius: 15px;
     transition: all 0.2s ease;
 }
 
@@ -85,6 +88,7 @@ body {
 .btn-danger {
     background-color: light-dark(#ff4d4d, #cc0000) !important;
     border-color: light-dark(#ff4d4d, #cc0000) !important;
+    border-radius: 15px;
 }
 
 .btn-danger:hover {
@@ -212,6 +216,7 @@ body {
     display: flex;
     gap: 0.75rem;
     flex: 1;
+    max-width: 50%;
 }
 
 /* Loading Screen */
@@ -243,6 +248,13 @@ footer {
 .navbar-scuffed {
     transform: scale(2.5);
     transition: 0.2s;
+}
+::placeholder {
+    color: light-dark(#ffffff, #ffffff);
+    opacity: 1;
+}   
+::-ms-input-placeholder {
+    color: light-dark(#ffffff, #ffffff);
 }
 
 /* Custom Scrollbar */
